@@ -1,6 +1,6 @@
 ﻿namespace Core.Constants
 {
-    public enum IsAbstract
+    internal enum IsAbstract
     {
         NotAbstract,
         Abstract

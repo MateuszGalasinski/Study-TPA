@@ -1,6 +1,6 @@
 ﻿namespace Core.Constants
 {
-    public enum IsSealed
+    internal enum IsSealed
     {
         NotSealed,
         Sealed

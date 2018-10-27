@@ -12,26 +12,26 @@ namespace Core.Model
     {
         internal static IEnumerable<MethodMetadata> EmitMethods(IEnumerable<MethodBase> methods)
         {
-            return from MethodBase _currentMethod in methods
-                   where _currentMethod.IsVisible()
-                   select new MethodMetadata(_currentMethod);
+            return from MethodBase currentMethod in methods
+                   where currentMethod.IsVisible()
+                   select new MethodMetadata(currentMethod);
         }
 
-        private string m_Name;
-        private IEnumerable<TypeMetadata> m_GenericArguments;
+        private string _name;
+        private IEnumerable<TypeMetadata> _genericArguments;
         private Tuple<Accessibility, IsAbstract, IsStatic, IsVirtual> m_Modifiers;
-        private TypeMetadata m_ReturnType;
-        private bool m_Extension;
-        private IEnumerable<ParameterMetadata> m_Parameters;
+        private TypeMetadata _returnType;
+        private bool _extension;
+        private IEnumerable<ParameterMetadata> _parameters;
 
         private MethodMetadata(MethodBase method)
         {
-            m_Name = method.Name;
-            m_GenericArguments = !method.IsGenericMethodDefinition ? null : TypeMetadata.EmitGenericArguments(method.GetGenericArguments());
-            m_ReturnType = EmitReturnType(method);
-            m_Parameters = EmitParameters(method.GetParameters());
+            _name = method.Name;
+            _genericArguments = !method.IsGenericMethodDefinition ? null : TypeMetadata.EmitGenericArguments(method.GetGenericArguments());
+            _returnType = EmitReturnType(method);
+            _parameters = EmitParameters(method.GetParameters());
             m_Modifiers = EmitModifiers(method);
-            m_Extension = EmitExtension(method);
+            _extension = EmitExtension(method);
         }
 
         private static IEnumerable<ParameterMetadata> EmitParameters(IEnumerable<ParameterInfo> parms)

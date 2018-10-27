@@ -1,6 +1,6 @@
 ﻿namespace Core.Constants
 {
-    public enum Accessibility
+    internal enum Accessibility
     {
         Private,
         ProtectedInternal,

@@ -1,6 +1,6 @@
 ﻿namespace Core.Constants
 {
-    public enum IsVirtual
+    internal enum IsVirtual
     {
         NotVirtual,
         Virtual

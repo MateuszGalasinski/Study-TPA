@@ -6,7 +6,7 @@ using System.Reflection;
 
 namespace Core.Model
 {
-    public class AssemblyMetadata
+    internal class AssemblyMetadata
     {
         internal AssemblyMetadata(Assembly assembly)
         {
