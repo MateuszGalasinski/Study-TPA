@@ -1,18 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace Core.Model
 {
-    internal class NamespaceMetadata
+    public class NamespaceMetadata
     {
-        internal NamespaceMetadata(string name, IEnumerable<Type> types)
-        {
-            _namespaceName = name;
-            _types = from type in types orderby type.Name select new TypeMetadata(type);
-        }
+        public string NamespaceName { get; }
+        public IEnumerable<TypeMetadata> Types { get; }
 
-        private string _namespaceName;
-        private IEnumerable<TypeMetadata> _types;
+        public NamespaceMetadata(string namespaceName, IEnumerable<TypeMetadata> types)
+        {
+            NamespaceName = namespaceName ?? throw new ArgumentNullException(nameof(namespaceName));
+            Types = types ?? throw new ArgumentNullException(nameof(types));
+        }
     }
 }

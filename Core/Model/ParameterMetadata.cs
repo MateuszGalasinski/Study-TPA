@@ -1,14 +1,14 @@
 ﻿namespace Core.Model
 {
-    internal class ParameterMetadata
+    public class ParameterMetadata
     {
+        public string Name { get; }
+        public TypeMetadata Metadata { get; }
+
         public ParameterMetadata(string name, TypeMetadata typeMetadata)
         {
-            _name = name;
-            _typeMetadata = typeMetadata;
+            Name = name;
+            Metadata = typeMetadata;
         }
-
-        private string _name;
-        private TypeMetadata _typeMetadata;
     }
 }

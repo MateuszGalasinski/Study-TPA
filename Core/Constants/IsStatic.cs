@@ -1,6 +1,6 @@
 ﻿namespace Core.Constants
 {
-    internal enum IsStatic
+    public enum IsStatic
     {
         NotStatic,
         Static

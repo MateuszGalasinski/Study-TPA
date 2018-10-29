@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Core.ExtensionMethods
+namespace AssemblyReflection.ExtensionMethods
 {
     internal static class TypeExtensions
     {

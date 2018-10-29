@@ -1,154 +1,52 @@
 ﻿using Core.Constants;
-using Core.ExtensionMethods;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace Core.Model
 {
-    internal class TypeMetadata
+    public class TypeMetadata
     {
-        internal enum TypeKind
+        public string TypeName { get; }
+        public string NamespaceName { get; }
+        public TypeMetadata BaseType { get; }
+        public IEnumerable<TypeMetadata> GenericArguments { get; }
+        public Tuple<Accessibility, IsSealed, IsAbstract> Modifiers { get; }
+        public TypeKind Kind { get; }
+        public IEnumerable<Attribute> Attributes { get; }
+        public IEnumerable<TypeMetadata> ImplementedInterfaces { get; }
+        public IEnumerable<TypeMetadata> NestedTypes { get; }
+        public IEnumerable<PropertyMetadata> Properties { get; }
+        public TypeMetadata DeclaringType { get; }
+        public IEnumerable<MethodMetadata> Methods { get; }
+        public IEnumerable<MethodMetadata> Constructors { get; }
+
+        public TypeMetadata(string typeName,
+            string namespaceName,
+            TypeMetadata baseType,
+            IEnumerable<TypeMetadata> genericArguments,
+            Tuple<Accessibility, IsSealed, IsAbstract> modifiers,
+            TypeKind typeKind,
+            IEnumerable<Attribute> attributes,
+            IEnumerable<TypeMetadata> implementedInterfaces,
+            IEnumerable<TypeMetadata> nestedTypes,
+            IEnumerable<PropertyMetadata> properties,
+            TypeMetadata declaringType,
+            IEnumerable<MethodMetadata> methods,
+            IEnumerable<MethodMetadata> constructors)
         {
-            EnumType, StructType, InterfaceType, ClassType
+            TypeName = typeName ?? throw new ArgumentNullException(nameof(typeName));
+            NamespaceName = namespaceName ?? throw new ArgumentNullException(nameof(namespaceName));
+            BaseType = baseType ?? throw new ArgumentNullException(nameof(baseType));
+            GenericArguments = genericArguments ?? throw new ArgumentNullException(nameof(genericArguments));
+            Modifiers = modifiers ?? throw new ArgumentNullException(nameof(modifiers));
+            Kind = typeKind;
+            Attributes = attributes ?? throw new ArgumentNullException(nameof(attributes));
+            ImplementedInterfaces = implementedInterfaces ?? throw new ArgumentNullException(nameof(implementedInterfaces));
+            NestedTypes = nestedTypes ?? throw new ArgumentNullException(nameof(nestedTypes));
+            Properties = properties ?? throw new ArgumentNullException(nameof(properties));
+            DeclaringType = declaringType ?? throw new ArgumentNullException(nameof(declaringType));
+            Methods = methods ?? throw new ArgumentNullException(nameof(methods));
+            Constructors = constructors ?? throw new ArgumentNullException(nameof(constructors));
         }
-
-        private readonly string _typeName;
-        private string _namespaceName;
-        private TypeMetadata _baseType;
-        private IEnumerable<TypeMetadata> _genericArguments;
-        private Tuple<Accessibility, IsSealed, IsAbstract> _modifiers;
-        private TypeKind _typeKind;
-        private IEnumerable<Attribute> _attributes;
-        private IEnumerable<TypeMetadata> _implementedInterfaces;
-        private IEnumerable<TypeMetadata> _nestedTypes;
-        private IEnumerable<PropertyMetadata> _properties;
-        private TypeMetadata _declaringType;
-        private IEnumerable<MethodMetadata> _methods;
-        private IEnumerable<MethodMetadata> _constructors;
-
-        internal TypeMetadata(Type type)
-        {
-            _typeName = type.Name;
-            _declaringType = EmitDeclaringType(type.DeclaringType);
-            _constructors = MethodMetadata.EmitMethods(type.GetConstructors());
-            _methods = MethodMetadata.EmitMethods(type.GetMethods());
-            _nestedTypes = EmitNestedTypes(type.GetNestedTypes());
-            _implementedInterfaces = EmitImplements(type.GetInterfaces());
-            _genericArguments = !type.IsGenericTypeDefinition ? null : TypeMetadata.EmitGenericArguments(type.GetGenericArguments());
-            _modifiers = EmitModifiers(type);
-            _baseType = EmitExtends(type.BaseType);
-            _properties = PropertyMetadata.EmitProperties(type.GetProperties());
-            _typeKind = GetTypeKind(type);
-            _attributes = type.GetCustomAttributes(false).Cast<Attribute>();
-        }
-
-        internal static TypeMetadata EmitReference(Type type)
-        {
-            if (!type.IsGenericType)
-            {
-                return new TypeMetadata(type.Name, type.GetNamespace());
-            }
-            else
-            {
-                return new TypeMetadata(type.Name, type.GetNamespace(), EmitGenericArguments(type.GetGenericArguments()));
-            }
-        }
-
-        internal static IEnumerable<TypeMetadata> EmitGenericArguments(IEnumerable<Type> arguments)
-        {
-            return from Type _argument in arguments select EmitReference(_argument);
-        }
-
-        private static TypeKind GetTypeKind(Type type) // #80 TPA: Reflection - Invalid return value of GetTypeKind()
-        {
-            return type.IsEnum ? TypeKind.EnumType :
-                   type.IsValueType ? TypeKind.StructType :
-                   type.IsInterface ? TypeKind.InterfaceType :
-                   TypeKind.ClassType;
-        }
-
-        private static Tuple<Accessibility, IsSealed, IsAbstract> EmitModifiers(Type type)
-        {
-            Accessibility accessibility = Accessibility.Private;
-            IsAbstract isAbstract = IsAbstract.NotAbstract;
-            IsSealed isSealed = IsSealed.NotSealed;
-
-            // check if not default
-            if (type.IsPublic)
-            {
-                accessibility = Accessibility.Public;
-            }
-            else if (type.IsNestedPublic)
-            {
-                accessibility = Accessibility.Public;
-            }
-            else if (type.IsNestedFamily)
-            {
-                accessibility = Accessibility.Protected;
-            }
-            else if (type.IsNestedFamANDAssem)
-            {
-                accessibility = Accessibility.ProtectedInternal;
-            }
-
-            if (type.IsSealed)
-            {
-                isSealed = IsSealed.Sealed;
-            }
-
-            if (type.IsAbstract)
-            {
-                isAbstract = IsAbstract.Abstract;
-            }
-
-            return new Tuple<Accessibility, IsSealed, IsAbstract>(accessibility, isSealed, isAbstract);
-        }
-
-        private static TypeMetadata EmitExtends(Type baseType)
-        {
-            if (baseType == null || baseType == typeof(Object) || baseType == typeof(ValueType) || baseType == typeof(Enum))
-            {
-                return null;
-            }
-
-            return EmitReference(baseType);
-        }
-
-        private TypeMetadata(string typeName, string namespaceName)
-        {
-            this._typeName = typeName;
-            _namespaceName = namespaceName;
-        }
-
-        private TypeMetadata(string typeName, string namespaceName, IEnumerable<TypeMetadata> genericArguments)
-            : this(typeName, namespaceName)
-        {
-            _genericArguments = genericArguments;
-        }
-
-        private TypeMetadata EmitDeclaringType(Type declaringType)
-        {
-            if (declaringType == null)
-            {
-                return null;
-            }
-
-            return EmitReference(declaringType);
-        }
-
-        private IEnumerable<TypeMetadata> EmitNestedTypes(IEnumerable<Type> nestedTypes)
-        {
-            return from type in nestedTypes
-                   where type.IsVisible()
-                   select new TypeMetadata(type);
-        }
-
-        private IEnumerable<TypeMetadata> EmitImplements(IEnumerable<Type> interfaces)
-        {
-            return from currentInterface in interfaces
-                   select EmitReference(currentInterface);
-        }
-
     }
 }
