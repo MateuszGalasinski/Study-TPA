@@ -65,10 +65,10 @@
 
   <Target Name="AfterBuild" >
     <ItemGroup>
-      <ReflectionAssembly Include="$(SolutionDir)AssemblyReflection\bin\Debug\AssemblyReflection.dll"/>
+      <Plugins Include="$(SolutionDir)Plugins\*"/>
     </ItemGroup>
-    <Error Condition="!Exists('$(SolutionDir)AssemblyReflection\bin\Debug')" Text="'$(SolutionDir)AssemblyReflection\bin\Debug' directory does not exists"/>
-    <Copy SourceFiles="@(ReflectionAssembly)" DestinationFiles="$(SolutionDir)DumpConsoleApp\bin\Debug\AssemblyReflection.dll" SkipUnchangedFiles="false"/>
-    <Message Importance="High" Text="Copying other dlls into entrypoint project DumpApp"/>
+    <Error Condition="!Exists('$(SolutionDir)Plugins')" Text="'$(SolutionDir)Plugins' directory does not exists."/>
+    <Copy SourceFiles="@(Plugins)" DestinationFolder="$(OutputPath)" SkipUnchangedFiles="false"/>
+    <Message Importance="High" Text="Copying plugins dlls into entrypoint project DumpApp"/>
   </Target>
 </Project>
