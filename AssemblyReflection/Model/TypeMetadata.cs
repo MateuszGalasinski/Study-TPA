@@ -57,7 +57,7 @@ namespace AssemblyReflection.Model
 
         internal static IEnumerable<TypeMetadata> EmitGenericArguments(IEnumerable<Type> arguments)
         {
-            return from Type _argument in arguments select EmitReference(_argument);
+            return from Type argument in arguments select EmitReference(argument);
         }
 
         private static TypeKind GetTypeKind(Type type) // #80 TPA: Reflection - Invalid return value of GetTypeKind()
@@ -149,6 +149,5 @@ namespace AssemblyReflection.Model
             return from currentInterface in interfaces
                    select EmitReference(currentInterface);
         }
-
     }
 }

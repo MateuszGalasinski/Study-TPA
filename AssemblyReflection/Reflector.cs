@@ -8,10 +8,13 @@ namespace AssemblyReflection
         public Core.Model.AssemblyMetadata GetAssemblyMetadata(string assemblyFile)
         {
             if (string.IsNullOrEmpty(assemblyFile))
-                throw new System.ArgumentNullException();
+            {
+                throw new System.ArgumentNullException($"Could not find assembly file such with path: {assemblyFile}");
+            }
+
             Assembly assembly = Assembly.LoadFrom(assemblyFile);
-            
-            //TODO: implement real mapping
+
+            // TODO: implement real mapping
             return new Core.Model.AssemblyMetadata(null, null);
         }
     }

@@ -5,15 +5,24 @@
   <Include Path="extendedcorrectnessrules.ruleset" Action="Default" />
   <Include Path="extendeddesignguidelinerules.ruleset" Action="Default" />
   <Include Path="minimumrecommendedrules.ruleset" Action="Default" />
+  <Rules AnalyzerId="Microsoft.Analyzers.ManagedCodeAnalysis" RuleNamespace="Microsoft.Rules.Managed">
+    <Rule Id="CA1020" Action="None" />
+    <Rule Id="CA1822" Action="None" />
+    <Rule Id="CA2001" Action="None" />
+  </Rules>
   <Rules AnalyzerId="Microsoft.CodeQuality.Analyzers" RuleNamespace="Microsoft.CodeQuality.Analyzers">
     <Rule Id="CA1008" Action="Warning" />
     <Rule Id="CA1024" Action="Warning" />
     <Rule Id="CA1050" Action="Warning" />
     <Rule Id="CA1707" Action="None" />
     <Rule Id="CA1725" Action="Warning" />
+    <Rule Id="CA1822" Action="None" />
   </Rules>
   <Rules AnalyzerId="Microsoft.CodeQuality.CSharp.Analyzers" RuleNamespace="Microsoft.CodeQuality.CSharp.Analyzers">
     <Rule Id="CA1032" Action="None" />
+  </Rules>
+  <Rules AnalyzerId="Microsoft.NetCore.Analyzers" RuleNamespace="Microsoft.NetCore.Analyzers">
+    <Rule Id="CA1307" Action="None" />
   </Rules>
   <Rules AnalyzerId="Microsoft.NetCore.CSharp.Analyzers" RuleNamespace="Microsoft.NetCore.CSharp.Analyzers">
     <Rule Id="CA1309" Action="Warning" />
