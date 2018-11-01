@@ -52,8 +52,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Components\IDataSource.cs" />
+    <Compile Include="Components\IDataSourceProvider.cs" />
     <Compile Include="Components\ILogger.cs" />
+    <Compile Include="Model\BaseMetadata.cs" />
     <Compile Include="Model\BaseRegisterModule.cs" />
     <Compile Include="Constants\Accessibility.cs" />
     <Compile Include="Constants\IsAbstract.cs" />
@@ -64,6 +65,7 @@
     <Compile Include="ContainerProvider.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Model\AssemblyMetadata.cs" />
+    <Compile Include="Model\MetadataStore.cs" />
     <Compile Include="Model\MethodMetadata.cs" />
     <Compile Include="Model\NamespaceMetadata.cs" />
     <Compile Include="Model\ParameterMetadata.cs" />

@@ -1,5 +1,6 @@
 ﻿using AssemblyReflection.ExtensionMethods;
 using Core.Constants;
+using Core.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,47 +9,40 @@ using System.Runtime.CompilerServices;
 
 namespace AssemblyReflection.Model
 {
-    internal class MethodMetadata
+    internal class MethodLoader
     {
-        internal static IEnumerable<MethodMetadata> EmitMethods(IEnumerable<MethodBase> methods)
+        internal static MethodMetadata LoadMethodMetadata(MethodBase method, Dictionary<string, BaseMetadata> metaDictionary)
+        {
+            MethodMetadata methodMetadata = new MethodMetadata()
+            {
+                Name = method.Name,
+                Modifiers = EmitModifiers(method),
+                Extension = EmitExtension(method)
+            };
+            methodMetadata.GenericArguments = !method.IsGenericMethodDefinition ? null : TypeLoader.EmitGenericArguments(method.GetGenericArguments());
+            methodMetadata.ReturnType = EmitReturnType(method);
+            methodMetadata.Parameters = EmitParameters(method.GetParameters());
+
+            return methodMetadata;
+        }
+
+        internal static IEnumerable<MethodMetadata> EmitMethods(IEnumerable<MethodBase> methods, Dictionary<string, BaseMetadata> metaDictionary)
         {
             return from MethodBase currentMethod in methods
-                   where currentMethod.IsVisible()
-                   select new MethodMetadata(currentMethod);
+                where currentMethod.IsVisible()
+                select LoadMethodMetadata(currentMethod, metaDictionary);
         }
 
-        private string _name;
-        private IEnumerable<TypeMetadata> _genericArguments;
-        private Tuple<Accessibility, IsAbstract, IsStatic, IsVirtual> _modifiers;
-        private TypeMetadata _returnType;
-        private bool _extension;
-        private IEnumerable<ParameterMetadata> _parameters;
-
-        private MethodMetadata(MethodBase method)
+        private static IEnumerable<ParameterMetadata> EmitParameters(IEnumerable<ParameterInfo> parameters)
         {
-            _name = method.Name;
-            _genericArguments = !method.IsGenericMethodDefinition ? null : TypeMetadata.EmitGenericArguments(method.GetGenericArguments());
-            _returnType = EmitReturnType(method);
-            _parameters = EmitParameters(method.GetParameters());
-            _modifiers = EmitModifiers(method);
-            _extension = EmitExtension(method);
-        }
-
-        private static IEnumerable<ParameterMetadata> EmitParameters(IEnumerable<ParameterInfo> parms)
-        {
-            return from parm in parms
-                   select new ParameterMetadata(parm.Name, TypeMetadata.EmitReference(parm.ParameterType));
+            return from parameter in parameters
+                   select new ParameterMetadata(parameter.Name, TypeLoader.EmitReference(parameter.ParameterType));
         }
 
         private static TypeMetadata EmitReturnType(MethodBase method)
         {
             MethodInfo methodInfo = method as MethodInfo;
-            if (methodInfo == null)
-            {
-                return null;
-            }
-
-            return TypeMetadata.EmitReference(methodInfo.ReturnType);
+            return methodInfo == null ? null : TypeLoader.EmitReference(methodInfo.ReturnType);
         }
 
         private static bool EmitExtension(MethodBase method)

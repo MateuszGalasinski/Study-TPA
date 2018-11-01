@@ -1,14 +1,8 @@
 ﻿namespace Core.Model
 {
-    public class PropertyMetadata
+    public class PropertyMetadata : BaseMetadata
     {
-        public string Name { get; }
-        public TypeMetadata Metadata { get; }
-
-        private PropertyMetadata(string propertyName, TypeMetadata propertyType)
-        {
-          Name = propertyName;
-          Metadata = propertyType;
-        }
+        public override string Name { get; set; }
+        public TypeMetadata Metadata { get; set; }
     }
 }

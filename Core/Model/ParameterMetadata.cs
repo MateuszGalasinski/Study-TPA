@@ -1,9 +1,9 @@
 ﻿namespace Core.Model
 {
-    public class ParameterMetadata
+    public class ParameterMetadata : BaseMetadata
     {
-        public string Name { get; }
-        public TypeMetadata Metadata { get; }
+        public override string Name { get; set;  }
+        public TypeMetadata Metadata { get; set; }
 
         public ParameterMetadata(string name, TypeMetadata typeMetadata)
         {

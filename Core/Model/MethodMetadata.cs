@@ -4,29 +4,13 @@ using System.Collections.Generic;
 
 namespace Core.Model
 {
-    public class MethodMetadata
+    public class MethodMetadata : BaseMetadata
     {
-        public string Name { get; }
-        public IEnumerable<TypeMetadata> GenericArguments { get; }
-        public Tuple<Accessibility, IsAbstract, IsStatic, IsVirtual> Modifiers { get; }
-        public TypeMetadata ReturnType { get; }
-        public bool Extension { get; }
-        public IEnumerable<ParameterMetadata> Parameters { get; }
-
-        public MethodMetadata(
-            string name,
-            IEnumerable<TypeMetadata> genericArguments,
-            Tuple<Accessibility, IsAbstract, IsStatic, IsVirtual> modifiers,
-            TypeMetadata returnType,
-            bool extension,
-            IEnumerable<ParameterMetadata> parameters)
-        {
-            Name = name ?? throw new ArgumentNullException(nameof(name));
-            GenericArguments = genericArguments ?? throw new ArgumentNullException(nameof(genericArguments));
-            Modifiers = modifiers ?? throw new ArgumentNullException(nameof(modifiers));
-            ReturnType = returnType ?? throw new ArgumentNullException(nameof(returnType));
-            Extension = extension;
-            Parameters = parameters ?? throw new ArgumentNullException(nameof(parameters));
-        }
+        public override string Name { get; set; }
+        public IEnumerable<TypeMetadata> GenericArguments { get; set; }
+        public Tuple<Accessibility, IsAbstract, IsStatic, IsVirtual> Modifiers { get; set; }
+        public TypeMetadata ReturnType { get; set; }
+        public bool Extension { get; set; }
+        public IEnumerable<ParameterMetadata> Parameters { get; set; }
     }
 }

@@ -1,17 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace Core.Model
 {
-    public class AssemblyMetadata
+    public class AssemblyMetadata : BaseMetadata
     {
-        public string Name { get; }
-        public IEnumerable<NamespaceMetadata> Namespaces { get; }
-
-        public AssemblyMetadata(string name, IEnumerable<NamespaceMetadata> namespaces)
-        {
-            Name = name ?? throw new ArgumentNullException(nameof(name));
-            Namespaces = namespaces ?? throw new ArgumentNullException(nameof(namespaces));
-        }
+        public override string Name { get; set; }
+        public IEnumerable<NamespaceMetadata> Namespaces { get; set; }
     }
 }
