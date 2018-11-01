@@ -1,11 +1,14 @@
-﻿using Core.Components;
+﻿using AssemblyReflection.Model;
+using Core.Components;
+using Core.Model;
+using System.Collections.Generic;
 using System.Reflection;
 
 namespace AssemblyReflection
 {
-    public class Reflector : IDataSource
+    public class Reflector : IDataSourceProvider
     {
-        public Core.Model.AssemblyMetadata GetAssemblyMetadata(string assemblyFile)
+        public Dictionary<string, BaseMetadata> GetAssemblyMetadata(string assemblyFile)
         {
             if (string.IsNullOrEmpty(assemblyFile))
             {
@@ -14,8 +17,7 @@ namespace AssemblyReflection
 
             Assembly assembly = Assembly.LoadFrom(assemblyFile);
 
-            // TODO: implement real mapping
-            return new Core.Model.AssemblyMetadata(null, null);
+            return AssemblyLoader.LoadAssemblyMetadata(assembly);
         }
     }
 }

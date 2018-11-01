@@ -9,7 +9,7 @@ namespace AssemblyReflection
         protected override void Load(ContainerBuilder builder)
         {
             builder.RegisterType<Reflector>()
-                .As<IDataSource>();
+                .As<IDataSourceProvider>();
         }
     }
 }
