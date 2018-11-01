@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AssemblyReflection", "Assem
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DumpConsoleApp", "DumpConsoleApp\DumpConsoleApp.csproj", "{8629D610-3CD7-475C-BDC7-01EE1740D589}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReflectionApp", "ReflectionApp\ReflectionApp.csproj", "{EF59A08D-3651-415C-9ADC-FCAE55ED608B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{8629D610-3CD7-475C-BDC7-01EE1740D589}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8629D610-3CD7-475C-BDC7-01EE1740D589}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8629D610-3CD7-475C-BDC7-01EE1740D589}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EF59A08D-3651-415C-9ADC-FCAE55ED608B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EF59A08D-3651-415C-9ADC-FCAE55ED608B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EF59A08D-3651-415C-9ADC-FCAE55ED608B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EF59A08D-3651-415C-9ADC-FCAE55ED608B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
