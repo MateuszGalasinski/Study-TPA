@@ -10,5 +10,6 @@
         Title="MainWindow" Height="450" Width="800">
     <Grid>
         <TextBlock Text="{Binding Path=Name}"></TextBlock>
+        <TextBlock FontSize="20" Text="{Binding Path=TreeRoot.Id}"></TextBlock>
     </Grid>
 </Window>

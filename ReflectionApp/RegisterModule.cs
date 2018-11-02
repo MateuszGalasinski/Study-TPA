@@ -1,5 +1,7 @@
 ﻿using Autofac;
 using Core.Model;
+using ReflectionApp.Models;
+using ReflectionApp.Services;
 using ReflectionApp.ViewModels;
 
 namespace ReflectionApp
@@ -8,8 +10,17 @@ namespace ReflectionApp
     {
         protected override void Load(ContainerBuilder builder)
         {
+            builder.RegisterType<TreeMapper>()
+                .AsSelf()
+                .SingleInstance();
+
+            builder.RegisterType<DataRepository>()
+                .As<IDataRepository>()
+                .InstancePerLifetimeScope();
+
             builder.RegisterType<MainViewModel>()
-                .As<IMainViewModel>();
+                .As<IMainViewModel>()
+                .SingleInstance();
         }
     }
 }

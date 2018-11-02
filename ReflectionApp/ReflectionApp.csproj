@@ -18,6 +18,7 @@
     <WarningLevel>4</WarningLevel>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
   </PropertyGroup>
@@ -79,6 +80,7 @@
     <Compile Include="Models\TreeMapper.cs" />
     <Compile Include="RegisterModule.cs" />
     <Compile Include="Services\DataRepository.cs" />
+    <Compile Include="Services\IDataRepository.cs" />
     <Compile Include="ViewModels\IMainViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="Views\MainWindow.xaml.cs">
@@ -132,6 +134,14 @@
     <Analyzer Include="..\packages\Text.Analyzers.2.6.2\analyzers\dotnet\cs\Text.CSharp.Analyzers.dll" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Target Name="AfterBuild">
+    <ItemGroup>
+      <Plugins Include="$(SolutionDir)Plugins\*" />
+    </ItemGroup>
+    <Error Condition="!Exists('$(SolutionDir)Plugins')" Text="'$(SolutionDir)Plugins' directory does not exists." />
+    <Copy SourceFiles="@(Plugins)" DestinationFolder="$(OutputPath)" SkipUnchangedFiles="false" />
+    <Message Importance="High" Text="Copying plugins dlls into entrypoint project DumpApp" />
+  </Target>
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
