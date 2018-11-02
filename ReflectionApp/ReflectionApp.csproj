@@ -75,7 +75,10 @@
     </Compile>
     <Compile Include="Bootstraper.cs" />
     <Compile Include="GlobalSuppressions.cs" />
+    <Compile Include="Models\TreeItem.cs" />
+    <Compile Include="Models\TreeMapper.cs" />
     <Compile Include="RegisterModule.cs" />
+    <Compile Include="Services\DataRepository.cs" />
     <Compile Include="ViewModels\IMainViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="Views\MainWindow.xaml.cs">

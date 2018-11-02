@@ -11,7 +11,7 @@ namespace AssemblyReflection.Model
 {
     internal class MethodLoader
     {
-        internal static MethodMetadata LoadMethodMetadata(MethodBase method, Dictionary<string, BaseMetadata> metaDictionary)
+        internal static MethodMetadata LoadMethodMetadata(MethodBase method, AssemblyMetadataStore metaStore)
         {
             MethodMetadata methodMetadata = new MethodMetadata()
             {
@@ -26,11 +26,11 @@ namespace AssemblyReflection.Model
             return methodMetadata;
         }
 
-        internal static IEnumerable<MethodMetadata> EmitMethods(IEnumerable<MethodBase> methods, Dictionary<string, BaseMetadata> metaDictionary)
+        internal static IEnumerable<MethodMetadata> EmitMethods(IEnumerable<MethodBase> methods, AssemblyMetadataStore metaStore)
         {
             return from MethodBase currentMethod in methods
                 where currentMethod.IsVisible()
-                select LoadMethodMetadata(currentMethod, metaDictionary);
+                select LoadMethodMetadata(currentMethod, metaStore);
         }
 
         private static IEnumerable<ParameterMetadata> EmitParameters(IEnumerable<ParameterInfo> parameters)

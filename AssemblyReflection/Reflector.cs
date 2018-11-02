@@ -1,14 +1,13 @@
 ﻿using AssemblyReflection.Model;
 using Core.Components;
 using Core.Model;
-using System.Collections.Generic;
 using System.Reflection;
 
 namespace AssemblyReflection
 {
     public class Reflector : IDataSourceProvider
     {
-        public Dictionary<string, BaseMetadata> GetAssemblyMetadata(string assemblyFile)
+        public AssemblyMetadataStore GetAssemblyMetadata(string assemblyFile)
         {
             if (string.IsNullOrEmpty(assemblyFile))
             {
