@@ -1,10 +1,9 @@
-﻿using System.Collections.Generic;
-using Core.Model;
+﻿using Core.Model;
 
 namespace Core.Components
 {
     public interface IDataSourceProvider
     {
-        Dictionary<string, BaseMetadata> GetAssemblyMetadata(string assemblyFile);
+        AssemblyMetadataStore GetAssemblyMetadata(string assemblyFile);
     }
 }
