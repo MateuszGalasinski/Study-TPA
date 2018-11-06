@@ -1,5 +1,6 @@
 ﻿using Core.Components;
 using Microsoft.Win32;
+using SharedUILogic;
 
 namespace WpfGUI
 {
