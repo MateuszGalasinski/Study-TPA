@@ -1,18 +1,20 @@
-﻿using AssemblyReflection.ExtensionMethods;
+﻿using AssemblyReflection.Extensions;
 using Core.Model;
 using System;
 using System.Linq;
 using System.Reflection;
 
-namespace AssemblyReflection.Model
+namespace AssemblyReflection.ReflectorLoader
 {
-    internal static class AssemblyLoader
+    public partial class Reflector
     {
-        internal static AssemblyMetadataStore LoadAssemblyMetadata(Assembly assembly)
+
+        internal AssemblyMetadataStore LoadAssemblyMetadata(Assembly assembly)
         {
             AssemblyMetadata assemblyMetadata = new AssemblyMetadata()
             {
-                Name = assembly.ManifestModule.Name
+                Id = assembly.ManifestModule.FullyQualifiedName,
+                Name = assembly.ManifestModule.Name,               
             };
 
             AssemblyMetadataStore metaStore = new AssemblyMetadataStore(assemblyMetadata);
@@ -21,7 +23,7 @@ namespace AssemblyReflection.Model
                 where type.IsVisible()
                 group type by type.GetNamespace() into namespaceGroup
                 orderby namespaceGroup.Key
-                select NamespaceLoader.LoadNamespaceMetadata(namespaceGroup.Key, namespaceGroup, metaStore)).ToList();
+                select LoadNamespaceMetadata(namespaceGroup.Key, namespaceGroup, metaStore)).ToList<NamespaceMetadata>();
 
             return metaStore;
         }

@@ -6,7 +6,6 @@ namespace Core.Model
 {
     public class MethodMetadata : BaseMetadata
     {
-        public override string Name { get; set; }
         public IEnumerable<TypeMetadata> GenericArguments { get; set; }
         public Tuple<Accessibility, IsAbstract, IsStatic, IsVirtual> Modifiers { get; set; }
         public TypeMetadata ReturnType { get; set; }

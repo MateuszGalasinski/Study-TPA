@@ -6,7 +6,6 @@ namespace Core.Model
 {
     public class TypeMetadata : BaseMetadata
     {
-        public override string Name { get; set; }
         public string NamespaceName { get; set; }
         public TypeMetadata BaseType { get; set; }
         public IEnumerable<TypeMetadata> GenericArguments { get; set; }

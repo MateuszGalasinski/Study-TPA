@@ -2,6 +2,7 @@
 {
     public abstract class BaseMetadata
     {
-        public abstract string Name { get; set; }
+        public string Id { get; set; }
+        public string Name { get; set; }
     }
 }

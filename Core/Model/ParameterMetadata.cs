@@ -2,13 +2,12 @@
 {
     public class ParameterMetadata : BaseMetadata
     {
-        public override string Name { get; set;  }
-        public TypeMetadata Metadata { get; set; }
+        public TypeMetadata TypeMetadata { get; set; }
 
         public ParameterMetadata(string name, TypeMetadata typeMetadata)
         {
             Name = name;
-            Metadata = typeMetadata;
+            TypeMetadata = typeMetadata;
         }
     }
 }

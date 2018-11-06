@@ -52,8 +52,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Components\IDataSourceProvider.cs" />
     <Compile Include="Components\ILogger.cs" />
+    <Compile Include="Components\IMapper.cs" />
+    <Compile Include="Components\IStoreProvider.cs" />
     <Compile Include="Model\AssemblyMetadataStore.cs" />
     <Compile Include="Model\BaseMetadata.cs" />
     <Compile Include="Model\BaseRegisterModule.cs" />

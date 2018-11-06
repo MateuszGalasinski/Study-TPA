@@ -11,9 +11,9 @@ namespace DumpConsoleApp
         {
             var container = ContainerProvider.BuildContainer("./");
 
-            var source = container.Resolve<IDataSourceProvider>();
+            var source = container.Resolve<IStoreProvider>();
 
-            var dict = source.GetAssemblyMetadata("./TPA.ApplicationArchitecture.dll");
+            var dict = source.GetAssemblyMetadataStore("./TPA.ApplicationArchitecture.dll");
 
             Console.ReadLine();
         }

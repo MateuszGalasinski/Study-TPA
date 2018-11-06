@@ -1,6 +1,6 @@
 ﻿using System.Reflection;
 
-namespace AssemblyReflection.ExtensionMethods
+namespace AssemblyReflection.Extensions
 {
     internal static class MethodBaseExtensions
     {

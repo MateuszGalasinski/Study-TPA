@@ -6,10 +6,10 @@ namespace ReflectionApp.Services
 {
     public class DataRepository : IDataRepository
     {
-        private IDataSourceProvider _dataSourceProvider;
+        private IStoreProvider _dataSourceProvider;
         private TreeMapper _mapper;
 
-        public DataRepository(IDataSourceProvider dataSourceProvider, TreeMapper treeMapper)
+        public DataRepository(IStoreProvider dataSourceProvider, TreeMapper treeMapper)
         {
             _dataSourceProvider = dataSourceProvider;
             _mapper = treeMapper;
@@ -17,7 +17,7 @@ namespace ReflectionApp.Services
 
         public TreeItem LoadTreeRoot(string dataSourcePath)
         {
-            AssemblyMetadataStore metaData = _dataSourceProvider.GetAssemblyMetadata(dataSourcePath);
+            AssemblyMetadataStore metaData = _dataSourceProvider.GetAssemblyMetadataStore(dataSourcePath);
             return _mapper.Map(metaData);
         }
     }
