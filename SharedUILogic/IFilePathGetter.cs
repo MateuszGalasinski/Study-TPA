@@ -1,4 +1,4 @@
-﻿namespace BusinessLogic.API
+﻿namespace SharedUILogic
 {
     public interface IFilePathGetter
     {

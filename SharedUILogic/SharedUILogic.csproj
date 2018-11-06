@@ -42,7 +42,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="API\IFilePathGetter.cs" />
+    <Compile Include="IFilePathGetter.cs" />
     <Compile Include="Base\BindableBase.cs" />
     <Compile Include="Base\IAsyncCommand.cs" />
     <Compile Include="Base\IErrorHandler.cs" />
