@@ -4,12 +4,12 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{8E6A576F-C9CF-4DCD-B42B-84205189DF4A}</ProjectGuid>
+    <ProjectGuid>{7F8ECDD4-A05B-4117-B9FA-26358C9510F3}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>SharedUILogic</RootNamespace>
-    <AssemblyName>SharedUILogic</AssemblyName>
-    <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
+    <RootNamespace>Logging</RootNamespace>
+    <AssemblyName>Logging</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
   </PropertyGroup>
@@ -35,7 +35,6 @@
       <HintPath>..\packages\Autofac.4.8.1\lib\net45\Autofac.dll</HintPath>
     </Reference>
     <Reference Include="System" />
-    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -45,26 +44,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Bootstraper.cs" />
-    <Compile Include="IFilePathGetter.cs" />
-    <Compile Include="Base\BindableBase.cs" />
-    <Compile Include="Base\IAsyncCommand.cs" />
-    <Compile Include="Base\IErrorHandler.cs" />
-    <Compile Include="Base\RelayCommand.cs" />
-    <Compile Include="Base\SimpleAsyncCommand.cs" />
-    <Compile Include="Base\TaskUtilities.cs" />
-    <Compile Include="Base\ValidatableBindableBase.cs" />
-    <Compile Include="Model\OneWayRelation.cs" />
-    <Compile Include="Model\TreeItem.cs" />
+    <Compile Include="Logger.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RegisterModule.cs" />
-    <Compile Include="Services\MetadataTreeItemMapper.cs" />
-    <Compile Include="ViewModel\IMainViewModel.cs" />
-    <Compile Include="ViewModel\MainViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Core\Core.csproj">
-      <Project>{ef10c052-5948-4ae9-81fd-72ad7bd610a2}</Project>
+      <Project>{EF10C052-5948-4AE9-81FD-72AD7BD610A2}</Project>
       <Name>Core</Name>
     </ProjectReference>
   </ItemGroup>
@@ -74,10 +60,10 @@
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="AfterBuild">
     <ItemGroup>
-      <ThisAssembly Include="$(OutputPath)\SharedUILogic.dll" />
+      <ThisAssembly Include="$(OutputPath)\Logging.dll" />
     </ItemGroup>
     <!--TODO: Add error message/check-->
-    <Copy SourceFiles="@(ThisAssembly)" DestinationFiles="$(SolutionDir)Plugins\SharedUILogic.dll" SkipUnchangedFiles="true" />
-    <Message Importance="High" Text="Copying SharedUILogic dll into Plugins directory" />
+    <Copy SourceFiles="@(ThisAssembly)" DestinationFiles="$(SolutionDir)Plugins\Logging.dll" SkipUnchangedFiles="true" />
+    <Message Importance="High" Text="Copying Logging dll into Plugins directory" />
   </Target>
 </Project>

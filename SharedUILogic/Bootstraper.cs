@@ -1,8 +1,8 @@
 ﻿using Autofac;
 using Core;
-using SharedUILogic.Services;
+using SharedUILogic.ViewModel;
 
-namespace ReflectionApp
+namespace SharedUILogic
 {
     public class Bootstraper
     {
@@ -17,9 +17,7 @@ namespace ReflectionApp
                     Initialize();
                 }
 
-                var treeMapper = _rootScope.Resolve<MetadataTreeItemMapper>();
-                var dataRepository = _rootScope.Resolve<>(new TypedParameter(typeof(TreeMapper), treeMapper));
-                return _rootScope.Resolve<IMainViewModel>(new TypedParameter(typeof(IDataRepository), dataRepository));
+                return _rootScope.Resolve<IMainViewModel>();
             }
         }
 

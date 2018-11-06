@@ -2,7 +2,7 @@
 using Microsoft.Win32;
 using SharedUILogic;
 
-namespace WpfGUI
+namespace WindowUI
 {
     internal class FileDialog : IFilePathGetter
     {

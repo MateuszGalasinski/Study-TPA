@@ -1,7 +1,6 @@
-﻿using SharedUILogic.ViewModel;
-using System.Windows;
+﻿using System.Windows;
 
-namespace WpfGUI
+namespace WindowUI.Views
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
@@ -11,14 +10,6 @@ namespace WpfGUI
         public MainWindow()
         {
             InitializeComponent();
-
-
-            DataContext = new MainViewModel(
-                new FileDialog(logger),
-                logger,
-                new Reflector.Reflector(logger),
-                new MetadataItemMapper()
-            );
         }
     }
 }

@@ -31,6 +31,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Autofac, Version=4.8.1.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+      <HintPath>..\packages\Autofac.4.8.1\lib\net45\Autofac.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -50,6 +53,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Extensions\TypeExtensions.cs" />
     <Compile Include="ReflectorLoader\Reflector.cs" />
+    <Compile Include="RegisterModule.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Core\Core.csproj">
@@ -57,5 +61,16 @@
       <Name>Core</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Target Name="AfterBuild">
+    <ItemGroup>
+      <ThisAssembly Include="$(OutputPath)\AssemblyReflection.dll" />
+    </ItemGroup>
+    <!--TODO: Add error message/check-->
+    <Copy SourceFiles="@(ThisAssembly)" DestinationFiles="$(SolutionDir)Plugins\AssemblyReflection.dll" SkipUnchangedFiles="true" />
+    <Message Importance="High" Text="Copying AssemblyReflection dll into Plugins directory" />
+  </Target>
 </Project>

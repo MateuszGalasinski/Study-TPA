@@ -8,7 +8,7 @@ using SharedUILogic.Model;
 
 namespace SharedUILogic.ViewModel
 {
-    public class MainViewModel : ValidatableBindableBase
+    public class MainViewModel : ValidatableBindableBase, IMainViewModel
     {
         private readonly IFilePathGetter _filePathGetter;
         private readonly ILogger _logger;
