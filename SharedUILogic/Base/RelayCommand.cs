@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Input;
 
-namespace BusinessLogic.Base
+namespace SharedUILogic.Base
 {
     public class RelayCommand : ICommand
     {

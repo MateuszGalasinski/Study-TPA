@@ -1,4 +1,4 @@
-﻿namespace BusinessLogic.Model
+﻿namespace SharedUILogic.Model
 {
     public class OneWayRelation
     {
@@ -9,7 +9,6 @@
         }
 
         public string Parent { get; set; }
-
         public string Child { get; set; }
     }
 }

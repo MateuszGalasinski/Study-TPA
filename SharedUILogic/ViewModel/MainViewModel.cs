@@ -1,15 +1,14 @@
-﻿using BusinessLogic.API;
-using BusinessLogic.Base;
-using Core.Components;
-using Core.Model;
-using SharedUILogic.Model;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using Core.Components;
+using Core.Model;
+using SharedUILogic.Base;
+using SharedUILogic.Model;
 
-namespace BusinessLogic.ViewModel
+namespace SharedUILogic.ViewModel
 {
-    public class MainViewModel : ValidatableBindableBase
+    public class MainViewModel : ValidatableBindableBase, IMainViewModel
     {
         private readonly IFilePathGetter _filePathGetter;
         private readonly ILogger _logger;

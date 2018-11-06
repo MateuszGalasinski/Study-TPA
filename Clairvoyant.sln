@@ -13,6 +13,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AssemblyReflection", "Assem
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharedUILogic", "SharedUILogic\SharedUILogic.csproj", "{8E6A576F-C9CF-4DCD-B42B-84205189DF4A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WindowUI", "WindowUI\WindowUI.csproj", "{E859F062-67F7-4ED4-8677-D2B10152858A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Logging", "Logging\Logging.csproj", "{7F8ECDD4-A05B-4117-B9FA-26358C9510F3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +43,14 @@ Global
 		{8E6A576F-C9CF-4DCD-B42B-84205189DF4A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8E6A576F-C9CF-4DCD-B42B-84205189DF4A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8E6A576F-C9CF-4DCD-B42B-84205189DF4A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E859F062-67F7-4ED4-8677-D2B10152858A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E859F062-67F7-4ED4-8677-D2B10152858A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E859F062-67F7-4ED4-8677-D2B10152858A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E859F062-67F7-4ED4-8677-D2B10152858A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7F8ECDD4-A05B-4117-B9FA-26358C9510F3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7F8ECDD4-A05B-4117-B9FA-26358C9510F3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7F8ECDD4-A05B-4117-B9FA-26358C9510F3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7F8ECDD4-A05B-4117-B9FA-26358C9510F3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
