@@ -7,8 +7,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core", "Core\Core.csproj", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DumpConsoleApp", "DumpConsoleApp\DumpConsoleApp.csproj", "{8629D610-3CD7-475C-BDC7-01EE1740D589}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReflectionApp", "ReflectionApp\ReflectionApp.csproj", "{EF59A08D-3651-415C-9ADC-FCAE55ED608B}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AssemblyReflection", "AssemblyReflection\AssemblyReflection.csproj", "{50BC3246-46E0-449B-A302-103EFAF5FFB0}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharedUILogic", "SharedUILogic\SharedUILogic.csproj", "{8E6A576F-C9CF-4DCD-B42B-84205189DF4A}"
@@ -31,10 +29,6 @@ Global
 		{8629D610-3CD7-475C-BDC7-01EE1740D589}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8629D610-3CD7-475C-BDC7-01EE1740D589}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8629D610-3CD7-475C-BDC7-01EE1740D589}.Release|Any CPU.Build.0 = Release|Any CPU
-		{EF59A08D-3651-415C-9ADC-FCAE55ED608B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{EF59A08D-3651-415C-9ADC-FCAE55ED608B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{EF59A08D-3651-415C-9ADC-FCAE55ED608B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{EF59A08D-3651-415C-9ADC-FCAE55ED608B}.Release|Any CPU.Build.0 = Release|Any CPU
 		{50BC3246-46E0-449B-A302-103EFAF5FFB0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{50BC3246-46E0-449B-A302-103EFAF5FFB0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{50BC3246-46E0-449B-A302-103EFAF5FFB0}.Release|Any CPU.ActiveCfg = Release|Any CPU
