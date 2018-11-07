@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace DumpConsoleApp.Framework_Elements
+namespace TreeViewConsoleApp.ReactiveBase
 {
     public abstract class FrameworkElement
     {

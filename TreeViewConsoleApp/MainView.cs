@@ -1,9 +1,10 @@
-﻿using System;
-using DumpConsoleApp.Framework_Elements;
-using SharedUILogic.Base;
+﻿using SharedUILogic.Base;
 using SharedUILogic.ViewModel;
+using System;
+using TreeViewConsoleApp.DisplaySupport;
+using TreeViewConsoleApp.ReactiveBase;
 
-namespace DumpConsoleApp
+namespace TreeViewConsoleApp
 {
     public class MainView : FrameworkElement
     {

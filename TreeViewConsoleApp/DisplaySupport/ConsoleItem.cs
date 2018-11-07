@@ -1,6 +1,6 @@
 ﻿using System.Windows.Input;
 
-namespace DumpConsoleApp.Framework_Elements
+namespace TreeViewConsoleApp.DisplaySupport
 {
     public class ConsoleItem
     {

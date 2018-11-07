@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
-using System.Windows.Input;
-using SharedUILogic.Base;
+﻿using SharedUILogic.Base;
 using SharedUILogic.Model;
+using System.Collections.Generic;
+using System.Windows.Input;
 
 namespace SharedUILogic.ViewModel
 {
