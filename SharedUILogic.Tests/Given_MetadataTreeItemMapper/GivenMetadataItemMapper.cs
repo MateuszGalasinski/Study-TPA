@@ -10,7 +10,7 @@ namespace SharedUILogic.Tests.Given_MetadataTreeItemMapper
     [TestFixture]
     public class GivenMetadataItemMapper
     {
-        protected MetadataTreeItemMapper _context;
+        protected TreeItemMapper _context;
         protected AssemblyMetadata _assemblyMetadata;
         protected AssemblyMetadataStore _storage;
 
@@ -28,7 +28,7 @@ namespace SharedUILogic.Tests.Given_MetadataTreeItemMapper
         [SetUp]
         public void Given()
         {
-            _context = new MetadataTreeItemMapper();
+            _context = new TreeItemMapper();
         }
 
         protected void With_AssemblyMetadata()
