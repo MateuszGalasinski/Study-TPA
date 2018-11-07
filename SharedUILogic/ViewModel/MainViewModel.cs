@@ -9,7 +9,7 @@ using System.Windows.Input;
 
 namespace SharedUILogic.ViewModel
 {
-    public class MainViewModel : ValidatableBindableBase, IMainViewModel
+    public class MainViewModel : BindableBase, IMainViewModel
     {
         private readonly IFilePathGetter _filePathGetter;
         private readonly ILogger _logger;
@@ -23,7 +23,7 @@ namespace SharedUILogic.ViewModel
             get => _filePath;
             set
             {
-                SetPropertyAndValidate(ref _filePath, value);
+                SetProperty(ref _filePath, value);
                 LoadMetadataCommand.RaiseCanExecuteChanged();
             }
 

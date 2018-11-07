@@ -55,7 +55,6 @@
     <Compile Include="Base\RelayCommand.cs" />
     <Compile Include="Base\SimpleAsyncCommand.cs" />
     <Compile Include="Base\TaskUtilities.cs" />
-    <Compile Include="Base\ValidatableBindableBase.cs" />
     <Compile Include="Model\OneWayRelation.cs" />
     <Compile Include="Model\TreeItem.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
