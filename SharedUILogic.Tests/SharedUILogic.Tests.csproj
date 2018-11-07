@@ -65,6 +65,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Given_MainViewModel\GivenMainViewModel.cs" />
+    <Compile Include="Given_MainViewModel\When_GetFilePathCommand\WhenGetFilePath.cs" />
     <Compile Include="Given_MetadataTreeItemMapper\GivenMetadataItemMapper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Given_MetadataTreeItemMapper\When_Map\WhenMap.cs" />
@@ -82,6 +83,7 @@
       <Name>SharedUILogic</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
