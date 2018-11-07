@@ -1,10 +1,7 @@
-﻿using Autofac;
-using Core;
-using Core.Components;
-using System;
+﻿using System;
 using SharedUILogic;
 
-namespace DumpConsoleApp
+namespace TreeViewConsoleApp
 {
     public class MainProgram
     {

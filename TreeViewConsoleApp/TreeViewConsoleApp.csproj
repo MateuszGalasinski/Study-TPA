@@ -71,9 +71,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ConsoleFilePathGetter.cs" />
-    <Compile Include="Framework Elements\Binding.cs" />
+    <Compile Include="ReactiveBase\Binding.cs" />
     <Compile Include="DisplaySupport\ConsoleTreeView.cs" />
-    <Compile Include="Framework Elements\FrameworkElement.cs" />
+    <Compile Include="ReactiveBase\FrameworkElement.cs" />
     <Compile Include="DisplaySupport\ConsoleDisplay.cs" />
     <Compile Include="DisplaySupport\ConsoleItem.cs" />
     <Compile Include="MainProgram.cs" />
@@ -126,7 +126,7 @@
     </ItemGroup>
     <Error Condition="!Exists('$(SolutionDir)Plugins')" Text="'$(SolutionDir)Plugins' directory does not exists." />
     <Copy SourceFiles="@(Plugins)" DestinationFolder="$(OutputPath)" SkipUnchangedFiles="false" />
-    <Message Importance="High" Text="Copying plugins dlls into entrypoint project DumpApp" />
+    <Message Importance="High" Text="Copying plugins dlls into entrypoint project consoleApp" />
   </Target>
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

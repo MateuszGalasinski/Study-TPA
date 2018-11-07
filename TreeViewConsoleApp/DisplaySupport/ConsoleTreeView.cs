@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using SharedUILogic.Model;
 
-namespace DumpConsoleApp.Framework_Elements
+namespace TreeViewConsoleApp.DisplaySupport
 {
     public class ConsoleTreeView
     {

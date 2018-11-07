@@ -2,7 +2,8 @@
 using Core.Model;
 using SharedUILogic;
 
-namespace DumpConsoleApp
+
+namespace TreeViewConsoleApp
 {
     public class RegisterModule : BaseRegisterModule
     {

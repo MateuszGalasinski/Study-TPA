@@ -1,7 +1,7 @@
-﻿using System;
-using SharedUILogic;
+﻿using SharedUILogic;
+using System;
 
-namespace DumpConsoleApp
+namespace TreeViewConsoleApp
 {
     public class ConsoleFilePathGetter : IFilePathGetter
     {

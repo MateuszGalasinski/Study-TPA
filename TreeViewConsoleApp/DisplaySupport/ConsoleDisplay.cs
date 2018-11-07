@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace DumpConsoleApp.Framework_Elements
+namespace TreeViewConsoleApp.DisplaySupport
 {
     public class ConsoleDisplay
     {
