@@ -45,6 +45,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Base\ICanExecuteCommand.cs" />
     <Compile Include="Bootstraper.cs" />
     <Compile Include="IFilePathGetter.cs" />
     <Compile Include="Base\BindableBase.cs" />

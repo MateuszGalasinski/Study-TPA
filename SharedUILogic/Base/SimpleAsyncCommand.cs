@@ -4,7 +4,7 @@ using System.Windows.Input;
 
 namespace SharedUILogic.Base
 {
-    public class SimpleAsyncCommand : IAsyncCommand
+    public class SimpleAsyncCommand : IAsyncCommand, ICanExecuteCommand
     {
         public event EventHandler CanExecuteChanged;
 
