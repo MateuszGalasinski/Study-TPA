@@ -10,13 +10,13 @@ namespace SharedUILogic.Tests.Given_MetadataTreeItemMapper.When_Map
 {
     public class WhenMap : GivenMetadataItemMapper
     {
-        private TreeItem _rootItem;
+        private Task<TreeItem> _when;
 
-        public void When_MapStorage()
+        public void When_MapStore()
         {
             try
             {
-                Task.Run(() => { _rootItem = _context.Map(_storage); }).Wait();
+                _when = Task.Run(() => _context.Map(_storage));
             }
             catch (AggregateException)
             {
@@ -28,7 +28,7 @@ namespace SharedUILogic.Tests.Given_MetadataTreeItemMapper.When_Map
         {
             With_AssemblyMetadata();
 
-            When_MapStorage();
+            When_MapStore();
 
             Then_TreeShouldBe(new TreeItem(_assemblyName, false));
         }
@@ -39,7 +39,7 @@ namespace SharedUILogic.Tests.Given_MetadataTreeItemMapper.When_Map
             With_AssemblyMetadata();
             With_NamespaceMetaData();
 
-            When_MapStorage();
+            When_MapStore();
 
             Then_TreeShouldBe(new TreeItem(_assemblyName, true)
             {
@@ -54,7 +54,7 @@ namespace SharedUILogic.Tests.Given_MetadataTreeItemMapper.When_Map
             With_NamespaceMetaData();
             With_TypeMetaData();
 
-            When_MapStorage();
+            When_MapStore();
 
             Then_TreeShouldBe(new TreeItem(_assemblyName, true)
             {
@@ -76,7 +76,7 @@ namespace SharedUILogic.Tests.Given_MetadataTreeItemMapper.When_Map
             With_TypeMetaData();
             With_PropertyMetadata();
 
-            When_MapStorage();
+            When_MapStore();
 
             Then_TreeShouldBe(new TreeItem(_assemblyName, true)
             {
@@ -110,7 +110,7 @@ namespace SharedUILogic.Tests.Given_MetadataTreeItemMapper.When_Map
             With_TypeMetaData();
             With_VoidMethodMetadata(new List<ParameterMetadata>());
 
-            When_MapStorage();
+            When_MapStore();
 
             Then_TreeShouldBe(new TreeItem(_assemblyName, true)
             {
@@ -150,7 +150,7 @@ namespace SharedUILogic.Tests.Given_MetadataTreeItemMapper.When_Map
                 }
             });
 
-            When_MapStorage();
+            When_MapStore();
 
             Then_TreeShouldBe(new TreeItem(_assemblyName, true)
             {
@@ -187,7 +187,7 @@ namespace SharedUILogic.Tests.Given_MetadataTreeItemMapper.When_Map
 
         public void Then_TreeShouldBe(TreeItem correctRoot)
         {
-            _rootItem.Should().BeEquivalentTo(correctRoot);
+            _when.Result.Should().BeEquivalentTo(correctRoot);
         }
     }
 }
