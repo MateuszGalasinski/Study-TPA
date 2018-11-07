@@ -2,7 +2,7 @@
 
 namespace DumpConsoleApp.Framework_Elements
 {
-    public class MenuItem
+    public class ConsoleItem
     {
         public string Header { get; set; }
 

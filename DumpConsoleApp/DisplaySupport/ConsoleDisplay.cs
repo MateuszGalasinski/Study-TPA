@@ -4,9 +4,9 @@ using System.Linq;
 
 namespace DumpConsoleApp.Framework_Elements
 {
-    public class Menu
+    public class ConsoleDisplay
     {
-        private readonly List<MenuItem> _menuItems = new List<MenuItem>();
+        private readonly List<ConsoleItem> _menuItems = new List<ConsoleItem>();
 
         public void Print(bool clearScreen = true)
         {
@@ -15,20 +15,20 @@ namespace DumpConsoleApp.Framework_Elements
                 Console.Clear();
             }
 
-            foreach (MenuItem menuItem in Items)
+            foreach (ConsoleItem menuItem in Items)
             {
                 Console.WriteLine(menuItem.Header);
             }
         }
 
-        public void InputLoop()
+        public void ReceiveInput()
         {
             bool notDone = true;
             while (notDone)
             {
                 ConsoleKeyInfo key = Console.ReadKey();
                 Console.Clear();
-                foreach (MenuItem menuItem in _menuItems.Where(item => item.Command != null && item.Header.Substring(0, 1) == key.KeyChar.ToString()))
+                foreach (ConsoleItem menuItem in _menuItems.Where(item => item.Command != null && item.Header.Substring(0, 1) == key.KeyChar.ToString()))
                 {
                     menuItem.Command.Execute(null);
                     notDone = false;
@@ -36,11 +36,11 @@ namespace DumpConsoleApp.Framework_Elements
             }
         }
 
-        public void Add(MenuItem menuItem)
+        public void Add(ConsoleItem consoleItem)
         {
-            _menuItems.Add(menuItem);
+            _menuItems.Add(consoleItem);
         }
 
-        public IEnumerable<MenuItem> Items => _menuItems;
+        public IEnumerable<ConsoleItem> Items => _menuItems;
     }
 }

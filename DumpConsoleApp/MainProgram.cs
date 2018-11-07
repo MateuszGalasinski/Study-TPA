@@ -10,15 +10,9 @@ namespace DumpConsoleApp
     {
         public static void Main(string[] args)
         {
-            var container = ContainerProvider.BuildContainer("./");
-
-            var source = container.Resolve<IStoreProvider>();
-
-            var dict = source.GetAssemblyMetadataStore("./TPA.ApplicationArchitecture.dll");
-
             MainView mV = new MainView(Bootstraper.MainViewModel);
 
-            mV.Display();
+            mV.List();
 
             Console.ReadLine();
         }

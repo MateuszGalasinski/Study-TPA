@@ -9,7 +9,7 @@ namespace DumpConsoleApp
     {
         private readonly IMainViewModel _viewModel;
 
-        public Menu Menu { get; } = new Menu();
+        public ConsoleDisplay ConsoleDisplay { get; } = new ConsoleDisplay();
 
         public ConsoleTreeView ConsoleTreeView { get; } = new ConsoleTreeView();
 
@@ -18,26 +18,26 @@ namespace DumpConsoleApp
             DataContext = viewModel;
             _viewModel = viewModel;
             SetBinding("Name");
-            Menu.Add(new MenuItem() { Command = _viewModel.GetFilePathCommand, Header = "1. Provide file path for .dll" });
-            Menu.Add(new MenuItem() { Command = _viewModel.LoadMetadataCommand, Header = "2. Load metadata of the chosen .dll" });
-            Menu.Add(new MenuItem()
+            ConsoleDisplay.Add(new ConsoleItem() { Command = _viewModel.GetFilePathCommand, Header = "1. Choose .dll file from filesystem" });
+            ConsoleDisplay.Add(new ConsoleItem() { Command = _viewModel.LoadMetadataCommand, Header = "2. Load .dll assembly" });
+            ConsoleDisplay.Add(new ConsoleItem()
             {
                 Command = new RelayCommand(() =>
                 {
                     ConsoleTreeView.TreeItems = _viewModel.TreeItems;
                     ConsoleTreeView.Display();
                 }),
-                Header = "3. Display .dll metadata"
+                Header = "3. List assembly of selected .dll"
             });
-            Menu.Add(new MenuItem() { Command = new RelayCommand(() => Environment.Exit(0)), Header = "q. Quit" });
+            ConsoleDisplay.Add(new ConsoleItem() { Command = new RelayCommand(() => Environment.Exit(0)), Header = "q. Exit" });
         }
 
-        public void Display()
+        public void List()
         {
             while (true)
             {
-                Menu.Print();
-                Menu.InputLoop();
+                ConsoleDisplay.Print();
+                ConsoleDisplay.ReceiveInput();
             }
         }
     }
