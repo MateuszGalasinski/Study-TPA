@@ -28,9 +28,14 @@ namespace TreeViewConsoleApp.DisplaySupport
             {
                 ConsoleKeyInfo key = Console.ReadKey();
                 Console.Clear();
-                foreach (ConsoleItem menuItem in _menuItems.Where(item => item.Command != null && item.Header.Substring(0, 1) == key.KeyChar.ToString()))
+                foreach (ConsoleItem menuItem in _menuItems.Where(item =>
+                    item.Command != null && item.Header.Substring(0, 1) == key.KeyChar.ToString()))
                 {
-                    menuItem.Command.Execute(null);
+                    if (menuItem.Command.CanExecute(null))
+                    {
+                        menuItem.Command.Execute(null);
+                    }
+
                     notDone = false;
                 }
             }

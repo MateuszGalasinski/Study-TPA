@@ -1,6 +1,7 @@
 ﻿using SharedUILogic.Base;
 using SharedUILogic.ViewModel;
 using System;
+using System.Linq;
 using TreeViewConsoleApp.DisplaySupport;
 using TreeViewConsoleApp.ReactiveBase;
 
@@ -27,7 +28,7 @@ namespace TreeViewConsoleApp
                 {
                     ConsoleTreeView.TreeItems = _viewModel.TreeItems;
                     ConsoleTreeView.Display();
-                }),
+                },() => _viewModel.TreeItems?.Any() == true ),
                 Header = "3. List assembly of selected .dll"
             });
             ConsoleDisplay.Add(new ConsoleItem() { Command = new RelayCommand(() => Environment.Exit(0)), Header = "q. Exit" });
