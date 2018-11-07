@@ -4,9 +4,17 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WindowUI"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Regular"
+        TextElement.FontSize="12"
+        TextOptions.TextFormattingMode="Ideal" 
+        TextOptions.TextRenderingMode="Auto"        
+        Background="{DynamicResource MaterialDesignPaper}"
+        FontFamily="{DynamicResource MaterialDesignFont}"
         DataContext="vm:MainViewModel"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="450" Width="900">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="6*"/>
@@ -17,9 +25,11 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="9*"/>
         </Grid.RowDefinitions>
+        <Rectangle Fill="{DynamicResource SecondaryAccentBrush}" Grid.ColumnSpan="3"/>
+        <Rectangle Margin="0, 0, 0, 2" Fill="{DynamicResource MaterialDesignBodyLight}" Grid.ColumnSpan="3"/>
         <TextBlock Padding="7" Text="{Binding FilePath}" Grid.Row="0" Grid.Column="0"/>
-        <Button MinWidth="60" MinHeight="30" Background="Azure" Content="Search files" Command="{Binding GetFilePathCommand}" Grid.Row="0" Grid.Column="1"/>
-        <Button MinWidth="60" MinHeight="30" Background="Azure" Content="Load metadata" Command="{Binding LoadMetadataCommand}" Grid.Row="0" Grid.Column="2"/>
+        <Button MinWidth="60" MinHeight="30" Content="Search files" Command="{Binding GetFilePathCommand}" Grid.Row="0" Grid.Column="1"/>
+        <Button MinWidth="60" MinHeight="30" Content="Load metadata" Command="{Binding LoadMetadataCommand}" Grid.Row="0" Grid.Column="2"/>
         <TreeView Padding="20" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" ItemsSource="{Binding TreeItems}">
             <TreeView.ItemTemplate>
                  <HierarchicalDataTemplate ItemsSource="{Binding Children}">

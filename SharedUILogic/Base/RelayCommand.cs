@@ -3,7 +3,7 @@ using System.Windows.Input;
 
 namespace SharedUILogic.Base
 {
-    public class RelayCommand : ICommand
+    public class RelayCommand : ICanExecuteCommand
     {
         private readonly Action _targetExecuteMethod;
         private readonly Func<bool> _targetCanExecuteMethod;

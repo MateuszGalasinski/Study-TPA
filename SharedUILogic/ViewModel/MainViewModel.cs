@@ -1,10 +1,11 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
-using System.Windows.Input;
-using Core.Components;
+﻿using Core.Components;
 using Core.Model;
 using SharedUILogic.Base;
 using SharedUILogic.Model;
+using System.Collections.Generic;
+using System.IO;
+using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace SharedUILogic.ViewModel
 {
@@ -20,12 +21,17 @@ namespace SharedUILogic.ViewModel
         public string FilePath
         {
             get => _filePath;
-            set => SetPropertyAndValidate(ref _filePath, value);
+            set
+            {
+                SetPropertyAndValidate(ref _filePath, value);
+                LoadMetadataCommand.RaiseCanExecuteChanged();
+            }
+
         }
 
         public ICommand GetFilePathCommand { get; }
 
-        public ICommand LoadMetadataCommand { get; }
+        public ICanExecuteCommand LoadMetadataCommand { get; }
 
         private List<TreeItem> _treeItems;
 
@@ -46,7 +52,7 @@ namespace SharedUILogic.ViewModel
             _metadataProvider = metadataProvider;
             _mapper = mapper;
             GetFilePathCommand = new RelayCommand(GetFilePath);
-            LoadMetadataCommand = new SimpleAsyncCommand(LoadMetadata);
+            LoadMetadataCommand = new SimpleAsyncCommand(LoadMetadata, () => File.Exists(_filePath));
             TreeItems = new List<TreeItem>();
         }
 
