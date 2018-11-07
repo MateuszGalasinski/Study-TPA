@@ -1,12 +1,11 @@
-﻿using BusinessLogic.Model;
-using Core.Components;
+﻿using Core.Components;
 using Core.Model;
 using SharedUILogic.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace BusinessLogic.Services
+namespace SharedUILogic.Services
 {
     public class MetadataTreeItemMapper : IMapper<AssemblyMetadataStore, TreeItem>
     {

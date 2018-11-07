@@ -2,9 +2,9 @@
 using System.Threading.Tasks;
 using System.Windows.Input;
 
-namespace BusinessLogic.Base
+namespace SharedUILogic.Base
 {
-    public class SimpleAsyncCommand : IAsyncCommand
+    public class SimpleAsyncCommand : IAsyncCommand, ICanExecuteCommand
     {
         public event EventHandler CanExecuteChanged;
 

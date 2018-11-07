@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace BusinessLogic.Base
+namespace SharedUILogic.Base
 {
     public interface IErrorHandler
     {

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 
-namespace BusinessLogic.Base
+namespace SharedUILogic.Base
 {
     public static class TaskUtilities
     {
