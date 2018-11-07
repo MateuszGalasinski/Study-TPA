@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace SharedUILogic.Services
 {
-    public class MetadataTreeItemMapper : IMapper<AssemblyMetadataStore, TreeItem>
+    public class TreeItemMapper : IMapper<AssemblyMetadataStore, TreeItem>
     {
         public TreeItem Map(AssemblyMetadataStore objectToMap)
         {
@@ -16,25 +16,24 @@ namespace SharedUILogic.Services
                 throw new ArgumentNullException($"{nameof(objectToMap)} argument is null.");
             }
 
-            Dictionary<string, TreeItem> instances = new Dictionary<string, TreeItem>();
-            List<OneWayRelation> relations = new List<OneWayRelation>();
+            Dictionary<string, TreeItem> treeItemsObjects = new Dictionary<string, TreeItem>();
+            List<OneWayRelation> objectRelations = new List<OneWayRelation>();
 
-            // assembly
             bool hasChildren = objectToMap.AssemblyMetadata?.Namespaces.Any() == true;
             TreeItem assemblyItem = new TreeItem(objectToMap.AssemblyMetadata.Id, hasChildren);
-            instances.Add(assemblyItem.Name, assemblyItem);
+            treeItemsObjects.Add(assemblyItem.Name, assemblyItem);
 
-            ProcessNamespaceItems(objectToMap, instances, relations, assemblyItem);
+            ProcessNamespaceItems(objectToMap, treeItemsObjects, objectRelations, assemblyItem);
 
-            ProcessMutlipleRelationItems(objectToMap.MethodsDictionary, instances, relations, GetRelations, MapItem);
-            ProcessMutlipleRelationItems(objectToMap.TypesDictionary, instances, relations, GetRelations, MapItem);
-            ProcessSingleRelationItems(objectToMap.ParametersDictionary, instances, relations, GetRelation, MapItem);
-            ProcessSingleRelationItems(objectToMap.PropertiesDictionary, instances, relations, GetRelation, MapItem);
+            ProcessMutlipleRelationItems(objectToMap.MethodsDictionary, treeItemsObjects, objectRelations, GetRelations, MapItem);
+            ProcessMutlipleRelationItems(objectToMap.TypesDictionary, treeItemsObjects, objectRelations, GetRelations, MapItem);
+            ProcessSingleRelationItems(objectToMap.ParametersDictionary, treeItemsObjects, objectRelations, GetRelation, MapItem);
+            ProcessSingleRelationItems(objectToMap.PropertiesDictionary, treeItemsObjects, objectRelations, GetRelation, MapItem);
 
             // lets get fornicating
-            foreach (var relation in relations)
+            foreach (var relation in objectRelations)
             {
-                instances[relation.Parent].Children.Add(instances[relation.Child]);
+                treeItemsObjects[relation.Parent].Children.Add(treeItemsObjects[relation.Child]);
             }
 
             return assemblyItem;
@@ -42,7 +41,7 @@ namespace SharedUILogic.Services
 
         private void ProcessNamespaceItems(
             AssemblyMetadataStore objectToMap,
-            Dictionary<string, TreeItem> instances,
+            Dictionary<string, TreeItem> treeItemsObjects,
             List<OneWayRelation> relations,
             TreeItem assemblyItem)
         {
@@ -55,13 +54,13 @@ namespace SharedUILogic.Services
                 }
 
                 relations.Add(new OneWayRelation(assemblyItem.Name, item.Name));
-                instances.Add(item.Name, item);
+                treeItemsObjects.Add(item.Name, item);
             }
         }
 
         private void ProcessSingleRelationItems<T>(
             Dictionary<string, T> itemsDictionary,
-            Dictionary<string, TreeItem> instances,
+            Dictionary<string, TreeItem> treeItemsObjects,
             List<OneWayRelation> relations,
             Func<T, OneWayRelation> relationFunction,
             Func<T, TreeItem> mapFunction)
@@ -70,13 +69,13 @@ namespace SharedUILogic.Services
             {
                 TreeItem item = mapFunction(dictItem.Value);
                 relations.Add(relationFunction(dictItem.Value));
-                instances.Add(dictItem.Key, item);
+                treeItemsObjects.Add(dictItem.Key, item);
             }
         }
 
         private void ProcessMutlipleRelationItems<T>(
             Dictionary<string, T> itemsDictionary,
-            Dictionary<string, TreeItem> instances,
+            Dictionary<string, TreeItem> treeItemsObjects,
             List<OneWayRelation> relations,
             Func<T, IEnumerable<OneWayRelation>> relationFunction,
             Func<T, TreeItem> mapFunction)
@@ -89,28 +88,8 @@ namespace SharedUILogic.Services
                     relations.Add(relation);
                 }
 
-                instances.Add(dictItem.Key, item);
+                treeItemsObjects.Add(dictItem.Key, item);
             }
-        }
-
-        private OneWayRelation GetRelation(PropertyMetadata value)
-        {
-            return new OneWayRelation(value.Id, value.TypeMetadata.Id);
-        }
-
-        private TreeItem MapItem(PropertyMetadata value)
-        {
-            return new TreeItem($"Property: {value.Name}", true);
-        }
-
-        private OneWayRelation GetRelation(ParameterMetadata value)
-        {
-            return new OneWayRelation(value.Id, value.TypeMetadata.Id);
-        }
-
-        private TreeItem MapItem(ParameterMetadata value)
-        {
-            return new TreeItem($"Parameter: {value.Name}", true);
         }
 
         private IEnumerable<OneWayRelation> GetRelations(NamespaceMetadata value)
@@ -143,12 +122,6 @@ namespace SharedUILogic.Services
                 yield return new OneWayRelation(value.Id, item.Id);
             }
 
-            // foreach (var item in value.Attributes)
-            // {
-            //    yield return new Relation(value.Id, );
-            // }
-            // TODO check attributes
-
             foreach (var item in value.GenericArguments)
             {
                 yield return new OneWayRelation(value.Id, item.Id);
@@ -165,7 +138,6 @@ namespace SharedUILogic.Services
             }
         }
 
-        // TODO: handle attributes impact on visibility
         private TreeItem MapItem(TypeMetadata objectToMap)
         {
             return new TreeItem(
@@ -180,6 +152,26 @@ namespace SharedUILogic.Services
                 || objectToMap.Properties?.Any() == true);
         }
 
+        private OneWayRelation GetRelation(PropertyMetadata value)
+        {
+            return new OneWayRelation(value.Id, value.TypeMetadata.Id);
+        }
+
+        private TreeItem MapItem(PropertyMetadata value)
+        {
+            return new TreeItem($"Property: {value.Name}", true);
+        }
+
+        private OneWayRelation GetRelation(ParameterMetadata value)
+        {
+            return new OneWayRelation(value.Id, value.TypeMetadata.Id);
+        }
+
+        private TreeItem MapItem(ParameterMetadata value)
+        {
+            return new TreeItem($"Parameter: {value.Name}", true);
+        }
+
         private IEnumerable<OneWayRelation> GetRelations(MethodMetadata parent)
         {
             foreach (var argument in parent.GenericArguments)
@@ -192,7 +184,10 @@ namespace SharedUILogic.Services
                 yield return new OneWayRelation(parent.Id, parameter.Id);
             }
 
-            if (parent.ReturnType != null) yield return new OneWayRelation(parent.Id, parent.ReturnType.Id);
+            if (parent.ReturnType != null)
+            {
+                yield return new OneWayRelation(parent.Id, parent.ReturnType.Id);
+            }
         }
 
         private TreeItem MapItem(MethodMetadata objectToMap)

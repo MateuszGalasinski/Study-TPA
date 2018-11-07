@@ -11,7 +11,7 @@ namespace SharedUILogic
     {
         protected override void Load(ContainerBuilder builder)
         {
-            builder.RegisterType<MetadataTreeItemMapper>()
+            builder.RegisterType<TreeItemMapper>()
                 .As<IMapper<AssemblyMetadataStore, TreeItem>>()
                 .InstancePerLifetimeScope();
 
