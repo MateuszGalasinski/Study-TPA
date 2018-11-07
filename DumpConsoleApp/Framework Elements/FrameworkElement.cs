@@ -19,4 +19,3 @@ namespace DumpConsoleApp.Framework_Elements
         }
     }
 }
-}

@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DumpConsoleApp.Framework_Elements
 {
@@ -45,6 +43,4 @@ namespace DumpConsoleApp.Framework_Elements
 
         public IEnumerable<MenuItem> Items => _menuItems;
     }
-
-}
 }

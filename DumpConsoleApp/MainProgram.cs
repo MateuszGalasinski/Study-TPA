@@ -3,7 +3,6 @@ using Core;
 using Core.Components;
 using System;
 using SharedUILogic;
-using SharedUILogic.ViewModel;
 
 namespace DumpConsoleApp
 {
@@ -17,9 +16,9 @@ namespace DumpConsoleApp
 
             var dict = source.GetAssemblyMetadataStore("./TPA.ApplicationArchitecture.dll");
 
-            MainViewModel DataContext = Bootstraper.MainViewModel;
-
             MainView mV = new MainView(Bootstraper.MainViewModel);
+
+            mV.Display();
 
             Console.ReadLine();
         }
