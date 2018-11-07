@@ -66,6 +66,7 @@
   <ItemGroup>
     <Compile Include="Given_MainViewModel\GivenMainViewModel.cs" />
     <Compile Include="Given_MainViewModel\When_GetFilePathCommand\WhenGetFilePath.cs" />
+    <Compile Include="Given_MainViewModel\When_LoadMetadataCommand\WhenLoadMetadataCommand.cs" />
     <Compile Include="Given_MetadataTreeItemMapper\GivenMetadataItemMapper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Given_MetadataTreeItemMapper\When_Map\WhenMap.cs" />

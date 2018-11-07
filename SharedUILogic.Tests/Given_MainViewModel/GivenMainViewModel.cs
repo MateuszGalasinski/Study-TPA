@@ -4,6 +4,7 @@ using Moq;
 using NUnit.Framework;
 using SharedUILogic.Model;
 using SharedUILogic.ViewModel;
+using System.Collections.Generic;
 
 namespace SharedUILogic.Tests.Given_MainViewModel
 {
@@ -17,6 +18,8 @@ namespace SharedUILogic.Tests.Given_MainViewModel
         protected Mock<IMapper<AssemblyMetadataStore, TreeItem>> _mapperMock;
 
         protected const string FilePath = "somePath";
+        protected AssemblyMetadataStore Store { get; set; }
+        protected TreeItem TreeRoot { get; set; }
 
         [SetUp]
         public void Given()
@@ -37,6 +40,33 @@ namespace SharedUILogic.Tests.Given_MainViewModel
         {
             _filePathGetterMock.Setup(m => m.GetFilePath())
                 .Returns(FilePath);
+        }
+
+        public void With_AssemblyMetadataStore()
+        {
+            Store = new AssemblyMetadataStore(new AssemblyMetadata()
+            {
+                Id = "id",
+                Name = "name",
+                Namespaces = new List<NamespaceMetadata>()
+            });
+        }
+
+        public void With_TreeRoot()
+        {
+            TreeRoot = new TreeItem("Name", false);
+        }
+
+        public void With_Mapper()
+        {
+            _mapperMock.Setup(m => m.Map(It.IsAny<AssemblyMetadataStore>()))
+                .Returns(TreeRoot);
+        }
+
+        public void With_StoreProvider()
+        {
+            _storeProviderMock.Setup(m => m.GetAssemblyMetadataStore(It.IsAny<string>()))
+                .Returns(Store);
         }
     }
 }
