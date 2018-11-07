@@ -30,7 +30,6 @@ namespace SharedUILogic.Services
             ProcessSingleRelationItems(objectToMap.ParametersDictionary, treeItemsObjects, objectRelations, GetRelation, MapItem);
             ProcessSingleRelationItems(objectToMap.PropertiesDictionary, treeItemsObjects, objectRelations, GetRelation, MapItem);
 
-            // lets get fornicating
             foreach (var relation in objectRelations)
             {
                 treeItemsObjects[relation.Parent].Children.Add(treeItemsObjects[relation.Child]);
