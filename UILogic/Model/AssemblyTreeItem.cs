@@ -6,6 +6,8 @@ namespace UILogic.Model
     {
         private readonly AssemblyModel _assemblyModel;
 
+        public override string TypeName => "Assembly";
+
         public AssemblyTreeItem(AssemblyModel assembly)
             : base(assembly.Name)
         {

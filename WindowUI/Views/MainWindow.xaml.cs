@@ -1,4 +1,7 @@
-﻿using System.Windows;
+﻿using Core.Components;
+using Logging;
+using System.Windows;
+using UILogic.ViewModel;
 
 namespace WindowUI.Views
 {
@@ -10,6 +13,13 @@ namespace WindowUI.Views
         public MainWindow()
         {
             InitializeComponent();
+            DataContext = InitializeViewModel();
+        }
+
+        private MainViewModel InitializeViewModel()
+        {
+            ILogger logger = new Logger();
+            return new MainViewModel(new FileDialog(logger), logger);
         }
     }
 }

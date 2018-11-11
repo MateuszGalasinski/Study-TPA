@@ -9,6 +9,8 @@ namespace UILogic.Model
 
         public string Name { get; set; }
 
+        public abstract string TypeName { get; }
+
         public ObservableCollection<TreeItem> Children { get; }
 
         protected TreeItem(string name)

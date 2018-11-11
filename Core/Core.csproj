@@ -54,8 +54,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Components\ILogger.cs" />
-    <Compile Include="Components\IMapper.cs" />
-    <Compile Include="Components\IStoreProvider.cs" />
     <Compile Include="Model\AssemblyMetadataStore.cs" />
     <Compile Include="Model\BaseMetadata.cs" />
     <Compile Include="Model\BaseRegisterModule.cs" />
@@ -65,7 +63,6 @@
     <Compile Include="Constants\IsStatic.cs" />
     <Compile Include="Constants\IsVirtual.cs" />
     <Compile Include="Constants\TypeKind.cs" />
-    <Compile Include="ContainerProvider.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Model\AssemblyMetadata.cs" />
     <Compile Include="Model\MethodMetadata.cs" />

@@ -1,6 +1,6 @@
 ﻿using Core.Components;
 using Microsoft.Win32;
-using SharedUILogic;
+using UILogic.Interfaces;
 
 namespace WindowUI
 {

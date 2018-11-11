@@ -7,6 +7,8 @@ namespace UILogic.Model
         
         public PropertyModel PropertyModel { get; set; }
 
+        public override string TypeName => "Property ";
+
         public PropertyTreeItem(PropertyModel type, string name)
             : base(name)
         {

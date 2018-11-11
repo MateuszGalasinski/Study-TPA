@@ -15,7 +15,7 @@ namespace UILogic.ViewModel
         private readonly IFilePathGetter _filePathGetter;
         private readonly ILogger _logger;
 
-        private readonly object _syncLock = new object();
+        private readonly object _openSyncLock = new object();
 
         private bool _isExecuting;
 
@@ -37,12 +37,12 @@ namespace UILogic.ViewModel
 
         private Reflector _reflector;
 
-        private ObservableCollection<TreeItem> _metadataHierarchy;
+        private ObservableCollection<TreeItem> _metadataTree;
 
-        public ObservableCollection<TreeItem> MetadataHierarchy
+        public ObservableCollection<TreeItem> MetadataTree
         {
-            get => _metadataHierarchy;
-            private set => SetProperty(ref _metadataHierarchy, value);
+            get => _metadataTree;
+            private set => SetProperty(ref _metadataTree, value);
         }
 
         private string _filePath;
@@ -57,13 +57,13 @@ namespace UILogic.ViewModel
         {
             _logger = logger;
             _filePathGetter = filePathGetter;
-            MetadataHierarchy = new ObservableCollection<TreeItem>();
+            MetadataTree = new ObservableCollection<TreeItem>();
             LoadMetadataCommand = new RelayCommand(Open, () => !_isExecuting);
         }
 
         private async void Open()
         {
-            lock (_syncLock)
+            lock (_openSyncLock)
             {
                 if (IsExecuting)
                 {
@@ -105,7 +105,7 @@ namespace UILogic.ViewModel
                 return;
             }
 
-            MetadataHierarchy = new ObservableCollection<TreeItem>() { new AssemblyTreeItem(_reflector.AssemblyModel) };
+            MetadataTree = new ObservableCollection<TreeItem>() { new AssemblyTreeItem(_reflector.AssemblyModel) };
             _logger.Trace("Successfully loaded root metadata item.");
             IsExecuting = false;
         }

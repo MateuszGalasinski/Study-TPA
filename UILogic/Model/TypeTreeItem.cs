@@ -1,6 +1,6 @@
 ﻿using Core.Constants;
+using Reflection.Model;
 using ReflectionLoading.Models;
-using System;
 using System.Text;
 
 namespace UILogic.Model
@@ -8,6 +8,9 @@ namespace UILogic.Model
     public class TypeTreeItem : TreeItem
     {
         private readonly TypeModel _typeModel;
+
+        public override string TypeName => "Type ";
+
         public TypeTreeItem(TypeModel typeModel) : base(GetModifiers(typeModel) + typeModel.Name)
         {
            _typeModel = typeModel;
