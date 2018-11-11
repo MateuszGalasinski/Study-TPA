@@ -19,6 +19,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UnitTests", "UnitTests", "{
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharedUILogic.Tests", "SharedUILogic.Tests\SharedUILogic.Tests.csproj", "{8B9F8F70-F6F3-430B-9B21-73DA05BDB4C8}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReflectionLoading", "ReflectionLoading\ReflectionLoading.csproj", "{906B8659-9FD6-47F0-AC87-A83D2EAA8D46}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UILogic", "UILogic\UILogic.csproj", "{A8C9280C-D9D2-4460-8E9A-8B890945AE05}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -53,6 +57,14 @@ Global
 		{8B9F8F70-F6F3-430B-9B21-73DA05BDB4C8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8B9F8F70-F6F3-430B-9B21-73DA05BDB4C8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8B9F8F70-F6F3-430B-9B21-73DA05BDB4C8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{906B8659-9FD6-47F0-AC87-A83D2EAA8D46}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{906B8659-9FD6-47F0-AC87-A83D2EAA8D46}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{906B8659-9FD6-47F0-AC87-A83D2EAA8D46}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{906B8659-9FD6-47F0-AC87-A83D2EAA8D46}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A8C9280C-D9D2-4460-8E9A-8B890945AE05}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A8C9280C-D9D2-4460-8E9A-8B890945AE05}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A8C9280C-D9D2-4460-8E9A-8B890945AE05}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A8C9280C-D9D2-4460-8E9A-8B890945AE05}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
