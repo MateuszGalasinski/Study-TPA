@@ -1,10 +1,10 @@
 ﻿using Core.Components;
-using Core.Model;
 using Moq;
 using NUnit.Framework;
-using SharedUILogic.Model;
-using SharedUILogic.ViewModel;
-using System.Collections.Generic;
+using System;
+using System.Reflection;
+using UILogic.Interfaces;
+using UILogic.ViewModel;
 
 namespace SharedUILogic.Tests.Given_MainViewModel
 {
@@ -14,59 +14,40 @@ namespace SharedUILogic.Tests.Given_MainViewModel
         protected MainViewModel _context;
         protected Mock<IFilePathGetter> _filePathGetterMock;
         protected Mock<ILogger> _loggerMock;
-        protected Mock<IDataSource> _storeProviderMock;
-        protected Mock<IMapper<AssemblyMetadataStore, TreeItem>> _mapperMock;
 
-        protected const string FilePath = "somePath";
-        protected AssemblyMetadataStore Store { get; set; }
-        protected TreeItem TreeRoot { get; set; }
+        protected string FilePath;
 
         [SetUp]
         public void Given()
         {
             _filePathGetterMock = new Mock<IFilePathGetter>(MockBehavior.Strict);
             _loggerMock = new Mock<ILogger>(MockBehavior.Strict);
-            _storeProviderMock = new Mock<IDataSource>(MockBehavior.Strict);
-            _mapperMock = new Mock<IMapper<AssemblyMetadataStore, TreeItem>>(MockBehavior.Strict);
 
             _context = new MainViewModel(
                 _filePathGetterMock.Object,
-                _loggerMock.Object,
-                _storeProviderMock.Object,
-                _mapperMock.Object);
+                _loggerMock.Object);
         }
 
         public void With_FilePathGetter()
         {
             _filePathGetterMock.Setup(m => m.GetFilePath())
-                .Returns(FilePath);
+                .Returns(GetAssemblyPath());
+
+            FilePath = GetAssemblyPath(); // for assertion purposes
         }
 
-        public void With_AssemblyMetadataStore()
+        public void With_Logger()
         {
-            Store = new AssemblyMetadataStore(new AssemblyMetadata()
-            {
-                Id = "id",
-                Name = "name",
-                Namespaces = new List<NamespaceMetadata>()
-            });
+            _loggerMock.Setup(m => m.Trace(It.IsAny<string>()));
         }
 
-        public void With_TreeRoot()
+        // to get any file that exists
+        private string GetAssemblyPath()
         {
-            TreeRoot = new TreeItem("Name", false);
-        }
-
-        public void With_Mapper()
-        {
-            _mapperMock.Setup(m => m.Map(It.IsAny<AssemblyMetadataStore>()))
-                .Returns(TreeRoot);
-        }
-
-        public void With_StoreProvider()
-        {
-            _storeProviderMock.Setup(m => m.GetAssemblyMetadataStore(It.IsAny<string>()))
-                .Returns(Store);
+            string codeBase = Assembly.GetExecutingAssembly().CodeBase;
+            UriBuilder uri = new UriBuilder(codeBase);
+            string path = Uri.UnescapeDataString(uri.Path);
+            return path;
         }
     }
 }
