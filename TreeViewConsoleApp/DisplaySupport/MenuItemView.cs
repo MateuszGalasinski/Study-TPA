@@ -1,17 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using SharedUILogic.Model;
+using UILogic.Model;
 
 namespace TreeViewConsoleApp.DisplaySupport
 {
-    public class ConsoleTreeView
+    public class MenuItemView
     {
-        private List<TreeItem> _items = new List<TreeItem>();
-
-        private List<TreeItem> _history = new List<TreeItem>();
-
-        private IDictionary<string, TreeItem> _currentItems = new Dictionary<string, TreeItem>();
         public List<TreeItem> TreeItems
         {
             get => _items;
@@ -20,9 +15,15 @@ namespace TreeViewConsoleApp.DisplaySupport
                 _history.Clear();
                 _currentItems.Clear();
                 _items = value;
-                _currentItems.Add("A", _items[0]);
+                _currentItems.Add(1, _items[0]);
             }
         }
+
+        private List<TreeItem> _items = new List<TreeItem>();
+
+        private List<TreeItem> _history = new List<TreeItem>();
+
+        private IDictionary<int, TreeItem> _currentItems = new Dictionary<int, TreeItem>();
 
         public void Display()
         {
@@ -33,14 +34,22 @@ namespace TreeViewConsoleApp.DisplaySupport
                 DisplayElements();
                 while (!correctOption)
                 {
-                    Console.WriteLine("Choose node to expand: ");
+                    Console.WriteLine("Choose node to expand: \n0 to go back \n-1 to exit to menu ");
                     string choice = Console.ReadLine();
-                    if (_currentItems.ContainsKey(choice) && _currentItems[choice].IsExpendable)
+                    int number;
+                    while (!int.TryParse(choice, out number))
                     {
-                        UpdateCurrentItems(_currentItems[choice], false);
+                        Console.WriteLine("Provide a number");
+                        choice = Console.ReadLine();
+                    }
+
+                    if (_currentItems.ContainsKey(number) && _currentItems[number].Children != null)
+                    {
+                        _currentItems[number].IsExpanded = true;
+                        UpdateCurrentItems(_currentItems[number], false);
                         correctOption = true;
                     }
-                    else if (choice == "back")
+                    else if (number == 0)
                     {
                         if (_history.Count > 1)
                         {
@@ -55,12 +64,12 @@ namespace TreeViewConsoleApp.DisplaySupport
                         else
                         {
                             _currentItems.Clear();
-                            _currentItems.Add("A", _items[0]);
+                            _currentItems.Add(1, _items[0]);
                         }
 
                         correctOption = true;
                     }
-                    else if (choice == "quit")
+                    else if (number == -1)
                     {
                         correctOption = true;
                         insideTree = false;
@@ -71,28 +80,26 @@ namespace TreeViewConsoleApp.DisplaySupport
 
         public void UpdateCurrentItems(TreeItem currentParent, bool isBack)
         {
-            char firstChar = (char)65;
+            int firstInt = 1;
             if (!isBack)
             {
                 _history.Add(currentParent);
             }
-
-            _currentItems = currentParent.Children.ToDictionary(x => (firstChar++).ToString(), x => x);
+            _currentItems = currentParent.Children.ToDictionary(x => (firstInt++), x => x);
         }
 
         public void DisplayElements()
         {
-            foreach (KeyValuePair<string, TreeItem> currentItem in _currentItems)
+            foreach (KeyValuePair<int, TreeItem> currentItem in _currentItems)
             {
-                // if (currentItem.Value.IsExpendable == false)
-                // {
-                //     Console.WriteLine($"{currentItem.Key} - {currentItem.Value.Name} -- not expendable");
-                // }
-                // else
-                // {
-                //     Console.WriteLine($"{currentItem.Key} - {currentItem.Value.Name}");
-                // }
-                currentItem.Value.Display();
+                if (currentItem.Value.Children != null)
+                {
+                    Console.WriteLine($"{currentItem.Key}:{currentItem.Value.TypeName} - {currentItem.Value.Name}");
+                }
+                else
+                {
+                    Console.WriteLine($"{currentItem.Value.TypeName} - {currentItem.Value.Name} -- write 'back'");
+                }
             }
         }
     }

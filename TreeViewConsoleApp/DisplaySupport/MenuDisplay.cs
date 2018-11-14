@@ -4,9 +4,9 @@ using System.Linq;
 
 namespace TreeViewConsoleApp.DisplaySupport
 {
-    public class ConsoleDisplay
+    public class MenuDisplay
     {
-        private readonly List<ConsoleItem> _menuItems = new List<ConsoleItem>();
+        private readonly List<MenuItem> _menuItems = new List<MenuItem>();
 
         public void Print(bool clearScreen = true)
         {
@@ -15,7 +15,7 @@ namespace TreeViewConsoleApp.DisplaySupport
                 Console.Clear();
             }
 
-            foreach (ConsoleItem menuItem in Items)
+            foreach (MenuItem menuItem in Items)
             {
                 Console.WriteLine(menuItem.Header);
             }
@@ -28,7 +28,7 @@ namespace TreeViewConsoleApp.DisplaySupport
             {
                 ConsoleKeyInfo key = Console.ReadKey();
                 Console.Clear();
-                foreach (ConsoleItem menuItem in _menuItems.Where(item =>
+                foreach (MenuItem menuItem in _menuItems.Where(item =>
                     item.Command != null && item.Header.Substring(0, 1) == key.KeyChar.ToString()))
                 {
                     if (menuItem.Command.CanExecute(null))
@@ -41,11 +41,11 @@ namespace TreeViewConsoleApp.DisplaySupport
             }
         }
 
-        public void Add(ConsoleItem consoleItem)
+        public void Add(MenuItem consoleItem)
         {
             _menuItems.Add(consoleItem);
         }
 
-        public IEnumerable<ConsoleItem> Items => _menuItems;
+        public IEnumerable<MenuItem> Items => _menuItems;
     }
 }

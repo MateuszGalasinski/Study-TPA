@@ -1,6 +1,6 @@
 ﻿using System;
-using SharedUILogic;
-using UILogic;
+using UILogic.ViewModel;
+using Logging;
 
 namespace TreeViewConsoleApp
 {
@@ -8,13 +8,11 @@ namespace TreeViewConsoleApp
     {
         public static void Main(string[] args)
         {
-            MainView mV = GetMainViewModel();
+            MainView mV = new MainView(new MainViewModel(new ConsoleFilePathGetter(), new Logger()));
+
             mV.List();
+
             Console.ReadLine();
-        }
-        private MainView GetMainViewModel()
-        {
-            return new MainViewModel(new ConsoleFilePathGetter(), new Logger());
         }
     }
 }
