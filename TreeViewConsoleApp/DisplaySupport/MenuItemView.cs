@@ -1,17 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using SharedUILogic.Model;
+using UILogic.Model;
 
 namespace TreeViewConsoleApp.DisplaySupport
 {
-    public class ConsoleTreeView
+    public class MenuItemView
     {
-        private List<TreeItem> _items = new List<TreeItem>();
-
-        private List<TreeItem> _history = new List<TreeItem>();
-
-        private IDictionary<string, TreeItem> _currentItems = new Dictionary<string, TreeItem>();
         public List<TreeItem> TreeItems
         {
             get => _items;
@@ -24,6 +19,12 @@ namespace TreeViewConsoleApp.DisplaySupport
             }
         }
 
+        private List<TreeItem> _items = new List<TreeItem>();
+
+        private List<TreeItem> _history = new List<TreeItem>();
+
+        private IDictionary<string, TreeItem> _currentItems = new Dictionary<string, TreeItem>();
+
         public void Display()
         {
             bool insideTree = true, correctOption = false;
@@ -35,8 +36,9 @@ namespace TreeViewConsoleApp.DisplaySupport
                 {
                     Console.WriteLine("Choose node to expand: ");
                     string choice = Console.ReadLine();
-                    if (_currentItems.ContainsKey(choice) && _currentItems[choice].IsExpendable)
+                    if (_currentItems.ContainsKey(choice) && _currentItems[choice].Children != null) //&& _currentItems[choice].IsExpendable
                     {
+                        _currentItems[choice].IsExpanded = true;
                         UpdateCurrentItems(_currentItems[choice], false);
                         correctOption = true;
                     }
@@ -76,7 +78,6 @@ namespace TreeViewConsoleApp.DisplaySupport
             {
                 _history.Add(currentParent);
             }
-
             _currentItems = currentParent.Children.ToDictionary(x => (firstChar++).ToString(), x => x);
         }
 
@@ -84,15 +85,14 @@ namespace TreeViewConsoleApp.DisplaySupport
         {
             foreach (KeyValuePair<string, TreeItem> currentItem in _currentItems)
             {
-                // if (currentItem.Value.IsExpendable == false)
-                // {
-                //     Console.WriteLine($"{currentItem.Key} - {currentItem.Value.Name} -- not expendable");
-                // }
-                // else
-                // {
-                //     Console.WriteLine($"{currentItem.Key} - {currentItem.Value.Name}");
-                // }
-                currentItem.Value.Display();
+                if (currentItem.Value.Children != null)
+                {
+                    Console.WriteLine($"{currentItem.Key}:{currentItem.Value.TypeName} - {currentItem.Value.Name}");
+                }
+                else
+                {
+                    Console.WriteLine($"{currentItem.Value.TypeName} - {currentItem.Value.Name} -- write 'back'");
+                }
             }
         }
     }
