@@ -19,7 +19,6 @@ namespace TreeViewConsoleApp
         {
             DataContext = viewModel;
             _viewModel = viewModel;
-            SetBinding("Name");
             ConsoleDisplay.Add(new MenuItem() { Command = _viewModel.GetFilePathCommand, Header = "1. Choose .dll file from filesystem" });
             ConsoleDisplay.Add(new MenuItem() { Command = _viewModel.LoadMetadataCommand, Header = "2. Load .dll assembly" });
             ConsoleDisplay.Add(new MenuItem()
