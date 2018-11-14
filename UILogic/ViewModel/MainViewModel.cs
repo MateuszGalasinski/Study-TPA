@@ -14,10 +14,14 @@ namespace UILogic.ViewModel
     {
         private readonly IFilePathGetter _filePathGetter;
         private readonly ILogger _logger;
-
+        private Reflector _reflector;
+        private ObservableCollection<TreeItem> _metadataTree;
         private readonly object _openSyncLock = new object();
-
         private bool _isExecuting;
+        private string _filePath;
+
+        public IRaiseCanExecuteCommand LoadMetadataCommand { get; }
+        public IRaiseCanExecuteCommand GetFilePathCommand { get; }
 
         public bool IsExecuting
         {
@@ -30,22 +34,15 @@ namespace UILogic.ViewModel
             {
                 _isExecuting = value;
                 LoadMetadataCommand.RaiseCanExecuteChanged();
+                GetFilePathCommand.RaiseCanExecuteChanged();
             }
         }
-
-        public IRaiseCanExecuteCommand LoadMetadataCommand { get; }
-
-        private Reflector _reflector;
-
-        private ObservableCollection<TreeItem> _metadataTree;
 
         public ObservableCollection<TreeItem> MetadataTree
         {
             get => _metadataTree;
             private set => SetProperty(ref _metadataTree, value);
         }
-
-        private string _filePath;
 
         public string FilePath
         {
@@ -59,9 +56,10 @@ namespace UILogic.ViewModel
             _filePathGetter = filePathGetter;
             MetadataTree = new ObservableCollection<TreeItem>();
             LoadMetadataCommand = new RelayCommand(Open, () => !_isExecuting);
+            GetFilePathCommand = new RelayCommand(GetFilePath, () => !_isExecuting);
         }
 
-        private async void Open()
+        private void GetFilePath()
         {
             lock (_openSyncLock)
             {
@@ -75,7 +73,7 @@ namespace UILogic.ViewModel
 
             _logger.Trace($"Reading file path...");
             string filePath = _filePathGetter.GetFilePath();
-            if (string.IsNullOrEmpty(filePath) || !filePath.EndsWith(".dll", StringComparison.InvariantCulture))
+            if (string.IsNullOrEmpty(filePath) || !filePath.EndsWith(".dll", StringComparison.InvariantCultureIgnoreCase))
             {
                 _logger.Trace($"Selected file was invalid!");
                 IsExecuting = false;
@@ -84,6 +82,20 @@ namespace UILogic.ViewModel
 
             _logger.Trace($"Read file path: {filePath}");
             FilePath = filePath;
+            IsExecuting = false;
+        }
+
+        private async void Open()
+        {
+            lock (_openSyncLock)
+            {
+                if (IsExecuting)
+                {
+                    return;
+                }
+
+                IsExecuting = true;
+            }
 
             await Task.Run(() =>
             {

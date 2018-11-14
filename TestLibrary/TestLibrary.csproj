@@ -4,15 +4,14 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{7F8ECDD4-A05B-4117-B9FA-26358C9510F3}</ProjectGuid>
+    <ProjectGuid>{051825CA-8C4F-4780-90B2-81CA1452D659}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Logging</RootNamespace>
-    <AssemblyName>Logging</AssemblyName>
-    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <RootNamespace>TestLibrary</RootNamespace>
+    <AssemblyName>TestLibrary</AssemblyName>
+    <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
-    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -42,22 +41,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Logger.cs" />
+    <Compile Include="BModel.cs" />
+    <Compile Include="FirstNamespace\AModel.cs" />
+    <Compile Include="FirstNamespace\AService.cs" />
+    <Compile Include="FirstNamespace\BaseModel.cs" />
+    <Compile Include="FirstNamespace\CModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Core\Core.csproj">
-      <Project>{EF10C052-5948-4AE9-81FD-72AD7BD610A2}</Project>
-      <Name>Core</Name>
-    </ProjectReference>
+    <Compile Include="SecondNamespace\BDoubleGenericModel.cs" />
+    <Compile Include="StaticHelperClass.cs" />
+    <Compile Include="ThirdNamespace\CircularA.cs" />
+    <Compile Include="ThirdNamespace\CircularB.cs" />
+    <Compile Include="ThirdNamespace\CircularC.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <Target Name="AfterBuild">
-    <ItemGroup>
-      <ThisAssembly Include="$(OutputPath)\Logging.dll" />
-    </ItemGroup>
-    <!--TODO: Add error message/check-->
-    <Copy SourceFiles="@(ThisAssembly)" DestinationFiles="$(SolutionDir)Plugins\Logging.dll" SkipUnchangedFiles="true" />
-    <Message Importance="High" Text="Copying Logging dll into Plugins directory" />
-  </Target>
 </Project>
