@@ -37,7 +37,7 @@ namespace TreeViewConsoleApp.DisplaySupport
                     Console.WriteLine("Choose node to expand: \n0 to go back \n-1 to exit to menu ");
                     string choice = Console.ReadLine();
                     int number = int.Parse(choice);
-                    if (_currentItems.ContainsKey(number) && _currentItems[number].Children != null) //&& _currentItems[choice].IsExpendable
+                    if (_currentItems.ContainsKey(number) && _currentItems[number].Children != null)
                     {
                         _currentItems[number].IsExpanded = true;
                         UpdateCurrentItems(_currentItems[number], false);
