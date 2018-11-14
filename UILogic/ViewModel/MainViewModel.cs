@@ -71,11 +71,11 @@ namespace UILogic.ViewModel
                 IsExecuting = true;
             }
 
-            _logger.Trace($"Reading file path...");
+            _logger.Trace($"Reading file path.");
             string filePath = _filePathGetter.GetFilePath();
             if (string.IsNullOrEmpty(filePath) || !filePath.EndsWith(".dll", StringComparison.InvariantCultureIgnoreCase))
             {
-                _logger.Trace($"Selected file was invalid!");
+                _logger.Trace($"Selected invalid file path.");
                 IsExecuting = false;
                 return;
             }
