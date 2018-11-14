@@ -90,10 +90,6 @@
       <Project>{ef10c052-5948-4ae9-81fd-72ad7bd610a2}</Project>
       <Name>Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\SharedUILogic\SharedUILogic.csproj">
-      <Project>{8e6a576f-c9cf-4dcd-b42b-84205189df4a}</Project>
-      <Name>SharedUILogic</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Analyzer Include="..\packages\Microsoft.CodeQuality.Analyzers.2.6.2\analyzers\dotnet\cs\Microsoft.CodeQuality.Analyzers.dll" />

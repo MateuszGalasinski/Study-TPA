@@ -66,10 +66,7 @@
   <ItemGroup>
     <Compile Include="Given_MainViewModel\GivenMainViewModel.cs" />
     <Compile Include="Given_MainViewModel\When_GetFilePathCommand\WhenGetFilePath.cs" />
-    <Compile Include="Given_MainViewModel\When_LoadMetadataCommand\WhenLoadMetadataCommand.cs" />
-    <Compile Include="Given_MetadataTreeItemMapper\GivenMetadataItemMapper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Given_MetadataTreeItemMapper\When_Map\WhenMap.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -79,9 +76,9 @@
       <Project>{ef10c052-5948-4ae9-81fd-72ad7bd610a2}</Project>
       <Name>Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\SharedUILogic\SharedUILogic.csproj">
-      <Project>{8e6a576f-c9cf-4dcd-b42b-84205189df4a}</Project>
-      <Name>SharedUILogic</Name>
+    <ProjectReference Include="..\UILogic\UILogic.csproj">
+      <Project>{a8c9280c-d9d2-4460-8e9a-8b890945ae05}</Project>
+      <Name>UILogic</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />

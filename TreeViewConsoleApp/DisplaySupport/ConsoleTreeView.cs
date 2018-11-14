@@ -7,6 +7,11 @@ namespace TreeViewConsoleApp.DisplaySupport
 {
     public class ConsoleTreeView
     {
+        private List<TreeItem> _items = new List<TreeItem>();
+
+        private List<TreeItem> _history = new List<TreeItem>();
+
+        private IDictionary<string, TreeItem> _currentItems = new Dictionary<string, TreeItem>();
         public List<TreeItem> TreeItems
         {
             get => _items;
@@ -18,12 +23,6 @@ namespace TreeViewConsoleApp.DisplaySupport
                 _currentItems.Add("A", _items[0]);
             }
         }
-
-        private List<TreeItem> _items = new List<TreeItem>();
-
-        private List<TreeItem> _history = new List<TreeItem>();
-
-        private IDictionary<string, TreeItem> _currentItems = new Dictionary<string, TreeItem>();
 
         public void Display()
         {
@@ -85,14 +84,15 @@ namespace TreeViewConsoleApp.DisplaySupport
         {
             foreach (KeyValuePair<string, TreeItem> currentItem in _currentItems)
             {
-                if (currentItem.Value.IsExpendable == false)
-                {
-                    Console.WriteLine($"{currentItem.Key} - {currentItem.Value.Name} -- not expendable");
-                }
-                else
-                {
-                    Console.WriteLine($"{currentItem.Key} - {currentItem.Value.Name}");
-                }
+                // if (currentItem.Value.IsExpendable == false)
+                // {
+                //     Console.WriteLine($"{currentItem.Key} - {currentItem.Value.Name} -- not expendable");
+                // }
+                // else
+                // {
+                //     Console.WriteLine($"{currentItem.Key} - {currentItem.Value.Name}");
+                // }
+                currentItem.Value.Display();
             }
         }
     }

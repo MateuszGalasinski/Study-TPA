@@ -36,9 +36,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Autofac, Version=4.8.1.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
-      <HintPath>..\packages\Autofac.4.8.1\lib\net45\Autofac.dll</HintPath>
-    </Reference>
     <Reference Include="MaterialDesignColors, Version=1.0.0.14576, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\MaterialDesignColors.1.1.1\lib\net45\MaterialDesignColors.dll</HintPath>
     </Reference>
@@ -72,7 +69,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="FileDialog.cs" />
-    <Compile Include="RegisterModule.cs" />
     <Compile Include="Views\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
     </Compile>
@@ -113,9 +109,13 @@
       <Project>{EF10C052-5948-4AE9-81FD-72AD7BD610A2}</Project>
       <Name>Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\SharedUILogic\SharedUILogic.csproj">
-      <Project>{8E6A576F-C9CF-4DCD-B42B-84205189DF4A}</Project>
-      <Name>SharedUILogic</Name>
+    <ProjectReference Include="..\Logging\Logging.csproj">
+      <Project>{7F8ECDD4-A05B-4117-B9FA-26358C9510F3}</Project>
+      <Name>Logging</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UILogic\UILogic.csproj">
+      <Project>{a8c9280c-d9d2-4460-8e9a-8b890945ae05}</Project>
+      <Name>UILogic</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

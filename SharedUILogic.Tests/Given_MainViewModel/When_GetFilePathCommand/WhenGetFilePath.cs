@@ -1,7 +1,6 @@
 ﻿using FluentAssertions;
 using NUnit.Framework;
 using System;
-using System.Threading.Tasks;
 
 namespace SharedUILogic.Tests.Given_MainViewModel.When_GetFilePathCommand
 {
@@ -13,7 +12,7 @@ namespace SharedUILogic.Tests.Given_MainViewModel.When_GetFilePathCommand
         {
             try
             {
-                Task.Run(() => _context.GetFilePathCommand.Execute(null)).Wait();
+                _context.GetFilePathCommand.Execute(new object());
                 _filePath = _context.FilePath;
             }
             catch (AggregateException)
@@ -24,6 +23,7 @@ namespace SharedUILogic.Tests.Given_MainViewModel.When_GetFilePathCommand
         [Test]
         public void And_FilePathGetter()
         {
+            With_Logger();
             With_FilePathGetter();
 
             When_ExecuteCommand();
