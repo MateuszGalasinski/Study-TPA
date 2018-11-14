@@ -36,7 +36,13 @@ namespace TreeViewConsoleApp.DisplaySupport
                 {
                     Console.WriteLine("Choose node to expand: \n0 to go back \n-1 to exit to menu ");
                     string choice = Console.ReadLine();
-                    int number = int.Parse(choice);
+                    int number;
+                    while (!int.TryParse(choice, out number))
+                    {
+                        Console.WriteLine("Provide a number");
+                        choice = Console.ReadLine();
+                    }
+
                     if (_currentItems.ContainsKey(number) && _currentItems[number].Children != null)
                     {
                         _currentItems[number].IsExpanded = true;
