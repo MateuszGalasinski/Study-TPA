@@ -1,43 +1,33 @@
-﻿using System;
+﻿using Core.Constants;
+using Reflection.Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using Core.Constants;
-using Reflection.Model;
 
 namespace ReflectionLoading.Models
 {
     public class TypeModel
     {
-        
         public static Dictionary<string, TypeModel> TypeDictionary = new Dictionary<string, TypeModel>();
         
         public string Name { get; set; }
-        
         public string NamespaceName { get; set; }
-        
         public TypeModel BaseType { get; set; }
-        
-        public List<TypeModel> GenericArguments { get; set; }
-        
-        public Tuple<Accessibility, IsSealed, IsAbstract, IsStatic> Modifiers { get; set; }
-        
+        public Accessibility Accessibility { get; set; }
+        public IsSealed IsSealed { get; set; }
+        public IsAbstract IsAbstract { get; set; }
+        public IsStatic IsStatic { get; set; }
         public TypeKind Type { get; set; }
-        
-        public List<TypeModel> ImplementedInterfaces { get; set; }
-        
-        public List<TypeModel> NestedTypes { get; set; }
-        
-        public List<PropertyModel> Properties { get; set; }
-        
-        public TypeModel DeclaringType { get; set; }
-        
-        public List<MethodModel> Methods { get; set; }
-        
-        public List<MethodModel> Constructors { get; set; }
-        
-        public List<ParameterModel> Fields { get; set; }
 
+        public List<TypeModel> GenericArguments { get; set; }
+        public List<TypeModel> ImplementedInterfaces { get; set; }
+        public List<TypeModel> NestedTypes { get; set; }
+        public List<PropertyModel> Properties { get; set; }
+        public TypeModel DeclaringType { get; set; }
+        public List<MethodModel> Methods { get; set; }
+        public List<MethodModel> Constructors { get; set; }
+        public List<ParameterModel> Fields { get; set; }
 
         public TypeModel(Type type)
         {
@@ -49,7 +39,7 @@ namespace ReflectionLoading.Models
 
             Type = GetTypeEnum(type);
             BaseType = EmitExtends(type.BaseType);
-            Modifiers = EmitModifiers(type);
+            LoadModifiers(type);
 
             DeclaringType = EmitDeclaringType(type.DeclaringType);
             Constructors = MethodModel.EmitConstructors(type);
@@ -59,6 +49,11 @@ namespace ReflectionLoading.Models
             GenericArguments = !type.IsGenericTypeDefinition ? null : EmitGenericArguments(type);
             Properties = PropertyModel.EmitProperties(type);
             Fields = EmitFields(type);
+        }
+
+        private TypeModel()
+        {
+
         }
 
         private TypeModel(string typeName, string namespaceName)
@@ -72,7 +67,6 @@ namespace ReflectionLoading.Models
             this.GenericArguments = genericArguments.ToList();
         }
 
-
         public static TypeModel EmitReference(Type type)
         {
             if (!type.IsGenericType)
@@ -80,6 +74,7 @@ namespace ReflectionLoading.Models
 
             return new TypeModel(type.Name, type.GetNamespace(), EmitGenericArguments(type));
         }
+
         public static List<TypeModel> EmitGenericArguments(Type type)
         {
             List<Type> arguments = type.GetGenericArguments().ToList();
@@ -120,6 +115,7 @@ namespace ReflectionLoading.Models
             StoreType(declaringType);
             return EmitReference(declaringType);
         }
+
         private List<TypeModel> EmitNestedTypes(Type type)
         {
             List<Type> nestedTypes = type.GetNestedTypes(BindingFlags.Public | BindingFlags.NonPublic).ToList();
@@ -130,6 +126,7 @@ namespace ReflectionLoading.Models
 
             return nestedTypes.Select(t => new TypeModel(t)).ToList();
         }
+
         private IEnumerable<TypeModel> EmitImplements(IEnumerable<Type> interfaces)
         {
             foreach (Type @interface in interfaces)
@@ -140,6 +137,7 @@ namespace ReflectionLoading.Models
             return from currentInterface in interfaces
                    select EmitReference(currentInterface);
         }
+
         private static TypeKind GetTypeEnum(Type type)
         {
             return type.IsEnum ? TypeKind.EnumType :
@@ -163,8 +161,6 @@ namespace ReflectionLoading.Models
                 _abstract = type.IsAbstract ? IsAbstract.Abstract : IsAbstract.NotAbstract;
             }
 
-
-
             return new Tuple<Accessibility, IsSealed, IsAbstract, IsStatic>(_access, _sealed, _abstract,_static);
         }
 
@@ -174,6 +170,37 @@ namespace ReflectionLoading.Models
                 return null;
             StoreType(baseType);
             return EmitReference(baseType);
+        }
+
+        private void LoadModifiers(Type type)
+        {
+            Tuple<Accessibility, IsSealed, IsAbstract, IsStatic> modifiers = EmitModifiers(type);
+            Accessibility = modifiers.Item1;
+            IsSealed = modifiers.Item2;
+            IsAbstract = modifiers.Item3;
+            IsStatic = modifiers.Item4;
+        }
+
+        public override bool Equals(object obj)
+        {
+            var model = obj as TypeModel;
+            return model != null &&
+                   Name == model.Name &&
+                   NamespaceName == model.NamespaceName &&
+                   EqualityComparer<TypeModel>.Default.Equals(BaseType, model.BaseType) &&
+                   Accessibility == model.Accessibility &&
+                   IsSealed == model.IsSealed &&
+                   IsAbstract == model.IsAbstract &&
+                   IsStatic == model.IsStatic &&
+                   Type == model.Type &&
+                   EqualityComparer<List<TypeModel>>.Default.Equals(GenericArguments, model.GenericArguments) &&
+                   EqualityComparer<List<TypeModel>>.Default.Equals(ImplementedInterfaces, model.ImplementedInterfaces) &&
+                   EqualityComparer<List<TypeModel>>.Default.Equals(NestedTypes, model.NestedTypes) &&
+                   EqualityComparer<List<PropertyModel>>.Default.Equals(Properties, model.Properties) &&
+                   EqualityComparer<TypeModel>.Default.Equals(DeclaringType, model.DeclaringType) &&
+                   EqualityComparer<List<MethodModel>>.Default.Equals(Methods, model.Methods) &&
+                   EqualityComparer<List<MethodModel>>.Default.Equals(Constructors, model.Constructors) &&
+                   EqualityComparer<List<ParameterModel>>.Default.Equals(Fields, model.Fields);
         }
     }
 }
