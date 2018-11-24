@@ -76,6 +76,10 @@
       <Project>{ef10c052-5948-4ae9-81fd-72ad7bd610a2}</Project>
       <Name>Core</Name>
     </ProjectReference>
+    <ProjectReference Include="..\ReflectionLoading\ReflectionLoading.csproj">
+      <Project>{906B8659-9FD6-47F0-AC87-A83D2EAA8D46}</Project>
+      <Name>ReflectionLoading</Name>
+    </ProjectReference>
     <ProjectReference Include="..\UILogic\UILogic.csproj">
       <Project>{a8c9280c-d9d2-4460-8e9a-8b890945ae05}</Project>
       <Name>UILogic</Name>

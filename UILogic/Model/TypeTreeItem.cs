@@ -18,17 +18,12 @@ namespace UILogic.Model
 
         public static string GetModifiers(TypeModel model)
         {
-            if (model.Modifiers != null)
-            {
-                StringBuilder builder = new StringBuilder();
-                builder.Append(model.Modifiers.Item1.ToString().ToLower() + " ");
-                builder.Append(model.Modifiers.Item2 == IsSealed.Sealed ? IsSealed.Sealed.ToString().ToLower() + " " : string.Empty);
-                builder.Append(model.Modifiers.Item3 == IsAbstract.Abstract ? IsAbstract.Abstract.ToString().ToLower() + " " : string.Empty);
-                builder.Append(model.Modifiers.Item4 == IsStatic.Static ? IsStatic.Static.ToString().ToLower() + " " : string.Empty);
-                return builder.ToString();
-            }
-
-            return null;
+            StringBuilder builder = new StringBuilder();
+            builder.Append(model.Accessibility.ToString().ToLower() + " ");
+            builder.Append(model.IsSealed == IsSealed.Sealed ? IsSealed.Sealed.ToString().ToLower() + " " : string.Empty);
+            builder.Append(model.IsAbstract == IsAbstract.Abstract ? IsAbstract.Abstract.ToString().ToLower() + " " : string.Empty);
+            builder.Append(model.IsStatic == IsStatic.Static ? IsStatic.Static.ToString().ToLower() + " " : string.Empty);
+            return builder.ToString();
         }
 
         protected override void LoadChildrenItems()

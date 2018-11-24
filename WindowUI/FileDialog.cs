@@ -15,14 +15,14 @@ namespace WindowUI
 
         public string GetFilePath()
         {
-            _logger.Trace("Looking for file");
+            _logger.Trace("Opening file dialog to ask for file.");
             OpenFileDialog fileDialog = new OpenFileDialog();
 
             string result;
             if (fileDialog.ShowDialog() == true)
             {
                result = fileDialog.FileName;
-                _logger.Trace("Opening file: " + result);
+                _logger.Trace("Chosen file: " + result);
             }
             else
             {

@@ -79,7 +79,7 @@ namespace ReflectionTests
         {
             List<TypeModel> abstractClasses = _reflector.AssemblyModel.NamespaceModels
                 .Find(t => t.Name == FirstNamespace).Types
-                .Where(t => t.Modifiers.Item3 == IsAbstract.Abstract).ToList();
+                .Where(t => t.IsAbstract == IsAbstract.Abstract).ToList();
             abstractClasses.Count.Should().Be(1);
         }
 
@@ -88,7 +88,7 @@ namespace ReflectionTests
         {
             List<TypeModel> statics = _reflector.AssemblyModel.NamespaceModels
                 .Find(t => t.Name == BaseNamespace).Types
-                .Where(t => t.Modifiers.Item4 == IsStatic.Static).ToList();
+                .Where(t => t.IsStatic == IsStatic.Static).ToList();
             statics.Count.Should().Be(1);
         }
 

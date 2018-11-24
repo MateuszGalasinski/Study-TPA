@@ -17,6 +17,11 @@ namespace ReflectionLoading.Models
             Type = propertyType;
         }
 
+        private PropertyModel()
+        {
+
+        }
+
         public static List<PropertyModel> EmitProperties(Type type)
         {
             List<PropertyInfo> props = type
@@ -25,6 +30,14 @@ namespace ReflectionLoading.Models
 
             return props.Where(t => t.GetGetMethod().GetVisible() || t.GetSetMethod().GetVisible())
                 .Select(t => new PropertyModel(t.Name, TypeModel.EmitReference(t.PropertyType))).ToList(); 
+        }
+
+        public override bool Equals(object obj)
+        {
+            var model = obj as PropertyModel;
+            return model != null &&
+                   Name == model.Name &&
+                   EqualityComparer<TypeModel>.Default.Equals(Type, model.Type);
         }
     }
 }
