@@ -51,8 +51,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Components\ILogger.cs" />
-    <Compile Include="Model\AssemblyMetadataStore.cs" />
-    <Compile Include="Model\BaseMetadata.cs" />
+    <Compile Include="Components\ISerializator.cs" />
     <Compile Include="Constants\Accessibility.cs" />
     <Compile Include="Constants\IsAbstract.cs" />
     <Compile Include="Constants\IsSealed.cs" />
@@ -60,12 +59,6 @@
     <Compile Include="Constants\IsVirtual.cs" />
     <Compile Include="Constants\TypeKind.cs" />
     <Compile Include="GlobalSuppressions.cs" />
-    <Compile Include="Model\AssemblyMetadata.cs" />
-    <Compile Include="Model\MethodMetadata.cs" />
-    <Compile Include="Model\NamespaceMetadata.cs" />
-    <Compile Include="Model\ParameterMetadata.cs" />
-    <Compile Include="Model\PropertyMetadata.cs" />
-    <Compile Include="Model\TypeMetadata.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -85,6 +78,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Exceptions\" />
+    <Folder Include="Model\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

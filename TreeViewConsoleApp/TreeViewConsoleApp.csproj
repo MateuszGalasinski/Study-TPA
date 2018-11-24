@@ -93,9 +93,17 @@
       <Project>{7f8ecdd4-a05b-4117-b9fa-26358c9510f3}</Project>
       <Name>Logging</Name>
     </ProjectReference>
+    <ProjectReference Include="..\ReflectionLoading\ReflectionLoading.csproj">
+      <Project>{906B8659-9FD6-47F0-AC87-A83D2EAA8D46}</Project>
+      <Name>ReflectionLoading</Name>
+    </ProjectReference>
     <ProjectReference Include="..\UILogic\UILogic.csproj">
       <Project>{a8c9280c-d9d2-4460-8e9a-8b890945ae05}</Project>
       <Name>UILogic</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\XmlSerialization\XmlSerialization.csproj">
+      <Project>{53BEA11C-6D61-4333-BF2B-B39FE7EE704C}</Project>
+      <Name>XmlSerialization</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

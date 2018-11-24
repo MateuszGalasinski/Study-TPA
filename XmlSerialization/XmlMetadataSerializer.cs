@@ -1,10 +1,11 @@
-﻿using System.IO;
-using System.Xml.Serialization;
+﻿using Core.Components;
 using ReflectionLoading.Models;
+using System.IO;
+using System.Xml.Serialization;
 
 namespace XmlSerialization
 {
-    public class XmlMetadataSerializer
+    public class XmlMetadataSerializer : ISerializator<AssemblyModel>
     {
         private readonly XmlSerializer _serializer = new XmlSerializer(typeof(AssemblyModel));
 
