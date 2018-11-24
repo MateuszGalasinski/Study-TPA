@@ -29,5 +29,21 @@ namespace ReflectionLoading
                 throw new ReflectionLoadException("Error occured during assembly loading.", e);
             }
         }
+        public Reflector(AssemblyModel assemblyModel)
+        {
+            try
+            {
+                if (assemblyModel == null)
+                {
+                    throw new System.ArgumentNullException("Deserialized AssemblyModel is null");
+                }
+                TypeModel.TypeDictionary.Clear();
+                AssemblyModel = assemblyModel;
+            }
+            catch (Exception e)
+            {
+                throw new ReflectionLoadException("Could not deserialize", e);
+            }
+        }
     }
 }

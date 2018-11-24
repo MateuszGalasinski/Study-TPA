@@ -1,4 +1,4 @@
-﻿using SharedUILogic;
+﻿using UILogic.Interfaces;
 using System;
 
 namespace TreeViewConsoleApp
