@@ -1,6 +1,7 @@
 ﻿using Core.Components;
 using ReflectionLoading;
 using ReflectionLoading.Exceptions;
+using ReflectionLoading.Models;
 using System;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
@@ -14,14 +15,17 @@ namespace UILogic.ViewModel
     {
         private readonly IFilePathGetter _filePathGetter;
         private readonly ILogger _logger;
+        private readonly ISerializable _serializator;
         private Reflector _reflector;
         private ObservableCollection<TreeItem> _metadataTree;
         private readonly object _openSyncLock = new object();
         private bool _isExecuting;
         private string _filePath;
+        private string _serializationFilePath;
 
         public IRaiseCanExecuteCommand LoadMetadataCommand { get; }
         public IRaiseCanExecuteCommand GetFilePathCommand { get; }
+        public IRaiseCanExecuteCommand SaveDataCommand { get; }
 
         public bool IsExecuting
         {
@@ -35,6 +39,7 @@ namespace UILogic.ViewModel
                 _isExecuting = value;
                 LoadMetadataCommand.RaiseCanExecuteChanged();
                 GetFilePathCommand.RaiseCanExecuteChanged();
+                SaveDataCommand.RaiseCanExecuteChanged();
             }
         }
 
@@ -57,6 +62,7 @@ namespace UILogic.ViewModel
             MetadataTree = new ObservableCollection<TreeItem>();
             LoadMetadataCommand = new RelayCommand(Open, () => !_isExecuting);
             GetFilePathCommand = new RelayCommand(GetFilePath, () => !_isExecuting);
+            SaveDataCommand = new RelayCommand(SavaData, () => !_isExecuting);
         }
 
         private void GetFilePath()
@@ -73,13 +79,14 @@ namespace UILogic.ViewModel
 
             _logger.Trace($"Reading file path...");
             string filePath = _filePathGetter.GetFilePath();
-            if (string.IsNullOrEmpty(filePath) || !filePath.EndsWith(".dll", StringComparison.InvariantCultureIgnoreCase))
+            if (string.IsNullOrEmpty(filePath) 
+                || !(filePath.EndsWith(".dll", StringComparison.InvariantCultureIgnoreCase) 
+                || filePath.EndsWith(".xml", StringComparison.InvariantCultureIgnoreCase)))
             {
                 _logger.Trace($"Selected file was invalid!");
                 IsExecuting = false;
                 return;
             }
-
             _logger.Trace($"Read file path: {filePath}");
             FilePath = filePath;
             IsExecuting = false;
@@ -102,7 +109,14 @@ namespace UILogic.ViewModel
                 try
                 {
                     _logger.Trace("Beginning reflection subroutine...");
-                    _reflector = new Reflector(FilePath);
+                    if (FilePath.EndsWith(".xml"))
+                    {
+                        _reflector = new Reflector(_serializator.Deserialize<AssemblyModel>(FilePath));
+                    }
+                    else if (FilePath.EndsWith(".dll"))
+                    {
+                        _reflector = new Reflector(FilePath);
+                    }
                     _logger.Trace("Reflection subroutine finished successfully!");
                 }
                 catch (ReflectionLoadException e)
@@ -121,5 +135,39 @@ namespace UILogic.ViewModel
             _logger.Trace("Successfully loaded root metadata item.");
             IsExecuting = false;
         }
+        public void SavaData()
+        {
+            //LoggerFactory.Log(new MessageStructure("Serialize started..."));
+            // TODO fix error connected with selecting .dll to serialize
+            _serializationFilePath = _filePathGetter.GetFilePath();
+            if (_serializationFilePath.EndsWith(".xml"))
+            {
+                try
+                {
+                    _serializator.Serialize(_reflector.AssemblyModel, _serializationFilePath);
+                }
+            catch (Exception e)
+                {
+                    _logger.Trace($"Exception thrown, message: {e.Message}");
+                }
+                _logger.Trace($"Serialization completed");
+            }
+            else
+            {
+                _logger.Trace($"Serialization error");
+            }
+
+            //if (_serializationFilePath != null)
+            //{
+            //    _serializator.Serialize(_reflector.AssemblyModel, _serializationFilePath);
+            //    //LoggerFactory.Log(new MessageStructure("Serialize completed"), LogCategoryEnum.Success);
+            //}
+            //else
+            //{
+            //    //LoggerFactory.Log(new MessageStructure("Serialize failed-Path is null"), LogCategoryEnum.Error);
+            //}
+        }
+
+
     }
 }
