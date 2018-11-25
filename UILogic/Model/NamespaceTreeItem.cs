@@ -21,7 +21,7 @@ namespace UILogic.Model
             {
                 foreach (TypeModel typeModel in _namespaceModel?.Types)
                 {
-                    Children.Add(new TypeTreeItem(TypeModel.TypeDictionary[typeModel.Name]));
+                    Children.Add(new TypeTreeItem(GetOrAdd(typeModel)));
                 }
             }
         }

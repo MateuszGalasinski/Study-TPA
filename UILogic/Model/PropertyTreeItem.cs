@@ -19,7 +19,7 @@ namespace UILogic.Model
         {
             if (PropertyModel.Type != null)
             {
-                Children.Add(new TypeTreeItem(TypeModel.TypeDictionary[PropertyModel.Type.Name]));
+                Children.Add(new TypeTreeItem(GetOrAdd(PropertyModel.Type)));
             }
         }
     }

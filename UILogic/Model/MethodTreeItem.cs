@@ -33,7 +33,7 @@ namespace UILogic.Model
             {
                 foreach (TypeModel genericArgument in MethodModel.GenericArguments)
                 {
-                    Children.Add(new TypeTreeItem(TypeModel.TypeDictionary[genericArgument.Name]));
+                    Children.Add(new TypeTreeItem(GetOrAdd(genericArgument)));
                 }
             }
 
@@ -47,7 +47,7 @@ namespace UILogic.Model
 
             if (MethodModel.ReturnType != null)
             {
-                Children.Add(new TypeTreeItem(TypeModel.TypeDictionary[MethodModel.ReturnType.Name]));
+                Children.Add(new TypeTreeItem(GetOrAdd(MethodModel.ReturnType)));
             }
         }
     }

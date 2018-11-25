@@ -1,5 +1,4 @@
 ﻿using Reflection.Model;
-using ReflectionLoading.Models;
 
 namespace UILogic.Model
 {
@@ -19,7 +18,7 @@ namespace UILogic.Model
         {
             if (ParameterModel.Type != null)
             {
-                Children.Add(new TypeTreeItem(TypeModel.TypeDictionary[ParameterModel.Type.Name]));
+                Children.Add(new TypeTreeItem(GetOrAdd(ParameterModel.Type)));
             }
         }
     }

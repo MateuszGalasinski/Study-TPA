@@ -30,12 +30,12 @@ namespace UILogic.Model
         {
             if (_typeModel.BaseType != null)
             {
-                Children.Add(new TypeTreeItem(TypeModel.TypeDictionary[_typeModel.BaseType.Name]));
+                Children.Add(new TypeTreeItem(GetOrAdd(_typeModel.BaseType)));
             }
 
             if (_typeModel.DeclaringType != null)
             {
-                Children.Add(new TypeTreeItem(TypeModel.TypeDictionary[_typeModel.DeclaringType.Name]));
+                Children.Add(new TypeTreeItem(GetOrAdd(_typeModel.DeclaringType)));
             }
 
             if (_typeModel.Properties != null)
@@ -58,7 +58,7 @@ namespace UILogic.Model
             {
                 foreach (TypeModel typeModel in _typeModel.GenericArguments)
                 {
-                    Children.Add(new TypeTreeItem(TypeModel.TypeDictionary[typeModel.Name]));
+                    Children.Add(new TypeTreeItem(GetOrAdd(typeModel)));
                 }
             }
 
@@ -66,7 +66,7 @@ namespace UILogic.Model
             {
                 foreach (TypeModel typeModel in _typeModel.ImplementedInterfaces)
                 {
-                    Children.Add(new TypeTreeItem(TypeModel.TypeDictionary[typeModel.Name]));
+                    Children.Add(new TypeTreeItem(GetOrAdd(typeModel)));
                 }
             }
 
@@ -74,7 +74,7 @@ namespace UILogic.Model
             {
                 foreach (TypeModel typeModel in _typeModel.NestedTypes)
                 {
-                    Children.Add(new TypeTreeItem(TypeModel.TypeDictionary[typeModel.Name]));
+                    Children.Add(new TypeTreeItem(GetOrAdd(typeModel)));
                 }
             }
 
