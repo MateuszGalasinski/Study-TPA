@@ -7,8 +7,6 @@ namespace UILogic.Model
     {
         private readonly NamespaceModel _namespaceModel;
 
-        public override string TypeName => "Namespace";
-
         public NamespaceTreeItem(NamespaceModel namespaceModel)
             : base(namespaceModel.Name)
         {

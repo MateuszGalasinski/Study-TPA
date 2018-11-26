@@ -9,8 +9,6 @@ namespace UILogic.Model
     {
         public MethodModel MethodModel { get; set; }
 
-        public override string TypeName => "Method";
-
         public MethodTreeItem(MethodModel methodModel)
             : base(GetModifiers(methodModel) + methodModel.Name)
         {

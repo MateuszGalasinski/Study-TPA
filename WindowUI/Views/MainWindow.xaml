@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WindowUI"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:c="clr-namespace:UILogic.Model;assembly=UILogic"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         TextElement.FontWeight="Regular"
         TextElement.FontSize="12"
@@ -15,6 +16,50 @@
         DataContext="vm:MainViewModel"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="900">
+    <Window.Resources>
+        <HierarchicalDataTemplate DataType="{x:Type c:AssemblyTreeItem}" ItemsSource="{Binding Children}">
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Foreground="DarkGoldenrod" Padding="0 0 10 0" FontWeight="ExtraBlack" FontStyle="Italic"
+                           Text="Assembly"/>
+                <TextBlock FontWeight="Medium" Text="{Binding Path=Name}" Margin="0 0 4 0"/>
+            </StackPanel>
+        </HierarchicalDataTemplate>
+        <HierarchicalDataTemplate DataType="{x:Type c:NamespaceTreeItem}" ItemsSource="{Binding Children}">
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Foreground="Firebrick" Padding="0 0 10 0" FontWeight="ExtraBlack" FontStyle="Italic"
+                           Text="Namespace"/>
+                <TextBlock FontWeight="Medium" Text="{Binding Path=Name}" Margin="0 0 4 0" />
+            </StackPanel>
+        </HierarchicalDataTemplate>
+        <HierarchicalDataTemplate DataType="{x:Type c:MethodTreeItem}" ItemsSource="{Binding Children}">
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Foreground="Olive" Padding="0 0 10 0" FontWeight="ExtraBlack" FontStyle="Italic"
+                           Text="Method"/>
+                <TextBlock FontWeight="Medium" Text="{Binding Path=Name}" Margin="0 0 4 0" />
+            </StackPanel>
+        </HierarchicalDataTemplate>
+        <HierarchicalDataTemplate DataType="{x:Type c:ParameterTreeItem}" ItemsSource="{Binding Children}">
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Foreground="OliveDrab" Padding="0 0 10 0" FontWeight="ExtraBlack" FontStyle="Italic"
+                           Text="Parameter"/>
+                <TextBlock FontWeight="Medium" Text="{Binding Path=Name}" Margin="0 0 4 0" />
+            </StackPanel>
+        </HierarchicalDataTemplate>
+        <HierarchicalDataTemplate DataType="{x:Type c:PropertyTreeItem}" ItemsSource="{Binding Children}">
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Foreground="MidnightBlue" Padding="0 0 10 0" FontWeight="ExtraBlack" FontStyle="Italic"
+                           Text="Property"/>
+                <TextBlock FontWeight="Medium" Text="{Binding Path=Name}" Margin="0 0 4 0" />
+            </StackPanel>
+        </HierarchicalDataTemplate>
+        <HierarchicalDataTemplate DataType="{x:Type c:TypeTreeItem}" ItemsSource="{Binding Children}">
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Foreground="SaddleBrown" Padding="0 0 10 0" FontWeight="ExtraBlack" FontStyle="Italic"
+                           Text="Type"/>
+                <TextBlock FontWeight="Medium" Text="{Binding Path=Name}" Margin="0 0 4 0" />
+            </StackPanel>
+        </HierarchicalDataTemplate>
+    </Window.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="5*"/>
@@ -36,15 +81,6 @@
                   Grid.ColumnSpan="2"
                   Margin="0 20 0 0"
                   ItemsSource="{Binding MetadataTree}">
-            <TreeView.ItemTemplate>
-                <HierarchicalDataTemplate ItemsSource="{Binding Children}">
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Padding="0 0 10 0" FontWeight="ExtraBlack" FontStyle="Italic"
-                                   Text="{Binding Path=TypeName}"/>
-                        <TextBlock FontWeight="Medium" Text="{Binding Path=Name}" Margin="0 0 4 0" />
-                    </StackPanel>
-                </HierarchicalDataTemplate>
-            </TreeView.ItemTemplate>
 
             <TreeView.ItemContainerStyle>
                 <Style TargetType="{x:Type TreeViewItem}">

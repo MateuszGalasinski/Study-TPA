@@ -7,8 +7,6 @@ namespace UILogic.Model
     {
         public ParameterModel ParameterModel { get; set; }
 
-        public override string TypeName => "Parameter ";
-
         public ParameterTreeItem(ParameterModel parameterModel)
             : base(parameterModel.Name)
         {

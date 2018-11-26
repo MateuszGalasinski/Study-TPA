@@ -9,8 +9,6 @@ namespace UILogic.Model
     {
         private readonly TypeModel _typeModel;
 
-        public override string TypeName => "Type ";
-
         public TypeTreeItem(TypeModel typeModel) : base(GetModifiers(typeModel) + typeModel.Name)
         {
            _typeModel = typeModel;
