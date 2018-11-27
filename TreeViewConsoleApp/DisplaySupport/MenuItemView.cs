@@ -94,11 +94,11 @@ namespace TreeViewConsoleApp.DisplaySupport
             {
                 if (currentItem.Value.Children != null)
                 {
-                    Console.WriteLine($"{currentItem.Key}:{currentItem.Value.TypeName} - {currentItem.Value.Name}");
+                    Console.WriteLine($"{currentItem.Key}:{TreeItemToStringConverter.GetNameFromType(currentItem.Value)} -> {currentItem.Value.Name}");
                 }
                 else
                 {
-                    Console.WriteLine($"{currentItem.Value.TypeName} - {currentItem.Value.Name} -- write 'back'");
+                    Console.WriteLine($"{TreeItemToStringConverter.GetNameFromType(currentItem.Value)} -> {currentItem.Value.Name} -- write 'back'");
                 }
             }
         }

@@ -1,9 +1,9 @@
-﻿using UILogic.Base;
-using UILogic.ViewModel;
-using System;
+﻿using System;
 using System.Linq;
 using TreeViewConsoleApp.DisplaySupport;
 using TreeViewConsoleApp.ReactiveBase;
+using UILogic.Base;
+using UILogic.ViewModel;
 
 namespace TreeViewConsoleApp
 {

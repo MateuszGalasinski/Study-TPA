@@ -9,7 +9,7 @@ namespace TreeViewConsoleApp
     {
         public static void Main(string[] args)
         {
-            MainView mV = new MainView(new MainViewModel(new ConsoleFilePathGetter(), new Logger(), new XmlMetadataSerializer()));
+            MainView mV = new MainView(new MainViewModel(new ConsoleFilePathGetter(), new Logger(), new XmlDataContractSerializer()));
 
             mV.List();
 
