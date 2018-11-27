@@ -1,15 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Serialization;
 
 namespace ReflectionLoading.Models
 {
-
+    [DataContract(Name = "NamespaceModel")]
     public class NamespaceModel
     {
-        
+        [DataMember]
         public string Name { get; set; }
         
+        [DataMember]
         public List<TypeModel> Types { get; set; }
 
         public NamespaceModel(string name, List<Type> types)

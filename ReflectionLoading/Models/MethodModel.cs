@@ -5,21 +5,32 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.CompilerServices;
+using System.Runtime.Serialization;
 
 namespace ReflectionLoading.Models
 {
-
+    [DataContract(Name = "MethodModel")]
     public class MethodModel
     {
+        [DataMember]
         public string Name { get; set; }
+        [DataMember]
         public List<TypeModel> GenericArguments { get; set; }
+        [DataMember]
         public Accessibility Accessibility { get; set; }
+        [DataMember]
         public IsSealed IsSealed { get; set; }
+        [DataMember]
         public IsAbstract IsAbstract { get; set; }
+        [DataMember]
         public IsStatic IsStatic { get; set; }
+        [DataMember]
         public IsVirtual IsVirtual { get; set; }
+        [DataMember]
         public TypeModel ReturnType { get; set; }
+        [DataMember]
         public bool Extension { get; set; }
+        [DataMember]
         public List<ParameterModel> Parameters { get; set; }
 
         public MethodModel(MethodBase method)

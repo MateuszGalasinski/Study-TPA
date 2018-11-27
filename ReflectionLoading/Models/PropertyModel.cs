@@ -2,13 +2,17 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.Serialization;
 
 namespace ReflectionLoading.Models
 {
+    [DataContract(Name = "PropertyModel")]
     public class PropertyModel
     {   
+        [DataMember]
         public string Name { get; set; }
-        
+
+        [DataMember]
         public TypeModel Type { get; set; }
 
         public PropertyModel(string name, TypeModel propertyType)

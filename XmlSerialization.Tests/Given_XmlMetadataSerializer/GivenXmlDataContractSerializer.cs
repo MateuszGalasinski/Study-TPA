@@ -7,9 +7,9 @@ using System.Reflection;
 namespace XmlSerialization.Tests.Given_XmlMetadataSerializer
 {
     [TestFixture]
-    public class GivenXmlMetadataSerializer
+    public class GivenXmlDataContractSerializer
     {
-        protected XmlMetadataSerializer _context;
+        protected XmlDataContractSerializer _context;
         protected string FilePath;
         protected string ResultPath;
         protected AssemblyModel Root;
@@ -17,7 +17,7 @@ namespace XmlSerialization.Tests.Given_XmlMetadataSerializer
         [SetUp]
         public void Given()
         {
-            _context = new XmlMetadataSerializer();
+            _context = new XmlDataContractSerializer();
         }
 
         protected void With_FilePathFromResources()

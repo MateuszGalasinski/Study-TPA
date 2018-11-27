@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace XmlSerialization.Tests.Given_XmlMetadataSerializer.When_Serialize
 {
-    public class WhenSerializeDeserialize : GivenXmlMetadataSerializer
+    public class WhenSerializeDeserialize : GivenXmlDataContractSerializer
     {
         private Task<AssemblyModel> _when;
         public void When_SerializeDeserialize(AssemblyModel model)

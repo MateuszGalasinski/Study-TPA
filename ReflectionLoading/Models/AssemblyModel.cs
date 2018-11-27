@@ -2,13 +2,17 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.Serialization;
 
 namespace ReflectionLoading.Models
 {
+    [DataContract(Name = "Customer")]
     public class AssemblyModel
     {
+        [DataMember]
         public List<NamespaceModel> NamespaceModels { get; set; }
 
+        [DataMember]
         public string Name { get; set; }
 
         public AssemblyModel(Assembly assembly)
