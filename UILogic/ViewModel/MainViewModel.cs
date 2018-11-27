@@ -136,9 +136,9 @@ namespace UILogic.ViewModel
             _logger.Trace("Successfully loaded root metadata item.");
             IsExecuting = false;
         }
+
         public void SavaData()
         {
-            //LoggerFactory.Log(new MessageStructure("Serialize started..."));
             // TODO fix error connected with selecting .dll to serialize
             _serializationFilePath = _filePathGetter.GetFilePath();
             if (_serializationFilePath.EndsWith(".xml"))
@@ -157,18 +157,6 @@ namespace UILogic.ViewModel
             {
                 _logger.Trace($"Serialization error");
             }
-
-            //if (_serializationFilePath != null)
-            //{
-            //    _serializator.Serialize(_reflector.AssemblyModel, _serializationFilePath);
-            //    //LoggerFactory.Log(new MessageStructure("Serialize completed"), LogCategoryEnum.Success);
-            //}
-            //else
-            //{
-            //    //LoggerFactory.Log(new MessageStructure("Serialize failed-Path is null"), LogCategoryEnum.Error);
-            //}
         }
-
-
     }
 }

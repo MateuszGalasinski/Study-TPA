@@ -79,6 +79,7 @@
     <Compile Include="MainProgram.cs" />
     <Compile Include="MainView.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TreeItemToStringConverter.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

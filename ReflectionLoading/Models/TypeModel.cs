@@ -4,29 +4,47 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.Serialization;
 
 namespace ReflectionLoading.Models
 {
+    [DataContract(Name = "TypeModel")]
     public class TypeModel
     {
         public static Dictionary<string, TypeModel> TypeDictionary = new Dictionary<string, TypeModel>();
         
+        [DataMember]
         public string Name { get; set; }
+        [DataMember]
         public string NamespaceName { get; set; }
+        [DataMember]
         public TypeModel BaseType { get; set; }
+        [DataMember]
         public Accessibility Accessibility { get; set; }
+        [DataMember]
         public IsSealed IsSealed { get; set; }
+        [DataMember]
         public IsAbstract IsAbstract { get; set; }
+        [DataMember]
         public IsStatic IsStatic { get; set; }
+        [DataMember]
         public TypeKind Type { get; set; }
 
+        [DataMember]
         public List<TypeModel> GenericArguments { get; set; }
+        [DataMember]
         public List<TypeModel> ImplementedInterfaces { get; set; }
+        [DataMember]
         public List<TypeModel> NestedTypes { get; set; }
+        [DataMember]
         public List<PropertyModel> Properties { get; set; }
+        [DataMember]
         public TypeModel DeclaringType { get; set; }
+        [DataMember]
         public List<MethodModel> Methods { get; set; }
+        [DataMember]
         public List<MethodModel> Constructors { get; set; }
+        [DataMember]
         public List<ParameterModel> Fields { get; set; }
 
         public TypeModel(Type type)
