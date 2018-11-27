@@ -18,5 +18,18 @@ namespace ReflectionLoading.Models
             NamespaceModels = types.Where(t => t.IsVisible).GroupBy(t => t.Namespace).OrderBy(t => t.Key)
                 .Select(t => new NamespaceModel(t.Key, t.ToList())).ToList();
         }
+
+        private AssemblyModel()
+        {
+
+        }
+
+        public override bool Equals(object obj)
+        {
+            var model = obj as AssemblyModel;
+            return model != null &&
+                   EqualityComparer<List<NamespaceModel>>.Default.Equals(NamespaceModels, model.NamespaceModels) &&
+                   Name == model.Name;
+        }
     }
 }

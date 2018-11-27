@@ -1,6 +1,7 @@
 ﻿using Core.Components;
 using Moq;
 using NUnit.Framework;
+using ReflectionLoading.Models;
 using System;
 using System.Reflection;
 using UILogic.Interfaces;
@@ -14,6 +15,7 @@ namespace SharedUILogic.Tests.Given_MainViewModel
         protected MainViewModel _context;
         protected Mock<IFilePathGetter> _filePathGetterMock;
         protected Mock<ILogger> _loggerMock;
+        protected Mock<ISerializator<AssemblyModel>> _serializatorMock;
 
         protected string FilePath;
 
@@ -22,10 +24,12 @@ namespace SharedUILogic.Tests.Given_MainViewModel
         {
             _filePathGetterMock = new Mock<IFilePathGetter>(MockBehavior.Strict);
             _loggerMock = new Mock<ILogger>(MockBehavior.Strict);
+            _serializatorMock = new Mock<ISerializator<AssemblyModel>>(MockBehavior.Strict);
 
             _context = new MainViewModel(
                 _filePathGetterMock.Object,
-                _loggerMock.Object);
+                _loggerMock.Object,
+                _serializatorMock.Object);
         }
 
         public void With_FilePathGetter()

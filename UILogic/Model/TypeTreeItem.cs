@@ -16,29 +16,24 @@ namespace UILogic.Model
 
         public static string GetModifiers(TypeModel model)
         {
-            if (model.Modifiers != null)
-            {
-                StringBuilder builder = new StringBuilder();
-                builder.Append(model.Modifiers.Item1.ToString().ToLower() + " ");
-                builder.Append(model.Modifiers.Item2 == IsSealed.Sealed ? IsSealed.Sealed.ToString().ToLower() + " " : string.Empty);
-                builder.Append(model.Modifiers.Item3 == IsAbstract.Abstract ? IsAbstract.Abstract.ToString().ToLower() + " " : string.Empty);
-                builder.Append(model.Modifiers.Item4 == IsStatic.Static ? IsStatic.Static.ToString().ToLower() + " " : string.Empty);
-                return builder.ToString();
-            }
-
-            return null;
+            StringBuilder builder = new StringBuilder();
+            builder.Append(model.Accessibility.ToString().ToLower() + " ");
+            builder.Append(model.IsSealed == IsSealed.Sealed ? IsSealed.Sealed.ToString().ToLower() + " " : string.Empty);
+            builder.Append(model.IsAbstract == IsAbstract.Abstract ? IsAbstract.Abstract.ToString().ToLower() + " " : string.Empty);
+            builder.Append(model.IsStatic == IsStatic.Static ? IsStatic.Static.ToString().ToLower() + " " : string.Empty);
+            return builder.ToString();
         }
 
         protected override void LoadChildrenItems()
         {
             if (_typeModel.BaseType != null)
             {
-                Children.Add(new TypeTreeItem(TypeModel.TypeDictionary[_typeModel.BaseType.Name]));
+                Children.Add(new TypeTreeItem(GetOrAdd(_typeModel.BaseType)));
             }
 
             if (_typeModel.DeclaringType != null)
             {
-                Children.Add(new TypeTreeItem(TypeModel.TypeDictionary[_typeModel.DeclaringType.Name]));
+                Children.Add(new TypeTreeItem(GetOrAdd(_typeModel.DeclaringType)));
             }
 
             if (_typeModel.Properties != null)
@@ -61,7 +56,7 @@ namespace UILogic.Model
             {
                 foreach (TypeModel typeModel in _typeModel.GenericArguments)
                 {
-                    Children.Add(new TypeTreeItem(TypeModel.TypeDictionary[typeModel.Name]));
+                    Children.Add(new TypeTreeItem(GetOrAdd(typeModel)));
                 }
             }
 
@@ -69,7 +64,7 @@ namespace UILogic.Model
             {
                 foreach (TypeModel typeModel in _typeModel.ImplementedInterfaces)
                 {
-                    Children.Add(new TypeTreeItem(TypeModel.TypeDictionary[typeModel.Name]));
+                    Children.Add(new TypeTreeItem(GetOrAdd(typeModel)));
                 }
             }
 
@@ -77,7 +72,7 @@ namespace UILogic.Model
             {
                 foreach (TypeModel typeModel in _typeModel.NestedTypes)
                 {
-                    Children.Add(new TypeTreeItem(TypeModel.TypeDictionary[typeModel.Name]));
+                    Children.Add(new TypeTreeItem(GetOrAdd(typeModel)));
                 }
             }
 

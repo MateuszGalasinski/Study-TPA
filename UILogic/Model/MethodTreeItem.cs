@@ -18,10 +18,10 @@ namespace UILogic.Model
         public static string GetModifiers(MethodModel model)
         {
             StringBuilder builder = new StringBuilder();
-            builder.Append(model.Modifiers.Item1.ToString().ToLower() + " ");
-            builder.Append(model.Modifiers.Item2 == IsAbstract.Abstract ? IsAbstract.Abstract.ToString().ToLower() + " " : string.Empty);
-            builder.Append(model.Modifiers.Item4 == IsVirtual.Virtual ? IsVirtual.Virtual.ToString().ToLower() + " " : string.Empty);
-            builder.Append(model.Modifiers.Item3 == IsStatic.Static ? IsStatic.Static.ToString().ToLower() + " " : string.Empty);
+            builder.Append(model.Accessibility.ToString().ToLower() + " ");
+            builder.Append(model.IsAbstract == IsAbstract.Abstract ? IsAbstract.Abstract.ToString().ToLower() + " " : string.Empty);
+            builder.Append(model.IsVirtual == IsVirtual.Virtual ? IsVirtual.Virtual.ToString().ToLower() + " " : string.Empty);
+            builder.Append(model.IsStatic == IsStatic.Static ? IsStatic.Static.ToString().ToLower() + " " : string.Empty);
             return builder.ToString();
         }
 
@@ -31,7 +31,7 @@ namespace UILogic.Model
             {
                 foreach (TypeModel genericArgument in MethodModel.GenericArguments)
                 {
-                    Children.Add(new TypeTreeItem(TypeModel.TypeDictionary[genericArgument.Name]));
+                    Children.Add(new TypeTreeItem(GetOrAdd(genericArgument)));
                 }
             }
 
@@ -45,7 +45,7 @@ namespace UILogic.Model
 
             if (MethodModel.ReturnType != null)
             {
-                Children.Add(new TypeTreeItem(TypeModel.TypeDictionary[MethodModel.ReturnType.Name]));
+                Children.Add(new TypeTreeItem(GetOrAdd(MethodModel.ReturnType)));
             }
         }
     }

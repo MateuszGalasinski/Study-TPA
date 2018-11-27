@@ -18,5 +18,17 @@ namespace ReflectionLoading.Models
             Types = types.OrderBy(t => t.Name).Select(t => new TypeModel(t)).ToList();
         }
 
+        private NamespaceModel()
+        {
+
+        }
+
+        public override bool Equals(object obj)
+        {
+            var model = obj as NamespaceModel;
+            return model != null &&
+                   Name == model.Name &&
+                   EqualityComparer<List<TypeModel>>.Default.Equals(Types, model.Types);
+        }
     }
 }

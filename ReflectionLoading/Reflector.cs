@@ -38,6 +38,7 @@ namespace ReflectionLoading
                     throw new System.ArgumentNullException("Deserialized AssemblyModel is null");
                 }
                 TypeModel.TypeDictionary.Clear();
+                assemblyModel.NamespaceModels.ForEach(n => n.Types.ForEach(t => TypeModel.TypeDictionary.Add(t.Name, t)));
                 AssemblyModel = assemblyModel;
             }
             catch (Exception e)

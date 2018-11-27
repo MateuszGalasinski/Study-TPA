@@ -15,7 +15,7 @@ namespace UILogic.ViewModel
     {
         private readonly IFilePathGetter _filePathGetter;
         private readonly ILogger _logger;
-        private readonly ISerializable _serializator;
+        private readonly ISerializator<AssemblyModel> _serializator;
         private Reflector _reflector;
         private ObservableCollection<TreeItem> _metadataTree;
         private readonly object _openSyncLock = new object();
@@ -55,10 +55,11 @@ namespace UILogic.ViewModel
             set => SetProperty(ref _filePath, value);
         }
 
-        public MainViewModel(IFilePathGetter filePathGetter, ILogger logger)
+        public MainViewModel(IFilePathGetter filePathGetter, ILogger logger, ISerializator<AssemblyModel> serializator)
         {
             _logger = logger;
             _filePathGetter = filePathGetter;
+            _serializator = serializator;
             MetadataTree = new ObservableCollection<TreeItem>();
             LoadMetadataCommand = new RelayCommand(Open, () => !_isExecuting);
             GetFilePathCommand = new RelayCommand(GetFilePath, () => !_isExecuting);
@@ -111,7 +112,7 @@ namespace UILogic.ViewModel
                     _logger.Trace("Beginning reflection subroutine...");
                     if (FilePath.EndsWith(".xml"))
                     {
-                        _reflector = new Reflector(_serializator.Deserialize<AssemblyModel>(FilePath));
+                        _reflector = new Reflector(_serializator.Deserialize(FilePath));
                     }
                     else if (FilePath.EndsWith(".dll"))
                     {
