@@ -42,10 +42,6 @@ namespace ReflectionLoading.Models
             LoadModifiers(method);
             Extension = EmitExtension(method);
         }
-        private MethodModel()
-        {
-
-        }
 
         private List<TypeModel> EmitGenericArguments(MethodBase method)
         {

@@ -23,11 +23,6 @@ namespace ReflectionLoading.Models
                 .Select(t => new NamespaceModel(t.Key, t.ToList())).ToList();
         }
 
-        private AssemblyModel()
-        {
-
-        }
-
         public override bool Equals(object obj)
         {
             var model = obj as AssemblyModel;

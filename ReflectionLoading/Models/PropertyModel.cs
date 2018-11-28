@@ -21,11 +21,6 @@ namespace ReflectionLoading.Models
             Type = propertyType;
         }
 
-        private PropertyModel()
-        {
-
-        }
-
         public static List<PropertyModel> EmitProperties(Type type)
         {
             List<PropertyInfo> props = type
