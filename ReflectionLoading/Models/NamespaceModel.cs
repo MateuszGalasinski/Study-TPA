@@ -20,11 +20,6 @@ namespace ReflectionLoading.Models
             Types = types.OrderBy(t => t.Name).Select(t => new TypeModel(t)).ToList();
         }
 
-        private NamespaceModel()
-        {
-
-        }
-
         public override bool Equals(object obj)
         {
             var model = obj as NamespaceModel;

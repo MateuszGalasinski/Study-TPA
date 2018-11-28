@@ -19,11 +19,6 @@ namespace Reflection.Model
             Type = typeModel;
         }
 
-        private ParameterModel()
-        {
-
-        }
-
         public override bool Equals(object obj)
         {
             var model = obj as ParameterModel;

@@ -69,11 +69,6 @@ namespace ReflectionLoading.Models
             Fields = EmitFields(type);
         }
 
-        private TypeModel()
-        {
-
-        }
-
         private TypeModel(string typeName, string namespaceName)
         {
             Name = typeName;
