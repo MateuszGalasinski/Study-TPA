@@ -33,11 +33,11 @@ namespace ReflectionLoading.LogicModels
         
         public List<LogicTypeModel> NestedTypes { get; set; }
         
-        public List<LogicModels.LogicPropertyModel> Properties { get; set; }
+        public List<LogicPropertyModel> Properties { get; set; }
         
         public LogicTypeModel DeclaringType { get; set; }
         
-        public List<LogicModels.LogicMethodModel> Methods { get; set; }
+        public List<LogicMethodModel> Methods { get; set; }
         
         public List<LogicModels.LogicMethodModel> Constructors { get; set; }
         
@@ -65,7 +65,7 @@ namespace ReflectionLoading.LogicModels
             Fields = EmitFields(type);
         }
 
-        public LogicTypeModel(LogicModels.LogicTypeModel type)
+        public LogicTypeModel(LogicTypeModel type)
         {
             Name = type.Name;
             if (!TypeDictionary.ContainsKey(Name))
@@ -78,12 +78,12 @@ namespace ReflectionLoading.LogicModels
             LoadModifiers(type);
 
             DeclaringType = EmitDeclaringType(type.DeclaringType);
-            Constructors = LogicModels.LogicMethodModel.EmitConstructors(type);
-            Methods = LogicModels.LogicMethodModel.EmitMethods(type);
+            Constructors = LogicMethodModel.EmitConstructors(type);
+            Methods = LogicMethodModel.EmitMethods(type);
             NestedTypes = EmitNestedTypes(type);
             ImplementedInterfaces = EmitImplements(type.GetInterfaces()).ToList();
             GenericArguments = !type.IsGenericTypeDefinition ? null : EmitGenericArguments(type);
-            Properties = LogicModels.LogicPropertyModel.EmitProperties(type);
+            Properties = LogicPropertyModel.EmitProperties(type);
             Fields = EmitFields(type);
         }
 
