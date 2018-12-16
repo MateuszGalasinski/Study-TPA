@@ -4,6 +4,7 @@ using ReflectionLoading.Exceptions;
 using ReflectionLoading.Models;
 using System;
 using System.Collections.ObjectModel;
+using System.ComponentModel.Composition;
 using System.Threading.Tasks;
 using UILogic.Base;
 using UILogic.Interfaces;
@@ -13,7 +14,9 @@ namespace UILogic.ViewModel
 {
     public class MainViewModel : BindableBase
     {
+        [Import]
         private readonly IFilePathGetter _filePathGetter;
+        [Import]
         private readonly ILogger _logger;
         private readonly ISerializator<AssemblyModel> _serializator;
         private Reflector _reflector;
@@ -60,6 +63,15 @@ namespace UILogic.ViewModel
             _logger = logger;
             _filePathGetter = filePathGetter;
             _serializator = serializator;
+            MetadataTree = new ObservableCollection<TreeItem>();
+            LoadMetadataCommand = new RelayCommand(Open, () => !_isExecuting);
+            GetFilePathCommand = new RelayCommand(GetFilePath, () => !_isExecuting);
+            SaveDataCommand = new RelayCommand(SavaData, () => !_isExecuting);
+        }
+
+        public MainViewModel(IFilePathGetter filePathGetter)
+        {
+            _filePathGetter = filePathGetter;
             MetadataTree = new ObservableCollection<TreeItem>();
             LoadMetadataCommand = new RelayCommand(Open, () => !_isExecuting);
             GetFilePathCommand = new RelayCommand(GetFilePath, () => !_isExecuting);

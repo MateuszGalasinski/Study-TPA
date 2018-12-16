@@ -2,9 +2,11 @@
 using ReflectionLoading.Models;
 using System.IO;
 using System.Runtime.Serialization;
+using System.ComponentModel.Composition;
 
 namespace XmlSerialization
 {
+    [Export typeof(ISerializator)]
     public class XmlDataContractSerializer : ISerializator<AssemblyModel>
     {
         private readonly DataContractSerializer _serializer = new DataContractSerializer(typeof(AssemblyModel));
