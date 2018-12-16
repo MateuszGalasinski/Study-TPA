@@ -44,7 +44,7 @@
   <ItemGroup>
     <Compile Include="Exceptions\ReflectionLoadException.cs" />
     <Compile Include="Models\AssemblyModel.cs" />
-    <Compile Include="Models\ExtensionMethods.cs" />
+    <Compile Include="ExtensionMethods.cs" />
     <Compile Include="Models\MethodModel.cs" />
     <Compile Include="Models\NamespaceModel.cs" />
     <Compile Include="Models\ParameterModel.cs" />

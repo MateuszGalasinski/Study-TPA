@@ -5,7 +5,7 @@ using System.Runtime.Serialization;
 namespace Reflection.Model
 {
     [DataContract(Name = "ParameterModel")]
-    public class ParameterModel
+    public class ParameterModel : IParameterModel
     {        
         [DataMember]
         public string Name { get; set; }
