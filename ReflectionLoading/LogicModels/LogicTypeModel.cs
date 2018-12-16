@@ -6,15 +6,15 @@ using Core.Constants;
 
 namespace ReflectionLoading.LogicModels
 {
-    public class TypeModel
+    public class LogicTypeModel
     {
-        public static Dictionary<string, TypeModel> TypeDictionary = new Dictionary<string, TypeModel>();
+        public static Dictionary<string, LogicTypeModel> TypeDictionary = new Dictionary<string, LogicTypeModel>();
         
         public string Name { get; set; }
         
         public string NamespaceName { get; set; }
         
-        public TypeModel BaseType { get; set; }
+        public LogicTypeModel BaseType { get; set; }
         
         public Accessibility Accessibility { get; set; }
         
@@ -27,23 +27,23 @@ namespace ReflectionLoading.LogicModels
         public TypeKind Type { get; set; }
 
         
-        public List<TypeModel> GenericArguments { get; set; }
+        public List<LogicTypeModel> GenericArguments { get; set; }
         
-        public List<TypeModel> ImplementedInterfaces { get; set; }
+        public List<LogicTypeModel> ImplementedInterfaces { get; set; }
         
-        public List<TypeModel> NestedTypes { get; set; }
+        public List<LogicTypeModel> NestedTypes { get; set; }
         
-        public List<LogicModels.PropertyModel> Properties { get; set; }
+        public List<LogicModels.LogicPropertyModel> Properties { get; set; }
         
-        public TypeModel DeclaringType { get; set; }
+        public LogicTypeModel DeclaringType { get; set; }
         
-        public List<LogicModels.MethodModel> Methods { get; set; }
+        public List<LogicModels.LogicMethodModel> Methods { get; set; }
         
-        public List<LogicModels.MethodModel> Constructors { get; set; }
+        public List<LogicModels.LogicMethodModel> Constructors { get; set; }
         
-        public List<LogicModels.ParameterModel> Fields { get; set; }
+        public List<LogicModels.LogicParameterModel> Fields { get; set; }
 
-        public TypeModel(Type type)
+        public LogicTypeModel(Type type)
         {
             Name = type.Name;
             if (!TypeDictionary.ContainsKey(Name))
@@ -56,35 +56,60 @@ namespace ReflectionLoading.LogicModels
             LoadModifiers(type);
 
             DeclaringType = EmitDeclaringType(type.DeclaringType);
-            Constructors = LogicModels.MethodModel.EmitConstructors(type);
-            Methods = LogicModels.MethodModel.EmitMethods(type);
+            Constructors = LogicModels.LogicMethodModel.EmitConstructors(type);
+            Methods = LogicModels.LogicMethodModel.EmitMethods(type);
             NestedTypes = EmitNestedTypes(type);
             ImplementedInterfaces = EmitImplements(type.GetInterfaces()).ToList();
             GenericArguments = !type.IsGenericTypeDefinition ? null : EmitGenericArguments(type);
-            Properties = LogicModels.PropertyModel.EmitProperties(type);
+            Properties = LogicModels.LogicPropertyModel.EmitProperties(type);
             Fields = EmitFields(type);
         }
 
-        private TypeModel(string typeName, string namespaceName)
+        public LogicTypeModel(LogicModels.LogicTypeModel type)
+        {
+            Name = type.Name;
+            if (!TypeDictionary.ContainsKey(Name))
+            {
+                TypeDictionary.Add(Name, this);
+            }
+
+            Type = GetTypeEnum(type);
+            BaseType = EmitExtends(type.BaseType);
+            LoadModifiers(type);
+
+            DeclaringType = EmitDeclaringType(type.DeclaringType);
+            Constructors = LogicModels.LogicMethodModel.EmitConstructors(type);
+            Methods = LogicModels.LogicMethodModel.EmitMethods(type);
+            NestedTypes = EmitNestedTypes(type);
+            ImplementedInterfaces = EmitImplements(type.GetInterfaces()).ToList();
+            GenericArguments = !type.IsGenericTypeDefinition ? null : EmitGenericArguments(type);
+            Properties = LogicModels.LogicPropertyModel.EmitProperties(type);
+            Fields = EmitFields(type);
+        }
+
+
+        private LogicTypeModel(string typeName, string namespaceName)
         {
             Name = typeName;
             this.NamespaceName = namespaceName;
         }
 
-        private TypeModel(string typeName, string namespaceName, IEnumerable<TypeModel> genericArguments) : this(typeName, namespaceName)
+        private LogicTypeModel(string typeName, string namespaceName, IEnumerable<LogicTypeModel> genericArguments) : this(typeName, namespaceName)
         {
             this.GenericArguments = genericArguments.ToList();
         }
 
-        public static TypeModel EmitReference(Type type)
+        #region 
+
+        public static LogicTypeModel EmitReference(Type type)
         {
             if (!type.IsGenericType)
-                return new TypeModel(type.Name, LogicModels.ExtensionMethods.GetNamespace(type));
+                return new LogicTypeModel(type.Name, LogicModels.ExtensionMethods.GetNamespace(type));
 
-            return new TypeModel(type.Name, LogicModels.ExtensionMethods.GetNamespace(type), EmitGenericArguments(type));
+            return new LogicTypeModel(type.Name, LogicModels.ExtensionMethods.GetNamespace(type), EmitGenericArguments(type));
         }
 
-        public static List<TypeModel> EmitGenericArguments(Type type)
+        public static List<LogicTypeModel> EmitGenericArguments(Type type)
         {
             List<Type> arguments = type.GetGenericArguments().ToList();
             foreach (Type typ in arguments)
@@ -99,25 +124,25 @@ namespace ReflectionLoading.LogicModels
         {
             if (!TypeDictionary.ContainsKey(type.Name))
             {
-                new TypeModel(type);
+                new LogicTypeModel(type);
             }
         }
 
-        private static List<LogicModels.ParameterModel> EmitFields(Type type)
+        private static List<LogicModels.LogicParameterModel> EmitFields(Type type)
         {
             List<FieldInfo> fieldInfo = type.GetFields(BindingFlags.NonPublic | BindingFlags.DeclaredOnly | BindingFlags.Public |
                                            BindingFlags.Static | BindingFlags.Instance).ToList();
 
-            List<LogicModels.ParameterModel> parameters = new List<LogicModels.ParameterModel>();
+            List<LogicModels.LogicParameterModel> parameters = new List<LogicModels.LogicParameterModel>();
             foreach (FieldInfo field in fieldInfo)
             {
                 StoreType(field.FieldType);
-                parameters.Add(new LogicModels.ParameterModel(field.Name, EmitReference(field.FieldType)));
+                parameters.Add(new LogicModels.LogicParameterModel(field.Name, EmitReference(field.FieldType)));
             }
             return parameters;
         }
 
-        private TypeModel EmitDeclaringType(Type declaringType)
+        private LogicTypeModel EmitDeclaringType(Type declaringType)
         {
             if (declaringType == null)
                 return null;
@@ -125,7 +150,7 @@ namespace ReflectionLoading.LogicModels
             return EmitReference(declaringType);
         }
 
-        private List<TypeModel> EmitNestedTypes(Type type)
+        private List<LogicTypeModel> EmitNestedTypes(Type type)
         {
             List<Type> nestedTypes = type.GetNestedTypes(BindingFlags.Public | BindingFlags.NonPublic).ToList();
             foreach (Type typ in nestedTypes)
@@ -133,10 +158,10 @@ namespace ReflectionLoading.LogicModels
                 StoreType(typ);
             }
 
-            return nestedTypes.Select(t => new TypeModel(t)).ToList();
+            return nestedTypes.Select(t => new LogicTypeModel(t)).ToList();
         }
 
-        private IEnumerable<TypeModel> EmitImplements(IEnumerable<Type> interfaces)
+        private IEnumerable<LogicTypeModel> EmitImplements(IEnumerable<Type> interfaces)
         {
             foreach (Type @interface in interfaces)
             {
@@ -173,7 +198,7 @@ namespace ReflectionLoading.LogicModels
             return new Tuple<Accessibility, IsSealed, IsAbstract, IsStatic>(_access, _sealed, _abstract,_static);
         }
 
-        private static TypeModel EmitExtends(Type baseType)
+        private static LogicTypeModel EmitExtends(Type baseType)
         {
             if (baseType == null || baseType == typeof(object) || baseType == typeof(ValueType) || baseType == typeof(Enum))
                 return null;
@@ -190,26 +215,28 @@ namespace ReflectionLoading.LogicModels
             IsStatic = modifiers.Item4;
         }
 
+#endregion
+
         public override bool Equals(object obj)
         {
-            var model = obj as TypeModel;
+            var model = obj as LogicTypeModel;
             return model != null &&
                    Name == model.Name &&
                    NamespaceName == model.NamespaceName &&
-                   EqualityComparer<TypeModel>.Default.Equals(BaseType, model.BaseType) &&
+                   EqualityComparer<LogicTypeModel>.Default.Equals(BaseType, model.BaseType) &&
                    Accessibility == model.Accessibility &&
                    IsSealed == model.IsSealed &&
                    IsAbstract == model.IsAbstract &&
                    IsStatic == model.IsStatic &&
                    Type == model.Type &&
-                   EqualityComparer<List<TypeModel>>.Default.Equals(GenericArguments, model.GenericArguments) &&
-                   EqualityComparer<List<TypeModel>>.Default.Equals(ImplementedInterfaces, model.ImplementedInterfaces) &&
-                   EqualityComparer<List<TypeModel>>.Default.Equals(NestedTypes, model.NestedTypes) &&
-                   EqualityComparer<List<LogicModels.PropertyModel>>.Default.Equals(Properties, model.Properties) &&
-                   EqualityComparer<TypeModel>.Default.Equals(DeclaringType, model.DeclaringType) &&
-                   EqualityComparer<List<LogicModels.MethodModel>>.Default.Equals(Methods, model.Methods) &&
-                   EqualityComparer<List<LogicModels.MethodModel>>.Default.Equals(Constructors, model.Constructors) &&
-                   EqualityComparer<List<LogicModels.ParameterModel>>.Default.Equals(Fields, model.Fields);
+                   EqualityComparer<List<LogicTypeModel>>.Default.Equals(GenericArguments, model.GenericArguments) &&
+                   EqualityComparer<List<LogicTypeModel>>.Default.Equals(ImplementedInterfaces, model.ImplementedInterfaces) &&
+                   EqualityComparer<List<LogicTypeModel>>.Default.Equals(NestedTypes, model.NestedTypes) &&
+                   EqualityComparer<List<LogicModels.LogicPropertyModel>>.Default.Equals(Properties, model.Properties) &&
+                   EqualityComparer<LogicTypeModel>.Default.Equals(DeclaringType, model.DeclaringType) &&
+                   EqualityComparer<List<LogicModels.LogicMethodModel>>.Default.Equals(Methods, model.Methods) &&
+                   EqualityComparer<List<LogicModels.LogicMethodModel>>.Default.Equals(Constructors, model.Constructors) &&
+                   EqualityComparer<List<LogicModels.LogicParameterModel>>.Default.Equals(Fields, model.Fields);
         }
     }
 }

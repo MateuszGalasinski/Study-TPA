@@ -4,12 +4,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using Core.Model;
+using ReflectionLoading.LogicModels;
 
 namespace ReflectionLoading.Models
 {
     public class TypeModel : BaseTypeModel
     {
-        public TypeModel(Type type)
+        public TypeModel(LogicTypeModel type)
         {
             Name = type.Name;
             if (!TypeDictionary.ContainsKey(Name))

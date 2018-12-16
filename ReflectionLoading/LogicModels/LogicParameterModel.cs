@@ -2,13 +2,13 @@
 
 namespace ReflectionLoading.LogicModels
 {
-    public class ParameterModel
+    public class LogicParameterModel
     {        
         public string Name { get; set; }
 
-        public TypeModel Type { get; set; }
+        public LogicTypeModel Type { get; set; }
 
-        public ParameterModel(string name, TypeModel typeModel)
+        public LogicParameterModel(string name, LogicTypeModel typeModel)
         {
             Name = name;
             Type = typeModel;
@@ -16,10 +16,10 @@ namespace ReflectionLoading.LogicModels
 
         public override bool Equals(object obj)
         {
-            var model = obj as ParameterModel;
+            var model = obj as LogicParameterModel;
             return model != null &&
                    Name == model.Name &&
-                   EqualityComparer<TypeModel>.Default.Equals(Type, model.Type);
+                   EqualityComparer<LogicTypeModel>.Default.Equals(Type, model.Type);
         }
     }
 }

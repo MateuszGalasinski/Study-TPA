@@ -1,22 +1,18 @@
-﻿using System;
+﻿using Core.Model;
 using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using Core.Model;
 
 namespace ReflectionLoading.Models
 {
     public class AssemblyModel : BaseAssemblyModel
     {
-        public AssemblyModel(Assembly assembly)
+        public AssemblyModel(LogicModels.LogicAssemblyModel assemblyModel )
         {
-            Name = assembly.ManifestModule.Name;
-            Type[] types = assembly.GetTypes();
+            Name = assemblyModel.Name;
             NamespaceModels = new List<BaseNamespaceModel>();
 
-            foreach (var type in types.Where(t => t.IsVisible).GroupBy(t => t.Namespace).OrderBy(t => t.Key))
+            foreach (var namespaceModel in assemblyModel.NamespaceModels)
             {
-                NamespaceModels.Add(new NamespaceModel(type.Key, type.ToList()));
+                NamespaceModels.Add(new NamespaceModel(namespaceModel));
             }
         }
 

@@ -5,25 +5,25 @@ using System.Reflection;
 
 namespace ReflectionLoading.LogicModels
 {
-    public class AssemblyModel
+    public class LogicAssemblyModel
     {
-        public List<NamespaceModel> NamespaceModels { get; set; }
+        public List<LogicNamespaceModel> NamespaceModels { get; set; }
 
         public string Name { get; set; }
 
-        public AssemblyModel(Assembly assembly)
+        public LogicAssemblyModel(Assembly assembly)
         {
             Name = assembly.ManifestModule.Name;
             Type[] types = assembly.GetTypes();
             NamespaceModels = types.Where(t => t.IsVisible).GroupBy(t => t.Namespace).OrderBy(t => t.Key)
-                .Select(t => new NamespaceModel(t.Key, t.ToList())).ToList();
+                .Select(t => new LogicNamespaceModel(t.Key, t.ToList())).ToList();
         }
 
         public override bool Equals(object obj)
         {
-            var model = obj as AssemblyModel;
+            var model = obj as LogicAssemblyModel;
             return model != null &&
-                   EqualityComparer<List<NamespaceModel>>.Default.Equals(NamespaceModels, model.NamespaceModels) &&
+                   EqualityComparer<List<LogicNamespaceModel>>.Default.Equals(NamespaceModels, model.NamespaceModels) &&
                    Name == model.Name;
         }
     }

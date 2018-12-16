@@ -7,11 +7,11 @@ using Core.Constants;
 
 namespace ReflectionLoading.LogicModels
 {
-    public class MethodModel
+    public class LogicMethodModel
     {
         public string Name { get; set; }
         
-        public List<TypeModel> GenericArguments { get; set; }
+        public List<LogicTypeModel> GenericArguments { get; set; }
         
         public Accessibility Accessibility { get; set; }
         
@@ -23,13 +23,13 @@ namespace ReflectionLoading.LogicModels
         
         public IsVirtual IsVirtual { get; set; }
         
-        public TypeModel ReturnType { get; set; }
+        public LogicTypeModel ReturnType { get; set; }
         
         public bool Extension { get; set; }
         
-        public List<ParameterModel> Parameters { get; set; }
+        public List<LogicParameterModel> Parameters { get; set; }
 
-        public MethodModel(MethodBase method)
+        public LogicMethodModel(MethodBase method)
         {
             Name = method.Name;
             GenericArguments = !method.IsGenericMethodDefinition ? null : EmitGenericArguments(method);
@@ -39,26 +39,26 @@ namespace ReflectionLoading.LogicModels
             Extension = EmitExtension(method);
         }
 
-        private List<TypeModel> EmitGenericArguments(MethodBase method)
+        private List<LogicTypeModel> EmitGenericArguments(MethodBase method)
         {
-            return method.GetGenericArguments().Select(t => new TypeModel(t)).ToList();
+            return method.GetGenericArguments().Select(t => new LogicTypeModel(t)).ToList();
         }
-        public static List<MethodModel> EmitMethods(Type type)
+        public static List<LogicMethodModel> EmitMethods(Type type)
         {
             return type.GetMethods(BindingFlags.NonPublic | BindingFlags.DeclaredOnly | BindingFlags.Public |
-                                   BindingFlags.Static | BindingFlags.Instance).Select(t => new MethodModel(t)).ToList();
+                                   BindingFlags.Static | BindingFlags.Instance).Select(t => new LogicMethodModel(t)).ToList();
         }
-        private static List<ParameterModel> EmitParameters(MethodBase method)
+        private static List<LogicParameterModel> EmitParameters(MethodBase method)
         {
-            return method.GetParameters().Select(t => new ParameterModel(t.Name,TypeModel.EmitReference(t.ParameterType))).ToList( );
+            return method.GetParameters().Select(t => new LogicParameterModel(t.Name,LogicTypeModel.EmitReference(t.ParameterType))).ToList( );
         }
-        private static TypeModel EmitReturnType(MethodBase method)
+        private static LogicTypeModel EmitReturnType(MethodBase method)
         {
             MethodInfo methodInfo = method as MethodInfo;
             if (methodInfo == null)
                 return null;
-            TypeModel.StoreType(methodInfo.ReturnType);
-            return TypeModel.EmitReference(methodInfo.ReturnType);
+            LogicTypeModel.StoreType(methodInfo.ReturnType);
+            return LogicTypeModel.EmitReference(methodInfo.ReturnType);
         }
         private static bool EmitExtension(MethodBase method)
         {
@@ -77,25 +77,25 @@ namespace ReflectionLoading.LogicModels
             IsVirtual = method.IsVirtual ? IsVirtual.Virtual : IsVirtual.NotVirtual;
         }
 
-        public static List<MethodModel> EmitConstructors(Type type)
+        public static List<LogicMethodModel> EmitConstructors(Type type)
         {
-            return type.GetConstructors().Select(t => new MethodModel(t)).ToList();
+            return type.GetConstructors().Select(t => new LogicMethodModel(t)).ToList();
         }
 
         public override bool Equals(object obj)
         {
-            var model = obj as MethodModel;
+            var model = obj as LogicMethodModel;
             return model != null &&
                    Name == model.Name &&
-                   EqualityComparer<List<TypeModel>>.Default.Equals(GenericArguments, model.GenericArguments) &&
+                   EqualityComparer<List<LogicTypeModel>>.Default.Equals(GenericArguments, model.GenericArguments) &&
                    Accessibility == model.Accessibility &&
                    IsSealed == model.IsSealed &&
                    IsAbstract == model.IsAbstract &&
                    IsStatic == model.IsStatic &&
                    IsVirtual == model.IsVirtual &&
-                   EqualityComparer<TypeModel>.Default.Equals(ReturnType, model.ReturnType) &&
+                   EqualityComparer<LogicTypeModel>.Default.Equals(ReturnType, model.ReturnType) &&
                    Extension == model.Extension &&
-                   EqualityComparer<List<ParameterModel>>.Default.Equals(Parameters, model.Parameters);
+                   EqualityComparer<List<LogicParameterModel>>.Default.Equals(Parameters, model.Parameters);
         }
     }
 }

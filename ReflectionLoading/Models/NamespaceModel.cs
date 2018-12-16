@@ -1,18 +1,17 @@
-﻿using System;
+﻿using Core.Model;
+using ReflectionLoading.LogicModels;
 using System.Collections.Generic;
-using System.Linq;
-using Core.Model;
 
 namespace ReflectionLoading.Models
 {
     public class NamespaceModel : BaseNamespaceModel
     {
-        public NamespaceModel(string name, List<Type> types)
+        public NamespaceModel(LogicNamespaceModel namespaceModel)
         {
-            Name = name;
+            Name = namespaceModel.Name;
             Types = new List<BaseTypeModel>();
 
-            foreach (var type in types.OrderBy(t => t.Name))
+            foreach (var type in namespaceModel.Types)
             {
                 Types.Add(new TypeModel(type));
             }

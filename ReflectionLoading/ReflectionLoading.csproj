@@ -43,13 +43,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Exceptions\ReflectionLoadException.cs" />
-    <Compile Include="LogicModels\AssemblyModel.cs" />
+    <Compile Include="LogicModels\LogicAssemblyModel.cs" />
     <Compile Include="LogicModels\ExtensionMethods.cs" />
-    <Compile Include="LogicModels\MethodModel.cs" />
-    <Compile Include="LogicModels\NamespaceModel.cs" />
-    <Compile Include="LogicModels\ParameterModel.cs" />
-    <Compile Include="LogicModels\PropertyModel.cs" />
-    <Compile Include="LogicModels\TypeModel.cs" />
+    <Compile Include="LogicModels\LogicMethodModel.cs" />
+    <Compile Include="LogicModels\LogicNamespaceModel.cs" />
+    <Compile Include="LogicModels\LogicParameterModel.cs" />
+    <Compile Include="LogicModels\LogicPropertyModel.cs" />
+    <Compile Include="LogicModels\LogicTypeModel.cs" />
     <Compile Include="Models\AssemblyModel.cs" />
     <Compile Include="ExtensionMethods.cs" />
     <Compile Include="Models\MethodModel.cs" />
