@@ -1,4 +1,5 @@
 ﻿using Core.Constants;
+using Core.Model;
 using Reflection.Model;
 using ReflectionLoading.Models;
 using System.Text;
@@ -7,14 +8,14 @@ namespace UILogic.Model
 {
     public class TypeTreeItem : TreeItem
     {
-        private readonly TypeModel _typeModel;
+        private readonly BaseTypeModel _typeModel;
 
-        public TypeTreeItem(TypeModel typeModel) : base(GetModifiers(typeModel) + typeModel.Name)
+        public TypeTreeItem(BaseTypeModel typeModel) : base(GetModifiers(typeModel) + typeModel.Name)
         {
            _typeModel = typeModel;
         }
 
-        public static string GetModifiers(TypeModel model)
+        public static string GetModifiers(BaseTypeModel model)
         {
             StringBuilder builder = new StringBuilder();
             builder.Append(model.Accessibility.ToString().ToLower() + " ");

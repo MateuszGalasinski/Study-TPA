@@ -1,11 +1,12 @@
-﻿using ReflectionLoading.Models;
+﻿using Core.Model;
+using ReflectionLoading.Models;
 
 namespace UILogic.Model
 {
     public class PropertyTreeItem : TreeItem
     {
         
-        public PropertyModel PropertyModel { get; set; }
+        public BasePropertyModel PropertyModel { get; set; }
 
         public PropertyTreeItem(PropertyModel type, string name)
             : base(name)

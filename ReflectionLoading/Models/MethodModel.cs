@@ -6,32 +6,13 @@ using System.Linq;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Runtime.Serialization;
+using Core.Model;
 
 namespace ReflectionLoading.Models
 {
     [DataContract(Name = "MethodModel")]
-    public class MethodModel
+    public class MethodModel : BaseMethodModel
     {
-        [DataMember]
-        public string Name { get; set; }
-        [DataMember]
-        public List<TypeModel> GenericArguments { get; set; }
-        [DataMember]
-        public Accessibility Accessibility { get; set; }
-        [DataMember]
-        public IsSealed IsSealed { get; set; }
-        [DataMember]
-        public IsAbstract IsAbstract { get; set; }
-        [DataMember]
-        public IsStatic IsStatic { get; set; }
-        [DataMember]
-        public IsVirtual IsVirtual { get; set; }
-        [DataMember]
-        public TypeModel ReturnType { get; set; }
-        [DataMember]
-        public bool Extension { get; set; }
-        [DataMember]
-        public List<ParameterModel> Parameters { get; set; }
 
         public MethodModel(MethodBase method)
         {
@@ -43,20 +24,41 @@ namespace ReflectionLoading.Models
             Extension = EmitExtension(method);
         }
 
-        private List<TypeModel> EmitGenericArguments(MethodBase method)
+        private List<BaseTypeModel> EmitGenericArguments(MethodBase method)
         {
-            return method.GetGenericArguments().Select(t => new TypeModel(t)).ToList();
+            List<BaseTypeModel> typeModels = new List<BaseTypeModel>();
+            foreach (var genericArgument in method.GetGenericArguments())
+            {
+                typeModels.Add(new TypeModel(genericArgument));
+            }
+
+            return typeModels;
+            //return method.GetGenericArguments().Select(t => new TypeModel(t)).ToList();
         }
-        public static List<MethodModel> EmitMethods(Type type)
+        public static List<BaseMethodModel> EmitMethods(Type type)
         {
-            return type.GetMethods(BindingFlags.NonPublic | BindingFlags.DeclaredOnly | BindingFlags.Public |
-                                   BindingFlags.Static | BindingFlags.Instance).Select(t => new MethodModel(t)).ToList();
+            List<BaseMethodModel> methodModels = new List<BaseMethodModel>();
+            foreach (var methodInfo in type.GetMethods(BindingFlags.NonPublic | BindingFlags.DeclaredOnly | BindingFlags.Public |
+                                                     BindingFlags.Static | BindingFlags.Instance))
+            {
+                methodModels.Add(new MethodModel(methodInfo));
+            }
+
+            return methodModels;
+            //return type.GetMethods(BindingFlags.NonPublic | BindingFlags.DeclaredOnly | BindingFlags.Public |
+            //                       BindingFlags.Static | BindingFlags.Instance).Select(t => new BaseMethodModel(t)).ToList();
         }
-        private static List<ParameterModel> EmitParameters(MethodBase method)
+        private static List<BaseParameterModel> EmitParameters(MethodBase method)
         {
-            return method.GetParameters().Select(t => new ParameterModel(t.Name,TypeModel.EmitReference(t.ParameterType))).ToList( );
+            List<BaseParameterModel> parameterModels = new List<BaseParameterModel>();
+            foreach (var parameterInfo in method.GetParameters())
+            {
+                parameterModels.Add(new ParameterModel(parameterInfo.Name, TypeModel.EmitReference(parameterInfo.ParameterType)));
+            }
+            return parameterModels;
+            //return method.GetParameters().Select(t => new ParameterModel(t.Name, TypeModel.EmitReference(t.ParameterType))).ToList();
         }
-        private static TypeModel EmitReturnType(MethodBase method)
+        private static BaseTypeModel EmitReturnType(MethodBase method)
         {
             MethodInfo methodInfo = method as MethodInfo;
             if (methodInfo == null)
@@ -81,9 +83,15 @@ namespace ReflectionLoading.Models
             IsVirtual = method.IsVirtual ? IsVirtual.Virtual : IsVirtual.NotVirtual;
         }
 
-        public static List<MethodModel> EmitConstructors(Type type)
+        public static List<BaseMethodModel> EmitConstructors(Type type)
         {
-            return type.GetConstructors().Select(t => new MethodModel(t)).ToList();
+            List<BaseMethodModel> constuctorMethodModels = new List<BaseMethodModel>();
+            foreach (var constructorInfo in type.GetConstructors())
+            {
+                constuctorMethodModels.Add(new MethodModel(constructorInfo));
+            }
+            return constuctorMethodModels;
+            //return type.GetConstructors().Select(t => new MethodModel(t)).ToList();
         }
 
         public override bool Equals(object obj)
@@ -91,15 +99,15 @@ namespace ReflectionLoading.Models
             var model = obj as MethodModel;
             return model != null &&
                    Name == model.Name &&
-                   EqualityComparer<List<TypeModel>>.Default.Equals(GenericArguments, model.GenericArguments) &&
+                   EqualityComparer<List<BaseTypeModel>>.Default.Equals(GenericArguments, model.GenericArguments) &&
                    Accessibility == model.Accessibility &&
                    IsSealed == model.IsSealed &&
                    IsAbstract == model.IsAbstract &&
                    IsStatic == model.IsStatic &&
                    IsVirtual == model.IsVirtual &&
-                   EqualityComparer<TypeModel>.Default.Equals(ReturnType, model.ReturnType) &&
+                   EqualityComparer<BaseTypeModel>.Default.Equals(ReturnType, model.ReturnType) &&
                    Extension == model.Extension &&
-                   EqualityComparer<List<ParameterModel>>.Default.Equals(Parameters, model.Parameters);
+                   EqualityComparer<List<BaseParameterModel>>.Default.Equals(Parameters, model.Parameters);
         }
     }
 }

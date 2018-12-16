@@ -3,32 +3,34 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.Serialization;
+using Core.Model;
 
 namespace ReflectionLoading.Models
 {
     [DataContract(Name = "PropertyModel")]
-    public class PropertyModel
+    public class PropertyModel : BasePropertyModel
     {   
-        [DataMember]
-        public string Name { get; set; }
 
-        [DataMember]
-        public TypeModel Type { get; set; }
-
-        public PropertyModel(string name, TypeModel propertyType)
+        public PropertyModel(string name, BaseTypeModel propertyType)
         {
             Name = name;
             Type = propertyType;
         }
 
-        public static List<PropertyModel> EmitProperties(Type type)
+        public static List<BasePropertyModel> EmitProperties(Type type)
         {
             List<PropertyInfo> props = type
                 .GetProperties(BindingFlags.NonPublic | BindingFlags.DeclaredOnly | BindingFlags.Public |
                                BindingFlags.Static | BindingFlags.Instance).ToList();
+            List<BasePropertyModel> propertyModels = new List<BasePropertyModel>();
+            foreach (var propertyInfo in props.Where(t => t.GetGetMethod().GetVisible() || t.GetSetMethod().GetVisible()))
+            {
+                propertyModels.Add(new PropertyModel(propertyInfo.Name, TypeModel.EmitReference(propertyInfo.PropertyType)));
+            }
 
-            return props.Where(t => t.GetGetMethod().GetVisible() || t.GetSetMethod().GetVisible())
-                .Select(t => new PropertyModel(t.Name, TypeModel.EmitReference(t.PropertyType))).ToList(); 
+            return propertyModels;
+            //return props.Where(t => t.GetGetMethod().GetVisible() || t.GetSetMethod().GetVisible())
+            //    .Select(t => new PropertyModel(t.Name, TypeModel.EmitReference(t.PropertyType))).ToList(); 
         }
 
         public override bool Equals(object obj)
@@ -36,7 +38,7 @@ namespace ReflectionLoading.Models
             var model = obj as PropertyModel;
             return model != null &&
                    Name == model.Name &&
-                   EqualityComparer<TypeModel>.Default.Equals(Type, model.Type);
+                   EqualityComparer<BaseTypeModel>.Default.Equals(Type, model.Type);
         }
     }
 }

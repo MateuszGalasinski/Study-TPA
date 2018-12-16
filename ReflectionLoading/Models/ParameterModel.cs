@@ -1,19 +1,15 @@
 ﻿using ReflectionLoading.Models;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
+using Core.Model;
 
 namespace Reflection.Model
 {
     [DataContract(Name = "ParameterModel")]
-    public class ParameterModel : IParameterModel
+    public class ParameterModel : BaseParameterModel
     {        
-        [DataMember]
-        public string Name { get; set; }
 
-        [DataMember]
-        public TypeModel Type { get; set; }
-
-        public ParameterModel(string name, TypeModel typeModel)
+        public ParameterModel(string name, BaseTypeModel typeModel)
         {
             Name = name;
             Type = typeModel;
@@ -24,7 +20,7 @@ namespace Reflection.Model
             var model = obj as ParameterModel;
             return model != null &&
                    Name == model.Name &&
-                   EqualityComparer<TypeModel>.Default.Equals(Type, model.Type);
+                   EqualityComparer<BaseTypeModel>.Default.Equals(Type, model.Type);
         }
     }
 }

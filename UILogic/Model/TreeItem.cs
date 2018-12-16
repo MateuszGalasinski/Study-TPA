@@ -1,5 +1,6 @@
 ﻿using ReflectionLoading.Models;
 using System.Collections.ObjectModel;
+using Core.Model;
 
 namespace UILogic.Model
 {
@@ -36,14 +37,14 @@ namespace UILogic.Model
 
         protected abstract void LoadChildrenItems();
 
-        protected TypeModel GetOrAdd(TypeModel model)
+        protected TypeModel GetOrAdd(BaseTypeModel model)
         {
             if (!TypeModel.TypeDictionary.ContainsKey(model.Name))
             {
                 TypeModel.TypeDictionary.Add(model.Name, model);
             }
 
-            return TypeModel.TypeDictionary[model.Name];
+            return (TypeModel) TypeModel.TypeDictionary[model.Name];
         }
     }
 }

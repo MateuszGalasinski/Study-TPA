@@ -2,12 +2,13 @@
 using Reflection.Model;
 using ReflectionLoading.Models;
 using System.Text;
+using Core.Model;
 
 namespace UILogic.Model
 {
     public class MethodTreeItem : TreeItem
     {
-        public MethodModel MethodModel { get; set; }
+        public BaseMethodModel MethodModel { get; set; }
 
         public MethodTreeItem(MethodModel methodModel)
             : base(GetModifiers(methodModel) + methodModel.Name)

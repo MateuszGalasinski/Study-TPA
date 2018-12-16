@@ -1,10 +1,11 @@
-﻿using Reflection.Model;
+﻿using Core.Model;
+using Reflection.Model;
 
 namespace UILogic.Model
 {
     public class ParameterTreeItem : TreeItem
     {
-        public ParameterModel ParameterModel { get; set; }
+        public BaseParameterModel ParameterModel { get; set; }
 
         public ParameterTreeItem(ParameterModel parameterModel)
             : base(parameterModel.Name)

@@ -10,12 +10,6 @@ namespace Core.Model
         public string Name { get; set; }
         public BaseTypeModel Type { get; set; }
 
-        public BasePropertyModel(string name, BaseTypeModel propertyType)
-        {
-            Name = name;
-            Type = propertyType;
-        }
-
         public override bool Equals(object obj)
         {
             var model = obj as BasePropertyModel;
