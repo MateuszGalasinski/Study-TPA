@@ -2,16 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using System.Runtime.Serialization;
 using Core.Model;
 
 namespace ReflectionLoading.Models
 {
-    [DataContract(Name = "Customer")]
     public class AssemblyModel : BaseAssemblyModel
     {
-
-
         public AssemblyModel(Assembly assembly)
         {
             Name = assembly.ManifestModule.Name;
@@ -22,10 +18,6 @@ namespace ReflectionLoading.Models
             {
                 NamespaceModels.Add(new NamespaceModel(type.Key, type.ToList()));
             }
-                
-                //= types.Where(t => t.IsVisible).GroupBy(t => t.Namespace).OrderBy(t => t.Key)
-                //.Select(t => new NamespaceModel(t.Key, t.ToList())).ToList();
-
         }
 
         public override bool Equals(object obj)

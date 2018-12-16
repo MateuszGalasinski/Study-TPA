@@ -1,12 +1,14 @@
 ﻿using System.Collections.Generic;
-using Core.Model;
 
-namespace ReflectionLoading.Models
+namespace ReflectionLoading.LogicModels
 {
-    public class ParameterModel : BaseParameterModel
+    public class ParameterModel
     {        
+        public string Name { get; set; }
 
-        public ParameterModel(string name, BaseTypeModel typeModel)
+        public TypeModel Type { get; set; }
+
+        public ParameterModel(string name, TypeModel typeModel)
         {
             Name = name;
             Type = typeModel;
@@ -17,7 +19,7 @@ namespace ReflectionLoading.Models
             var model = obj as ParameterModel;
             return model != null &&
                    Name == model.Name &&
-                   EqualityComparer<BaseTypeModel>.Default.Equals(Type, model.Type);
+                   EqualityComparer<TypeModel>.Default.Equals(Type, model.Type);
         }
     }
 }

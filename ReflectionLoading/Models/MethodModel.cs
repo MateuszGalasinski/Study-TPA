@@ -1,19 +1,14 @@
 ﻿using Core.Constants;
-using Reflection.Model;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
 using System.Runtime.CompilerServices;
-using System.Runtime.Serialization;
 using Core.Model;
 
 namespace ReflectionLoading.Models
 {
-    [DataContract(Name = "MethodModel")]
     public class MethodModel : BaseMethodModel
     {
-
         public MethodModel(MethodBase method)
         {
             Name = method.Name;

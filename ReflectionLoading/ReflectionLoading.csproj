@@ -43,6 +43,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Exceptions\ReflectionLoadException.cs" />
+    <Compile Include="LogicModels\AssemblyModel.cs" />
+    <Compile Include="LogicModels\ExtensionMethods.cs" />
+    <Compile Include="LogicModels\MethodModel.cs" />
+    <Compile Include="LogicModels\NamespaceModel.cs" />
+    <Compile Include="LogicModels\ParameterModel.cs" />
+    <Compile Include="LogicModels\PropertyModel.cs" />
+    <Compile Include="LogicModels\TypeModel.cs" />
     <Compile Include="Models\AssemblyModel.cs" />
     <Compile Include="ExtensionMethods.cs" />
     <Compile Include="Models\MethodModel.cs" />
@@ -59,5 +66,6 @@
       <Name>Core</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

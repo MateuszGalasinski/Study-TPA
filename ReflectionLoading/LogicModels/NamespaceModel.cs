@@ -1,21 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Core.Model;
 
-namespace ReflectionLoading.Models
+namespace ReflectionLoading.LogicModels
 {
-    public class NamespaceModel : BaseNamespaceModel
+    public class NamespaceModel
     {
+        public string Name { get; set; }
+        
+        public List<TypeModel> Types { get; set; }
+
         public NamespaceModel(string name, List<Type> types)
         {
             Name = name;
-            Types = new List<BaseTypeModel>();
-
-            foreach (var type in types.OrderBy(t => t.Name))
-            {
-                Types.Add(new TypeModel(type));
-            }
+            Types = types.OrderBy(t => t.Name).Select(t => new TypeModel(t)).ToList();
         }
 
         public override bool Equals(object obj)
@@ -23,7 +21,7 @@ namespace ReflectionLoading.Models
             var model = obj as NamespaceModel;
             return model != null &&
                    Name == model.Name &&
-                   EqualityComparer<List<BaseTypeModel>>.Default.Equals(Types, model.Types);
+                   EqualityComparer<List<TypeModel>>.Default.Equals(Types, model.Types);
         }
     }
 }
