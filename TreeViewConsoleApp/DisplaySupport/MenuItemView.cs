@@ -34,7 +34,7 @@ namespace TreeViewConsoleApp.DisplaySupport
                 DisplayElements();
                 while (!correctOption)
                 {
-                    Console.WriteLine("Choose node to expand: \n0 to go back \n-1 to exit to menu ");
+                    Console.WriteLine("\nChoose node to expand: \n0 to go back \n-1 to exit to menu ");
                     string choice = Console.ReadLine();
                     int number;
                     while (!int.TryParse(choice, out number))

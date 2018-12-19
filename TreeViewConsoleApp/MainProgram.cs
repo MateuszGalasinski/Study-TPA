@@ -1,5 +1,5 @@
-﻿using ReflectionLoading;
-using System;
+﻿using System;
+using UILogic.Services;
 using UILogic.ViewModel;
 
 namespace TreeViewConsoleApp
@@ -8,7 +8,9 @@ namespace TreeViewConsoleApp
     {
         public static void Main(string[] args)
         {
-            MainView mainView = new MainView(new MainViewModel(new ConsoleFilePathGetter(), new AssemblyManager()));
+            MainViewModel mainViewModel = Composer.GetComposedMainViewModel(new ConsoleFilePathGetter());
+
+            MainView mainView = new MainView(mainViewModel);
 
             mainView.List();
 
