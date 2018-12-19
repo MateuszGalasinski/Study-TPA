@@ -5,8 +5,6 @@ namespace ReflectionLoading
 {
     public class Reflector
     {
-        public AssemblyModel AssemblyLogicReader { get; }
-
         public AssemblyModel LoadAssembly(string assemblyPath)
         {
             if (string.IsNullOrEmpty(assemblyPath))

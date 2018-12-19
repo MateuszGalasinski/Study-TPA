@@ -12,7 +12,7 @@ namespace UILogic.Services
         public static MainViewModel GetComposedMainViewModel(
             IFilePathGetter filePathGetter)
         {
-            MainViewModel mvm = new MainViewModel(filePathGetter, new AssemblyManager());
+            MainViewModel mainViewModel = new MainViewModel(filePathGetter, new AssemblyManager());
 
             AggregateCatalog catalog = new AggregateCatalog();
             catalog.Catalogs.Add(new DirectoryCatalog("../../../Logging/bin/Debug"));
@@ -20,17 +20,15 @@ namespace UILogic.Services
 
             try
             {
-                container.ComposeParts(mvm);
-                mvm.AssemblyManager = AssemblyManager.GetComposed();
+                container.ComposeParts(mainViewModel);
+                mainViewModel.AssemblyManager = AssemblyManager.GetComposed();
             }
             catch (CompositionException compositionException)
             {
                 throw new ApplicationException("Could not compose application successfully. ", compositionException);
             }
 
-           
-
-            return mvm;
+            return mainViewModel;
         }
     }
 }
