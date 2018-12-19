@@ -47,7 +47,7 @@ namespace ReflectionLoading
             AssemblyManager assemblyManager = new AssemblyManager();
 
             AggregateCatalog catalog = new AggregateCatalog();
-            catalog.Catalogs.Add(new DirectoryCatalog("../../../XmlSerialization/bin/Debug"));
+            catalog.Catalogs.Add(new DirectoryCatalog("../../../Serialization/bin/Debug"));
             CompositionContainer container = new CompositionContainer(catalog);
 
             container.ComposeParts(assemblyManager);
