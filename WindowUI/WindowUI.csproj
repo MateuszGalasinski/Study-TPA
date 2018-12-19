@@ -106,14 +106,6 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\BaseCore\BaseCore.csproj">
-      <Project>{D15AB0DE-9C0B-4109-8019-2D30BEA7C666}</Project>
-      <Name>BaseCore</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Logging\Logging.csproj">
-      <Project>{7F8ECDD4-A05B-4117-B9FA-26358C9510F3}</Project>
-      <Name>Logging</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Logic\Logic.csproj">
       <Project>{B791455B-4966-4459-96CC-A9B603193AB7}</Project>
       <Name>Logic</Name>
