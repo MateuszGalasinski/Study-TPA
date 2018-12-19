@@ -1,5 +1,6 @@
-﻿using NUnit.Framework;
-using ReflectionLoading.Models;
+﻿using BaseCore.Model;
+using NUnit.Framework;
+using ReflectionLoading;
 using System;
 using System.IO;
 using System.Reflection;
@@ -12,7 +13,7 @@ namespace XmlSerialization.Tests.Given_XmlMetadataSerializer
         protected XmlDataContractSerializer _context;
         protected string FilePath;
         protected string ResultPath;
-        protected AssemblyModel Root;
+        protected AssemblyBase Root;
 
         [SetUp]
         public void Given()
@@ -36,11 +37,11 @@ namespace XmlSerialization.Tests.Given_XmlMetadataSerializer
 
         protected void With_AssemblyFromFilePath()
         {
+            Reflector reflector = new Reflector();
             if (string.IsNullOrEmpty(FilePath))
                 throw new System.ArgumentNullException();
             Assembly assembly = Assembly.LoadFrom(FilePath);
-            TypeModel.TypeDictionary.Clear();
-            Root = new AssemblyModel(assembly);
+            Root = reflector.LoadAssembly(FilePath);
         }
     }
 }

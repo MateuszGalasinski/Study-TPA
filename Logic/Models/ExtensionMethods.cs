@@ -1,6 +1,12 @@
-﻿using Logic.Enums;
+﻿using BaseCore.Enums;
+using Logic.Enums;
 using System;
 using System.Reflection;
+using IsAbstract = BaseCore.Enums.IsAbstract;
+using IsSealed = BaseCore.Enums.IsSealed;
+using IsStatic = BaseCore.Enums.IsStatic;
+using IsVirtual = BaseCore.Enums.IsVirtual;
+using TypeKind = BaseCore.Enums.TypeKind;
 
 namespace Logic.Models
 {
@@ -22,40 +28,40 @@ namespace Logic.Models
             return ns ?? string.Empty;
         }
 
-        internal static IsAbstract ToLogicEnum(this Base.Enums.AbstractEnum baseEnum)
+        internal static Enums.IsAbstract ToLogicEnum(this IsAbstract baseEnum)
         {
             switch (baseEnum)
             {
-                case Base.Enums.AbstractEnum.Abstract:
-                    return IsAbstract.Abstract;
+                case IsAbstract.Abstract:
+                    return Enums.IsAbstract.Abstract;
 
-                case Base.Enums.AbstractEnum.NotAbstract:
-                    return IsAbstract.NotAbstract;
+                case IsAbstract.NotAbstract:
+                    return Enums.IsAbstract.NotAbstract;
                 default:
                      throw new Exception();
             }
         }
 
-        internal static Accessibility ToLogicEnum(this Base.Enums.AccessLevel baseEnum)
+        internal static Accessibility ToLogicEnum(this AccessLevel baseEnum)
         {
             switch (baseEnum)
             {
-                case Base.Enums.AccessLevel.Default:
+                case AccessLevel.Default:
                     return Accessibility.Default;
 
-                case Base.Enums.AccessLevel.Internal:
+                case AccessLevel.Internal:
                     return Accessibility.Internal;
 
-                case Base.Enums.AccessLevel.IsPrivate:
+                case AccessLevel.IsPrivate:
                     return Accessibility.IsPrivate;
 
-                case Base.Enums.AccessLevel.IsProtected:
+                case AccessLevel.IsProtected:
                     return Accessibility.IsProtected;
 
-                case Base.Enums.AccessLevel.IsProtectedInternal:
+                case AccessLevel.IsProtectedInternal:
                     return Accessibility.IsProtectedInternal;
 
-                case Base.Enums.AccessLevel.IsPublic:
+                case AccessLevel.IsPublic:
                     return Accessibility.IsPublic;
 
                 default:
@@ -63,60 +69,60 @@ namespace Logic.Models
             }
         }
 
-        internal static IsSealed ToLogicEnum(this Base.Enums.SealedEnum baseEnum)
+        internal static Enums.IsSealed ToLogicEnum(this IsSealed baseEnum)
         {
             switch (baseEnum)
             {
-                case Base.Enums.SealedEnum.NotSealed:
-                    return IsSealed.NotSealed;
+                case IsSealed.NotSealed:
+                    return Enums.IsSealed.NotSealed;
 
-                case Base.Enums.SealedEnum.Sealed:
-                    return IsSealed.Sealed;
+                case IsSealed.Sealed:
+                    return Enums.IsSealed.Sealed;
                 default:
                     throw new Exception();
             }
         }
 
-        internal static IsStatic ToLogicEnum(this Base.Enums.StaticEnum baseEnum)
+        internal static Enums.IsStatic ToLogicEnum(this IsStatic baseEnum)
         {
             switch (baseEnum)
             {
-                case Base.Enums.StaticEnum.Static:
-                    return IsStatic.Static;
+                case IsStatic.Static:
+                    return Enums.IsStatic.Static;
 
-                case Base.Enums.StaticEnum.NotStatic:
-                    return IsStatic.NotStatic;
+                case IsStatic.NotStatic:
+                    return Enums.IsStatic.NotStatic;
                 default:
                     throw new Exception();
             }
         }
 
-        internal static TypeKind ToLogicEnum(this Base.Enums.TypeKind baseEnum)
+        internal static Enums.TypeKind ToLogicEnum(this TypeKind baseEnum)
         {
             switch (baseEnum)
             {
-                case Base.Enums.TypeKind.ClassType:
-                    return TypeKind.ClassType;
-                case Base.Enums.TypeKind.EnumType:
-                    return TypeKind.EnumType;
-                case Base.Enums.TypeKind.InterfaceType:
-                    return TypeKind.InterfaceType;
-                case Base.Enums.TypeKind.StructType:
-                    return TypeKind.StructType;
+                case TypeKind.ClassType:
+                    return Enums.TypeKind.ClassType;
+                case TypeKind.EnumType:
+                    return Enums.TypeKind.EnumType;
+                case TypeKind.InterfaceType:
+                    return Enums.TypeKind.InterfaceType;
+                case TypeKind.StructType:
+                    return Enums.TypeKind.StructType;
 
                 default:
                     throw new Exception();
             }
         }
-        internal static IsVirtual ToLogicEnum(this Base.Enums.VirtualEnum baseEnum)
+        internal static Enums.IsVirtual ToLogicEnum(this IsVirtual baseEnum)
         {
             switch (baseEnum)
             {
-                case Base.Enums.VirtualEnum.NotVirtual:
-                    return IsVirtual.NotVirtual;
+                case IsVirtual.NotVirtual:
+                    return Enums.IsVirtual.NotVirtual;
 
-                case Base.Enums.VirtualEnum.Virtual:
-                    return IsVirtual.Virtual;
+                case IsVirtual.Virtual:
+                    return Enums.IsVirtual.Virtual;
                 default:
                     throw new Exception();
             }

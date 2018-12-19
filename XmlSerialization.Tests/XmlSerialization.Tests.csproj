@@ -67,6 +67,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\BaseCore\BaseCore.csproj">
+      <Project>{D15AB0DE-9C0B-4109-8019-2D30BEA7C666}</Project>
+      <Name>BaseCore</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ReflectionLoading\ReflectionLoading.csproj">
       <Project>{906B8659-9FD6-47F0-AC87-A83D2EAA8D46}</Project>
       <Name>ReflectionLoading</Name>

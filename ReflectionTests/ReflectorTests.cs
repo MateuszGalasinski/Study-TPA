@@ -1,8 +1,8 @@
-﻿using Core.Constants;
-using FluentAssertions;
+﻿using FluentAssertions;
+using Logic.Enums;
+using Logic.Models;
 using NUnit.Framework;
 using ReflectionLoading;
-using ReflectionLoading.Models;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -16,7 +16,8 @@ namespace ReflectionTests
         public const string FirstNamespace = "TestLibrary.FirstNamespace";
         private const string SecondNamespace = "TestLibrary.SecondNamespace";
         private const string ThirdNamespace = "TestLibrary.ThirdNamespace";
-        private AssemblyManager _reflector;
+        private Reflector _reflector;
+        private AssemblyModel assemblyModel;
 
         [SetUp]
         public void SetUp()
@@ -25,35 +26,36 @@ namespace ReflectionTests
                 Directory.GetParent(AppDomain.CurrentDomain.BaseDirectory).Parent.Parent.FullName,
                 @"Resources\TestLibrary.dll");
 
-            _reflector = new AssemblyManager(testFilePath);
+            _reflector = new Reflector();
+            assemblyModel = _reflector.LoadAssembly(testFilePath);
         }
 
         [Test]
         public void When_ReflectorConstructorCalled_NumberOfNamespacesShouldBeFour()
         {
-            _reflector.AssemblyModel.NamespaceModels.Count.Should().Be(4);
+            assemblyModel.NamespaceModels.Count.Should().Be(4);
         }
 
         [Test]
         public void When_ReflectorConstructorCalled_Expect_CorrectNumberOfTypes()
         {
-            List<TypeModel> baseNamespace = _reflector.AssemblyModel.NamespaceModels.Find(t => t.Name == BaseNamespace).Types;
+            List<TypeModel> baseNamespace = assemblyModel.NamespaceModels.Find(t => t.Name == BaseNamespace).Types;
             baseNamespace.Count.Should().Be(2);
 
-            List<TypeModel> firstNamespace = _reflector.AssemblyModel.NamespaceModels.Find(t => t.Name == FirstNamespace).Types;
+            List<TypeModel> firstNamespace = assemblyModel.NamespaceModels.Find(t => t.Name == FirstNamespace).Types;
             firstNamespace.Count.Should().Be(4);
 
-            List<TypeModel> secondNamespace = _reflector.AssemblyModel.NamespaceModels.Find(t => t.Name == SecondNamespace).Types;
+            List<TypeModel> secondNamespace = assemblyModel.NamespaceModels.Find(t => t.Name == SecondNamespace).Types;
             secondNamespace.Count.Should().Be(1);
 
-            List<TypeModel> thirdNamespace = _reflector.AssemblyModel.NamespaceModels.Find(t => t.Name == ThirdNamespace).Types;
+            List<TypeModel> thirdNamespace = assemblyModel.NamespaceModels.Find(t => t.Name == ThirdNamespace).Types;
             thirdNamespace.Count.Should().Be(3);
         }
 
         [Test]
         public void When_ReflectorConstructorCalled_Expect_CorrectNumberOfPropertiesInClass()
         {
-            List<TypeModel> classes = _reflector.AssemblyModel.NamespaceModels
+            List<TypeModel> classes = assemblyModel.NamespaceModels
                 .Find(t => t.Name == ThirdNamespace).Types.Where(t => t.Name == "CircularA").ToList();
             classes.First().Properties.Count.Should().Be(1);
         }
@@ -61,7 +63,7 @@ namespace ReflectionTests
         [Test]
         public void When_ReflectorConstructorCalled_Expect_CorrectNumberOfMethodsInClass()
         {
-            List<TypeModel> classes = _reflector.AssemblyModel.NamespaceModels
+            List<TypeModel> classes = assemblyModel.NamespaceModels
                 .Find(t => t.Name == FirstNamespace).Types.Where(t => t.Name == "CModel").ToList();
             classes.First().Methods.Count.Should().Be(2);
         }
@@ -69,7 +71,7 @@ namespace ReflectionTests
         [Test]
         public void When_ReflectorConstructorCalled_Expect_CorrectNumberOfFieldsInClass()
         {
-            List<TypeModel> classes = _reflector.AssemblyModel.NamespaceModels
+            List<TypeModel> classes = assemblyModel.NamespaceModels
                 .Find(t => t.Name == BaseNamespace).Types.Where(t => t.Name == "BModel").ToList();
             classes.First().Fields.Count.Should().Be(3);
         }
@@ -77,7 +79,7 @@ namespace ReflectionTests
         [Test]
         public void When_ReflectorConstructorCalled_Expect_CorrectAbstractClasses()
         {
-            List<TypeModel> abstractClasses = _reflector.AssemblyModel.NamespaceModels
+            List<TypeModel> abstractClasses = assemblyModel.NamespaceModels
                 .Find(t => t.Name == FirstNamespace).Types
                 .Where(t => t.IsAbstract == IsAbstract.Abstract).ToList();
             abstractClasses.Count.Should().Be(1);
@@ -86,7 +88,7 @@ namespace ReflectionTests
         [Test]
         public void When_ReflectorConstructorCalled_Expect_CorrectNumberOfStaticClasses()
         {
-            List<TypeModel> statics = _reflector.AssemblyModel.NamespaceModels
+            List<TypeModel> statics = assemblyModel.NamespaceModels
                 .Find(t => t.Name == BaseNamespace).Types
                 .Where(t => t.IsStatic == IsStatic.Static).ToList();
             statics.Count.Should().Be(1);
@@ -95,7 +97,7 @@ namespace ReflectionTests
         [Test]
         public void When_ReflectorConstructorCalled_Expect_CorrectNumberOfClassesThatInherits()
         {
-            List<TypeModel> classesThatInherits = _reflector.AssemblyModel.NamespaceModels
+            List<TypeModel> classesThatInherits = assemblyModel.NamespaceModels
                 .Find(t => t.Name == FirstNamespace).Types.Where(t => t.BaseType != null).ToList();
             classesThatInherits.Count.Should().Be(2);
         }
@@ -103,7 +105,7 @@ namespace ReflectionTests
         [Test]
         public void When_ReflectorConstructorCalled_Expect_CorrectNumberOfGenericArguments()
         {
-            List<TypeModel> genericClasses = _reflector.AssemblyModel.NamespaceModels
+            List<TypeModel> genericClasses = assemblyModel.NamespaceModels
                 .Find(t => t.Name == SecondNamespace).Types.Where(t => t.GenericArguments != null)
                 .ToList();
             genericClasses.Count.Should().Be(1);

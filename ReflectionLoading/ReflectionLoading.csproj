@@ -43,14 +43,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DataTransferGraphMapper.cs" />
-    <Compile Include="Enums\AbstractEnum.cs" />
-    <Compile Include="Enums\AccessLevel.cs" />
-    <Compile Include="Enums\SealedEnum.cs" />
-    <Compile Include="Enums\StaticEnum.cs" />
-    <Compile Include="Enums\TypeKind.cs" />
-    <Compile Include="Enums\VirtualEnum.cs" />
     <Compile Include="Exceptions\ReflectionLoadException.cs" />
-    <Compile Include="MapperExtensionMethods.cs" />
+    <Compile Include="EnumExtensionMethods.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="AssemblyManager.cs" />
     <Compile Include="Reflector.cs" />

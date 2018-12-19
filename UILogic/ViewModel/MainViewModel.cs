@@ -27,10 +27,7 @@ namespace UILogic.ViewModel
 
         public bool IsExecuting
         {
-            get
-            {
-                return _isExecuting;
-            }
+            get => _isExecuting;
 
             private set
             {

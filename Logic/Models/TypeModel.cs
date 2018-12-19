@@ -1,4 +1,4 @@
-﻿using Base.Model;
+﻿using BaseCore.Model;
 using Logic.Enums;
 using System;
 using System.Collections.Generic;

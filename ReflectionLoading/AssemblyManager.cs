@@ -1,5 +1,5 @@
-﻿using Base.Model;
-using BaseCore;
+﻿using BaseCore;
+using BaseCore.Model;
 using Logic.Models;
 using System;
 

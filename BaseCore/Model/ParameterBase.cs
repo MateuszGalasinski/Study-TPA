@@ -1,4 +1,4 @@
-﻿namespace Base.Model
+﻿namespace BaseCore.Model
 {
     public class ParameterBase
     {

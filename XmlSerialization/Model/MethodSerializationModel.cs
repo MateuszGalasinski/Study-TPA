@@ -1,5 +1,5 @@
-﻿using Base.Enums;
-using Base.Model;
+﻿using BaseCore.Enums;
+using BaseCore.Model;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
@@ -38,13 +38,13 @@ namespace XmlSerialization.Model
         public AccessLevel AccessLevel { get; set; }
 
         [DataMember]
-        public AbstractEnum AbstractEnum { get; set; }
+        public IsAbstract AbstractEnum { get; set; }
 
         [DataMember]
-        public StaticEnum StaticEnum { get; set; }
+        public IsStatic StaticEnum { get; set; }
 
         [DataMember]
-        public VirtualEnum VirtualEnum { get; set; }
+        public IsVirtual VirtualEnum { get; set; }
 
         [DataMember]
         public TypeSerializationModel ReturnType { get; set; }

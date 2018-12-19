@@ -1,7 +1,7 @@
-﻿using Base.Enums;
+﻿using BaseCore.Enums;
 using System.Collections.Generic;
 
-namespace Base.Model
+namespace BaseCore.Model
 {
     public class TypeBase
     {
@@ -16,11 +16,11 @@ namespace Base.Model
 
         public AccessLevel AccessLevel { get; set; }
 
-        public AbstractEnum AbstractEnum { get; set; }
+        public IsAbstract AbstractEnum { get; set; }
 
-        public StaticEnum StaticEnum { get; set; }
+        public IsStatic StaticEnum { get; set; }
 
-        public SealedEnum SealedEnum { get; set; }
+        public IsSealed SealedEnum { get; set; }
 
         public TypeKind Type { get; set; }
 

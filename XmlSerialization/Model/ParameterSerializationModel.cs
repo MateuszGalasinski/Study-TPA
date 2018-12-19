@@ -1,4 +1,4 @@
-﻿using Base.Model;
+﻿using BaseCore.Model;
 using System.Runtime.Serialization;
 
 namespace XmlSerialization.Model

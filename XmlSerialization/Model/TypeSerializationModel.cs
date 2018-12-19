@@ -1,5 +1,5 @@
-﻿using Base.Enums;
-using Base.Model;
+﻿using BaseCore.Enums;
+using BaseCore.Model;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
@@ -14,7 +14,7 @@ namespace XmlSerialization.Model
 
         }
 
-        private TypeSerializationModel(Base.Model.TypeBase baseType)
+        private TypeSerializationModel(TypeBase baseType)
         {
             this.Name = baseType.Name;
             TypeDictionary.Add(Name, this);
@@ -78,13 +78,13 @@ namespace XmlSerialization.Model
         public AccessLevel AccessLevel { get; set; }
 
         [DataMember]
-        public AbstractEnum AbstractEnum { get; set; }
+        public IsAbstract AbstractEnum { get; set; }
 
         [DataMember]
-        public StaticEnum StaticEnum { get; set; }
+        public IsStatic StaticEnum { get; set; }
 
         [DataMember]
-        public SealedEnum SealedEnum { get; set; }
+        public IsSealed SealedEnum { get; set; }
 
         [DataMember]
         public TypeKind Type { get; set; }

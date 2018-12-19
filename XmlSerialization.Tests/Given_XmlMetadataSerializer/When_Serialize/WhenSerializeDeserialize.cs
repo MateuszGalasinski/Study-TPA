@@ -1,6 +1,6 @@
-﻿using FluentAssertions;
+﻿using BaseCore.Model;
+using FluentAssertions;
 using NUnit.Framework;
-using ReflectionLoading.Models;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
@@ -9,8 +9,8 @@ namespace XmlSerialization.Tests.Given_XmlMetadataSerializer.When_Serialize
 {
     public class WhenSerializeDeserialize : GivenXmlDataContractSerializer
     {
-        private Task<AssemblyModel> _when;
-        public void When_SerializeDeserialize(AssemblyModel model)
+        private Task<AssemblyBase> _when;
+        public void When_SerializeDeserialize(AssemblyBase model)
         {
             try
             {
@@ -35,11 +35,11 @@ namespace XmlSerialization.Tests.Given_XmlMetadataSerializer.When_Serialize
             Result_Should_BeEquivalent(Root);
         }
 
-        private void Result_Should_BeEquivalent(AssemblyModel root)
+        private void Result_Should_BeEquivalent(AssemblyBase root)
         {
             _when.Result.Name.Should().BeEquivalentTo(root.Name);
-            _when.Result.NamespaceModels.Should().HaveSameCount(root.NamespaceModels);
-            _when.Result.NamespaceModels.Should().OnlyContain(p => root.NamespaceModels.Count(n => n.Name == p.Name) == 1);
+            _when.Result.Namespaces.Should().HaveSameCount(root.Namespaces);
+            _when.Result.Namespaces.Should().OnlyContain(p => root.Namespaces.Count(n => n.Name == p.Name) == 1);
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿using Base.Model;
+﻿using BaseCore.Model;
 
 namespace Logic.Models
 {

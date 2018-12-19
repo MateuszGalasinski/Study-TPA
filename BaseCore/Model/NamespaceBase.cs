@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Base.Model
+namespace BaseCore.Model
 {
     public class NamespaceBase
     {

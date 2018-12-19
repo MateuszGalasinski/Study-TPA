@@ -37,7 +37,7 @@ namespace Logic.Models
             Extension = EmitExtension(method);
         }
 
-        public MethodModel(Base.Model.MethodBase baseMethod)
+        public MethodModel(BaseCore.Model.MethodBase baseMethod)
         {
             this.Name = baseMethod.Name;
             this.IsAbstract = baseMethod.AbstractEnum.ToLogicEnum();

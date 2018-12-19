@@ -1,4 +1,4 @@
-﻿namespace Base.Enums
+﻿namespace BaseCore.Enums
 {
     public enum TypeKind
     {
