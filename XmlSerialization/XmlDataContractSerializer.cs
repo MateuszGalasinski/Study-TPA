@@ -1,15 +1,15 @@
-﻿using Core.Components;
-using ReflectionLoading.Models;
+﻿using Base.Model;
+using Core.Components;
 using System.IO;
 using System.Runtime.Serialization;
 
 namespace XmlSerialization
 {
-    public class XmlDataContractSerializer : ISerializator<AssemblyModel>
+    public class XmlDataContractSerializer : ISerializator<AssemblyBase>
     {
-        private readonly DataContractSerializer _serializer = new DataContractSerializer(typeof(AssemblyModel));
+        private readonly DataContractSerializer _serializer = new DataContractSerializer(typeof(AssemblyBase));
 
-        public void Serialize(AssemblyModel root, string filePath)
+        public void Serialize(AssemblyBase root, string filePath)
         {
             using (FileStream writer = new FileStream(filePath, FileMode.OpenOrCreate))
             {
@@ -17,11 +17,11 @@ namespace XmlSerialization
             }
         }
 
-        public AssemblyModel Deserialize(string filePath)
+        public AssemblyBase Deserialize(string filePath)
         {
             using (FileStream reader = new FileStream(filePath, FileMode.Open))
             {
-                return (AssemblyModel)_serializer.ReadObject(reader);
+                return (AssemblyBase)_serializer.ReadObject(reader);
             }
         }
     }

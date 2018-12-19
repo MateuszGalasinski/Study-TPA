@@ -3,14 +3,18 @@ using ReflectionLoading.Models;
 using System;
 using System.IO;
 using System.Reflection;
+using Base.Model;
+using Core.Components;
 
 namespace ReflectionLoading
 {
-    public class Reflector
+    public class AssemblyManager
     {
         public AssemblyModel AssemblyModel { get; private set; }
 
-        public Reflector(string assemblyPath)
+        private ISerializator<AssemblyBase>
+
+        public void LoadAssembly(string assemblyPath)
         {
             try
             {
@@ -29,13 +33,14 @@ namespace ReflectionLoading
                 throw new ReflectionLoadException("Error occured during assembly loading.", e);
             }
         }
-        public Reflector(AssemblyModel assemblyModel)
+
+        public void LoadAssembly(AssemblyModel assemblyModel)
         {
             try
             {
                 if (assemblyModel == null)
                 {
-                    throw new System.ArgumentNullException("Deserialized AssemblyModel is null");
+                    throw new ArgumentNullException("Deserialized AssemblyModel is null");
                 }
                 TypeModel.TypeDictionary.Clear();
                 assemblyModel.NamespaceModels.ForEach(n => n.Types.ForEach(t => TypeModel.TypeDictionary.Add(t.Name, t)));
@@ -45,6 +50,16 @@ namespace ReflectionLoading
             {
                 throw new ReflectionLoadException("Could not deserialize", e);
             }
+        }
+
+        public void SaveAssembly()
+        {
+
+        }
+
+        public void LoadAssemblyFromStorage()
+        {
+
         }
     }
 }

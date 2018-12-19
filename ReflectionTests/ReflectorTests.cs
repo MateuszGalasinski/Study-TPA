@@ -16,7 +16,7 @@ namespace ReflectionTests
         public const string FirstNamespace = "TestLibrary.FirstNamespace";
         private const string SecondNamespace = "TestLibrary.SecondNamespace";
         private const string ThirdNamespace = "TestLibrary.ThirdNamespace";
-        private Reflector _reflector;
+        private AssemblyManager _reflector;
 
         [SetUp]
         public void SetUp()
@@ -25,7 +25,7 @@ namespace ReflectionTests
                 Directory.GetParent(AppDomain.CurrentDomain.BaseDirectory).Parent.Parent.FullName,
                 @"Resources\TestLibrary.dll");
 
-            _reflector = new Reflector(testFilePath);
+            _reflector = new AssemblyManager(testFilePath);
         }
 
         [Test]

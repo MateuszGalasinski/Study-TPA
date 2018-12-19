@@ -51,7 +51,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Components\ILogger.cs" />
-    <Compile Include="Components\ISerializator.cs" />
     <Compile Include="Constants\Accessibility.cs" />
     <Compile Include="Constants\IsAbstract.cs" />
     <Compile Include="Constants\IsSealed.cs" />
