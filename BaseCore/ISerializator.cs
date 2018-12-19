@@ -1,4 +1,4 @@
-﻿namespace Core.Components
+﻿namespace BaseCore
 {
     public interface ISerializator<T>
     {

@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28010.2048
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core", "Core\Core.csproj", "{EF10C052-5948-4AE9-81FD-72AD7BD610A2}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TreeViewConsoleApp", "TreeViewConsoleApp\TreeViewConsoleApp.csproj", "{8629D610-3CD7-475C-BDC7-01EE1740D589}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WindowUI", "WindowUI\WindowUI.csproj", "{E859F062-67F7-4ED4-8677-D2B10152858A}"
@@ -37,10 +35,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{EF10C052-5948-4AE9-81FD-72AD7BD610A2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{EF10C052-5948-4AE9-81FD-72AD7BD610A2}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{EF10C052-5948-4AE9-81FD-72AD7BD610A2}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{EF10C052-5948-4AE9-81FD-72AD7BD610A2}.Release|Any CPU.Build.0 = Release|Any CPU
 		{8629D610-3CD7-475C-BDC7-01EE1740D589}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{8629D610-3CD7-475C-BDC7-01EE1740D589}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8629D610-3CD7-475C-BDC7-01EE1740D589}.Release|Any CPU.ActiveCfg = Release|Any CPU

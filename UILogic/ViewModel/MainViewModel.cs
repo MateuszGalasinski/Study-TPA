@@ -1,7 +1,6 @@
-﻿using Core.Components;
+﻿using Logic.Components;
 using ReflectionLoading;
 using ReflectionLoading.Exceptions;
-using ReflectionLoading.Models;
 using System;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
@@ -15,8 +14,7 @@ namespace UILogic.ViewModel
     {
         private readonly IFilePathGetter _filePathGetter;
         private readonly ILogger _logger;
-        private readonly ISerializator<AssemblyModel> _serializator;
-        private AssemblyManager _reflector;
+        private AssemblyManager _assemblyManager;
         private ObservableCollection<TreeItem> _metadataTree;
         private readonly object _openSyncLock = new object();
         private bool _isExecuting;
@@ -55,11 +53,11 @@ namespace UILogic.ViewModel
             set => SetProperty(ref _filePath, value);
         }
 
-        public MainViewModel(IFilePathGetter filePathGetter, ILogger logger, ISerializator<AssemblyModel> serializator)
+        public MainViewModel(IFilePathGetter filePathGetter, ILogger logger, AssemblyManager assemblyManager)
         {
             _logger = logger;
             _filePathGetter = filePathGetter;
-            _serializator = serializator;
+            _assemblyManager = assemblyManager;
             MetadataTree = new ObservableCollection<TreeItem>();
             LoadMetadataCommand = new RelayCommand(Open, () => !_isExecuting);
             GetFilePathCommand = new RelayCommand(GetFilePath, () => !_isExecuting);
@@ -112,11 +110,11 @@ namespace UILogic.ViewModel
                     _logger.Trace("Beginning reflection subroutine...");
                     if (FilePath.EndsWith(".xml"))
                     {
-                        _reflector = new AssemblyManager(_serializator.Deserialize(FilePath));
+                        _assemblyManager.LoadAssemblyFromStorage(FilePath);
                     }
                     else if (FilePath.EndsWith(".dll"))
                     {
-                        _reflector = new AssemblyManager(FilePath);
+                        _assemblyManager.LoadAssemblyFromLibrary(FilePath);
                     }
                     _logger.Trace("Reflection subroutine finished successfully!");
                 }
@@ -126,13 +124,13 @@ namespace UILogic.ViewModel
                 }
             }).ConfigureAwait(true);
 
-            if (_reflector == null)
+            if (_assemblyManager == null)
             {
                 IsExecuting = false;
                 return;
             }
 
-            MetadataTree = new ObservableCollection<TreeItem>() { new AssemblyTreeItem(_reflector.AssemblyModel) };
+            MetadataTree = new ObservableCollection<TreeItem>() { new AssemblyTreeItem(_assemblyManager.AssemblyModel) };
             _logger.Trace("Successfully loaded root metadata item.");
             IsExecuting = false;
         }
@@ -145,7 +143,7 @@ namespace UILogic.ViewModel
             {
                 try
                 {
-                    _serializator.Serialize(_reflector.AssemblyModel, _serializationFilePath);
+                    _assemblyManager.SaveAssembly(_assemblyManager.AssemblyModel, _serializationFilePath);
                 }
             catch (Exception e)
                 {

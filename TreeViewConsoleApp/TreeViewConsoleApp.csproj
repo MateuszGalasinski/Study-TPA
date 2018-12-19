@@ -86,13 +86,17 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Core\Core.csproj">
-      <Project>{ef10c052-5948-4ae9-81fd-72ad7bd610a2}</Project>
-      <Name>Core</Name>
+    <ProjectReference Include="..\BaseCore\BaseCore.csproj">
+      <Project>{D15AB0DE-9C0B-4109-8019-2D30BEA7C666}</Project>
+      <Name>BaseCore</Name>
     </ProjectReference>
     <ProjectReference Include="..\Logging\Logging.csproj">
       <Project>{7f8ecdd4-a05b-4117-b9fa-26358c9510f3}</Project>
       <Name>Logging</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Logic\Logic.csproj">
+      <Project>{B791455B-4966-4459-96CC-A9B603193AB7}</Project>
+      <Name>Logic</Name>
     </ProjectReference>
     <ProjectReference Include="..\ReflectionLoading\ReflectionLoading.csproj">
       <Project>{906B8659-9FD6-47F0-AC87-A83D2EAA8D46}</Project>

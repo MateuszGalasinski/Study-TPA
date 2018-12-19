@@ -1,18 +1,15 @@
-﻿using System;
+﻿using Base.Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using System.Runtime.Serialization;
 
-namespace ReflectionLoading.Models
+namespace Logic.Models
 {
-    [DataContract(Name = "Customer")]
     public class AssemblyModel
     {
-        [DataMember]
         public List<NamespaceModel> NamespaceModels { get; set; }
 
-        [DataMember]
         public string Name { get; set; }
 
         public AssemblyModel(Assembly assembly)
@@ -23,12 +20,12 @@ namespace ReflectionLoading.Models
                 .Select(t => new NamespaceModel(t.Key, t.ToList())).ToList();
         }
 
-        public override bool Equals(object obj)
+        public AssemblyModel(AssemblyBase assemblybase)
         {
-            var model = obj as AssemblyModel;
-            return model != null &&
-                   EqualityComparer<List<NamespaceModel>>.Default.Equals(NamespaceModels, model.NamespaceModels) &&
-                   Name == model.Name;
+            this.Name = assemblybase.Name;
+            this.NamespaceModels = assemblybase.Namespaces?.Select(ns => new NamespaceModel(ns)).ToList();
         }
+
+        
     }
 }

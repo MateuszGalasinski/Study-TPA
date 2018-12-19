@@ -1,4 +1,4 @@
-﻿using Core.Components;
+﻿using Logic.Components;
 using Microsoft.Win32;
 using UILogic.Interfaces;
 

@@ -1,4 +1,4 @@
-﻿using ReflectionLoading.Models;
+﻿using Logic.Models;
 using System.Collections.ObjectModel;
 
 namespace UILogic.Model

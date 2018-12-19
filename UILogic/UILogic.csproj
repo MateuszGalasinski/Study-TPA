@@ -63,9 +63,9 @@
     <Folder Include="Services\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Core\Core.csproj">
-      <Project>{ef10c052-5948-4ae9-81fd-72ad7bd610a2}</Project>
-      <Name>Core</Name>
+    <ProjectReference Include="..\Logic\Logic.csproj">
+      <Project>{B791455B-4966-4459-96CC-A9B603193AB7}</Project>
+      <Name>Logic</Name>
     </ProjectReference>
     <ProjectReference Include="..\ReflectionLoading\ReflectionLoading.csproj">
       <Project>{906b8659-9fd6-47f0-ac87-a83d2eaa8d46}</Project>

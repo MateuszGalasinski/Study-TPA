@@ -1,5 +1,5 @@
-﻿using Core.Constants;
-using ReflectionLoading.Models;
+﻿using Logic.Enums;
+using Logic.Models;
 using System.Text;
 
 namespace UILogic.Model

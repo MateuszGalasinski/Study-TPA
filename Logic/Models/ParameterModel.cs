@@ -1,29 +1,24 @@
-﻿using System.Collections.Generic;
-using System.Runtime.Serialization;
+﻿using Base.Model;
 
-namespace ReflectionLoading.Models
+namespace Logic.Models
 {
-    [DataContract(Name = "ParameterModel")]
+
     public class ParameterModel
-    {        
-        [DataMember]
+    {
         public string Name { get; set; }
 
-        [DataMember]
         public TypeModel Type { get; set; }
 
-        public ParameterModel(string name, TypeModel typeModel)
+        public ParameterModel(string name, TypeModel typeReader)
         {
             Name = name;
-            Type = typeModel;
+            Type = typeReader;
         }
 
-        public override bool Equals(object obj)
+        public ParameterModel(ParameterBase baseElement)
         {
-            var model = obj as ParameterModel;
-            return model != null &&
-                   Name == model.Name &&
-                   EqualityComparer<TypeModel>.Default.Equals(Type, model.Type);
+            Name = baseElement.Name;
+            Type = TypeModel.GetOrAdd( baseElement.Type);
         }
     }
 }

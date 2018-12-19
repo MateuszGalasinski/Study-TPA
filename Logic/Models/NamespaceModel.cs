@@ -1,17 +1,15 @@
-﻿using System;
+﻿using Base.Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.Serialization;
 
-namespace ReflectionLoading.Models
+namespace Logic.Models
 {
-    [DataContract(Name = "NamespaceModel")]
     public class NamespaceModel
     {
-        [DataMember]
+
         public string Name { get; set; }
-        
-        [DataMember]
+
         public List<TypeModel> Types { get; set; }
 
         public NamespaceModel(string name, List<Type> types)
@@ -20,12 +18,10 @@ namespace ReflectionLoading.Models
             Types = types.OrderBy(t => t.Name).Select(t => new TypeModel(t)).ToList();
         }
 
-        public override bool Equals(object obj)
+        public NamespaceModel(NamespaceBase namespaceBase)
         {
-            var model = obj as NamespaceModel;
-            return model != null &&
-                   Name == model.Name &&
-                   EqualityComparer<List<TypeModel>>.Default.Equals(Types, model.Types);
+            this.Name = namespaceBase.Name;
+            this.Types = namespaceBase.Types?.Select(t => TypeModel.GetOrAdd(t)).ToList();
         }
     }
 }

@@ -42,6 +42,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DataTransferGraphMapper.cs" />
     <Compile Include="Enums\AbstractEnum.cs" />
     <Compile Include="Enums\AccessLevel.cs" />
     <Compile Include="Enums\SealedEnum.cs" />
@@ -49,14 +50,9 @@
     <Compile Include="Enums\TypeKind.cs" />
     <Compile Include="Enums\VirtualEnum.cs" />
     <Compile Include="Exceptions\ReflectionLoadException.cs" />
-    <Compile Include="Models\AssemblyModel.cs" />
-    <Compile Include="Models\ExtensionMethods.cs" />
-    <Compile Include="Models\MethodModel.cs" />
-    <Compile Include="Models\NamespaceModel.cs" />
-    <Compile Include="Models\ParameterModel.cs" />
-    <Compile Include="Models\PropertyModel.cs" />
-    <Compile Include="Models\TypeModel.cs" />
+    <Compile Include="MapperExtensionMethods.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="AssemblyManager.cs" />
     <Compile Include="Reflector.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -64,9 +60,9 @@
       <Project>{D15AB0DE-9C0B-4109-8019-2D30BEA7C666}</Project>
       <Name>BaseCore</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Core\Core.csproj">
-      <Project>{EF10C052-5948-4AE9-81FD-72AD7BD610A2}</Project>
-      <Name>Core</Name>
+    <ProjectReference Include="..\Logic\Logic.csproj">
+      <Project>{B791455B-4966-4459-96CC-A9B603193AB7}</Project>
+      <Name>Logic</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
