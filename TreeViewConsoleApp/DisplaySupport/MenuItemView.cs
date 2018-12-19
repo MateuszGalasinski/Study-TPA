@@ -85,6 +85,7 @@ namespace TreeViewConsoleApp.DisplaySupport
             {
                 _history.Add(currentParent);
             }
+
             _currentItems = currentParent.Children.ToDictionary(x => (firstInt++), x => x);
         }
 

@@ -1,9 +1,6 @@
-﻿using Logging;
-using Logic.Components;
-using ReflectionLoading;
-using System.Windows;
+﻿using System.Windows;
+using UILogic.Services;
 using UILogic.ViewModel;
-using XmlSerialization;
 
 namespace WindowUI.Views
 {
@@ -20,8 +17,8 @@ namespace WindowUI.Views
 
         private MainViewModel InitializeViewModel()
         {
-            ILogger logger = new Logger();
-            return new MainViewModel(new FileDialog(logger), logger, new AssemblyManager(new XmlDataContractSerializer()));
+            return Composer.GetComposedMainViewModel(
+                new FileDialog());
         }
     }
 }

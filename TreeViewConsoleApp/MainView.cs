@@ -21,7 +21,8 @@ namespace TreeViewConsoleApp
             _viewModel = viewModel;
             ConsoleDisplay.Add(new MenuItem() { Command = _viewModel.GetFilePathCommand, Header = "1. Choose .dll file from filesystem" });
             ConsoleDisplay.Add(new MenuItem() { Command = _viewModel.LoadMetadataCommand, Header = "2. Load .dll or .xml assembly" });
-            //  TODO view message saying "File selected to serialize is wrong"
+
+            // TODO view message saying "File selected to serialize is wrong"
             ConsoleDisplay.Add(new MenuItem() { Command = _viewModel.SaveDataCommand, Header = "3. Serialize loaded data" });
             ConsoleDisplay.Add(new MenuItem()
             {

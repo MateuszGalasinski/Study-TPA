@@ -1,20 +1,21 @@
 ﻿using BaseCore;
 using BaseCore.Model;
 using Logic.Models;
-using System;
+using System.ComponentModel.Composition;
+using System.ComponentModel.Composition.Hosting;
 
 namespace ReflectionLoading
 {
     public class AssemblyManager
     {
         public AssemblyModel AssemblyModel { get; private set; }
+        [Import(typeof(ISerializator<AssemblyBase>))]
+        public ISerializator<AssemblyBase> Serializator { get; set; }
 
-        private ISerializator<AssemblyBase> Serializator { get; }
         private Reflector Reflector { get; } = new Reflector();
 
-        public AssemblyManager(ISerializator<AssemblyBase> serializator)
+        public AssemblyManager()
         {
-            Serializator = serializator ?? throw new ArgumentNullException(nameof(serializator));
         }
 
 
@@ -39,6 +40,19 @@ namespace ReflectionLoading
         public void LoadAssemblyFromLibrary(string assemblyPath)
         {
             AssemblyModel = Reflector.LoadAssembly(assemblyPath);
+        }
+
+        public static AssemblyManager GetComposed()
+        {
+            AssemblyManager assemblyManager = new AssemblyManager();
+
+            AggregateCatalog catalog = new AggregateCatalog();
+            catalog.Catalogs.Add(new DirectoryCatalog("../../../XmlSerialization/bin/Debug"));
+            CompositionContainer container = new CompositionContainer(catalog);
+
+            container.ComposeParts(assemblyManager);
+
+            return assemblyManager;
         }
     }
 }

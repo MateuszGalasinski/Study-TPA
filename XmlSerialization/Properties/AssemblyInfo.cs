@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("DumpConsoleApp")]
+[assembly: AssemblyTitle("XmlSerialization")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("DumpConsoleApp")]
+[assembly: AssemblyProduct("XmlSerialization")]
 [assembly: AssemblyCopyright("Copyright ©  2018")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("8629d610-3cd7-475c-bdc7-01ee1740d589")]
+[assembly: Guid("8098ce3e-fc12-4b94-a9fc-fa3ad2e53ddc")]
 
 // Version information for an assembly consists of the following four values:
 //

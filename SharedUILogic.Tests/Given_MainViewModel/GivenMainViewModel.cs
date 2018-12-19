@@ -30,8 +30,11 @@ namespace SharedUILogic.Tests.Given_MainViewModel
 
             _context = new MainViewModel(
                 _filePathGetterMock.Object,
-                _loggerMock.Object,
-                new AssemblyManager(_serializatorMock.Object));
+                new AssemblyManager
+                {
+                    Serializator = _serializatorMock.Object
+                });
+            _context.Logger = _loggerMock.Object;
         }
 
         public void With_FilePathGetter()

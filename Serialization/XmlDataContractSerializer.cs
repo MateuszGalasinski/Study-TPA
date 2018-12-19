@@ -1,11 +1,11 @@
 ﻿using BaseCore;
 using BaseCore.Model;
-using System.ComponentModel.Composition;
+using Serialization.Model;
 using System.IO;
+using System.ComponentModel.Composition;
 using System.Runtime.Serialization;
-using XmlSerialization.Model;
 
-namespace XmlSerialization
+namespace Serialization
 {
     [Export(typeof(ISerializator<AssemblyBase>))]
     public class XmlDataContractSerializer : ISerializator<AssemblyBase>
