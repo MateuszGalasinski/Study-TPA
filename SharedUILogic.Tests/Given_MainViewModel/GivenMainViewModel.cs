@@ -1,11 +1,11 @@
-﻿using BaseCore;
+﻿using System;
+using System.Reflection;
+using BaseCore;
 using BaseCore.Model;
 using Logic.Components;
 using Moq;
 using NUnit.Framework;
 using ReflectionLoading;
-using System;
-using System.Reflection;
 using UILogic.Interfaces;
 using UILogic.ViewModel;
 

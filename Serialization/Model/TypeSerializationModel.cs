@@ -24,10 +24,10 @@ namespace XmlSerialization.Model
             this.BaseType = GetOrAdd(baseType.BaseType);
             this.DeclaringType = GetOrAdd(baseType.DeclaringType);
 
-            this.AbstractEnum = baseType.AbstractEnum;
+            this.AbstractEnum = baseType.IsAbstract;
             this.AccessLevel = baseType.AccessLevel;
-            this.SealedEnum = baseType.SealedEnum;
-            this.StaticEnum = baseType.StaticEnum;
+            this.SealedEnum = baseType.IsSealed;
+            this.StaticEnum = baseType.IsStatic;
 
             Constructors = baseType.Constructors?.Select(t => new MethodSerializationModel(t)).ToList();
 

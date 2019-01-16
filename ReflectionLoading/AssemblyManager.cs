@@ -1,8 +1,8 @@
-﻿using BaseCore;
+﻿using System.ComponentModel.Composition;
+using System.ComponentModel.Composition.Hosting;
+using BaseCore;
 using BaseCore.Model;
 using Logic.Models;
-using System.ComponentModel.Composition;
-using System.ComponentModel.Composition.Hosting;
 
 namespace ReflectionLoading
 {

@@ -1,11 +1,10 @@
-﻿using BaseCore.Enums;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using BaseCore.Enums;
 
 namespace BaseCore.Model
 {
     public class TypeBase
     {
-
         public string Name { get; set; }
 
         public string NamespaceName { get; set; }
@@ -16,11 +15,11 @@ namespace BaseCore.Model
 
         public AccessLevel AccessLevel { get; set; }
 
-        public IsAbstract AbstractEnum { get; set; }
+        public IsAbstract IsAbstract { get; set; }
 
-        public IsStatic StaticEnum { get; set; }
+        public IsStatic IsStatic { get; set; }
 
-        public IsSealed SealedEnum { get; set; }
+        public IsSealed IsSealed { get; set; }
 
         public TypeKind Type { get; set; }
 

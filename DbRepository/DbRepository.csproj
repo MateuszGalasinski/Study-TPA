@@ -4,14 +4,15 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{26B02A15-3FB1-4FB6-9148-80DAF9E743D7}</ProjectGuid>
+    <ProjectGuid>{4FC49DF5-DC80-4A0A-AD1A-B15925638CD3}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Serialization</RootNamespace>
-    <AssemblyName>Serialization</AssemblyName>
+    <RootNamespace>DbRepository</RootNamespace>
+    <AssemblyName>DbRepository</AssemblyName>
     <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -31,10 +32,16 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -44,27 +51,33 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DataTransferGraphMapper.cs" />
-    <Compile Include="Model\AssemblySerializationModel.cs" />
-    <Compile Include="Model\MethodSerializationModel.cs" />
-    <Compile Include="Model\NamespaceSerializationModel.cs" />
-    <Compile Include="Model\ParameterSerializationModel.cs" />
-    <Compile Include="Model\PropertySerializationModel.cs" />
-    <Compile Include="Model\TypeSerializationModel.cs" />
+    <Compile Include="DbManager.cs" />
+    <Compile Include="DbSaverContext.cs" />
+    <Compile Include="Models\AssemblyDbSaver.cs" />
+    <Compile Include="Models\MethodDbSaver.cs" />
+    <Compile Include="Models\NamespaceDbSaver.cs" />
+    <Compile Include="Models\ParameterDbSaver.cs" />
+    <Compile Include="Models\PropertyDbSaver.cs" />
+    <Compile Include="Models\TypeDbSaver.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="XmlDataContractSerializer.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BaseCore\BaseCore.csproj">
-      <Project>{d15ab0de-9c0b-4109-8019-2d30bea7c666}</Project>
+      <Project>{D15AB0DE-9C0B-4109-8019-2D30BEA7C666}</Project>
       <Name>BaseCore</Name>
     </ProjectReference>
   </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
     <Target Name="AfterBuild">
     <ItemGroup>
-      <ThisAssembly Include="$(OutputPath)\SharedUILogic.dll" />
+      <ThisAssembly Include="$(OutputPath)\DbRepository.dll" />
     </ItemGroup>
     <!--TODO: Add error message/check-->
-    <Copy SourceFiles="@(ThisAssembly)" DestinationFiles="$(SolutionDir)Plugins\Serialization.dll" SkipUnchangedFiles="true" />
+    <Copy SourceFiles="@(ThisAssembly)" DestinationFiles="$(SolutionDir)Plugins\DbRepository.dll" SkipUnchangedFiles="false" />
     <Message Importance="High" Text="Copying SharedUILogic dll into Plugins directory" />
   </Target>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

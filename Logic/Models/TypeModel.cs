@@ -1,9 +1,9 @@
-﻿using BaseCore.Model;
-using Logic.Enums;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using BaseCore.Model;
+using Logic.Enums;
 
 namespace Logic.Models
 {
@@ -74,10 +74,10 @@ namespace Logic.Models
             this.BaseType = GetOrAdd(baseType.BaseType);
             this.DeclaringType = GetOrAdd(baseType.DeclaringType);
 
-            this.IsAbstract = baseType.AbstractEnum.ToLogicEnum();
+            this.IsAbstract = baseType.IsAbstract.ToLogicEnum();
             this.Accessibility = baseType.AccessLevel.ToLogicEnum();
-            this.IsSealed = baseType.SealedEnum.ToLogicEnum();
-            this.IsStatic = baseType.StaticEnum.ToLogicEnum();
+            this.IsSealed = baseType.IsSealed.ToLogicEnum();
+            this.IsStatic = baseType.IsStatic.ToLogicEnum();
 
             Constructors = baseType.Constructors?.Select(c => new MethodModel(c)).ToList();
 
@@ -127,7 +127,7 @@ namespace Logic.Models
         {
             if (!type.ContainsGenericParameters)
             {
-                return  new List<TypeModel>();
+                return new List<TypeModel>();
             }
             List<Type> arguments = type.GetGenericArguments().ToList();
             foreach (Type typ in arguments)

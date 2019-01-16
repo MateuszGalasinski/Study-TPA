@@ -39,10 +39,10 @@ namespace ReflectionLoading
             typeBase.Type = typeLogicReader.Type.ToBaseEnum();
             typeBase.BaseType = GetOrAdd(typeLogicReader.BaseType);
             typeBase.DeclaringType = GetOrAdd(typeLogicReader.DeclaringType);
-            typeBase.AbstractEnum = typeLogicReader.IsAbstract.ToBaseEnum();
+            typeBase.IsAbstract = typeLogicReader.IsAbstract.ToBaseEnum();
             typeBase.AccessLevel = typeLogicReader.Accessibility.ToBaseEnum();
-            typeBase.SealedEnum = typeLogicReader.IsSealed.ToBaseEnum();
-            typeBase.StaticEnum = typeLogicReader.IsStatic.ToBaseEnum();
+            typeBase.IsSealed = typeLogicReader.IsSealed.ToBaseEnum();
+            typeBase.IsStatic = typeLogicReader.IsStatic.ToBaseEnum();
 
             typeBase.Constructors = typeLogicReader.Constructors?.Select(MethodBase).ToList();
             typeBase.Fields = typeLogicReader.Fields?.Select(ParameterBase).ToList();

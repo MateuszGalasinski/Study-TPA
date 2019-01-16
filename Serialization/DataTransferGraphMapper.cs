@@ -1,6 +1,6 @@
-﻿using BaseCore.Model;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
+using BaseCore.Model;
 using XmlSerialization.Model;
 
 namespace XmlSerialization
@@ -39,10 +39,10 @@ namespace XmlSerialization
             typeBase.Type = typeSerializationModel.Type;
             typeBase.BaseType = GetOrAdd(typeSerializationModel.BaseType);
             typeBase.DeclaringType = GetOrAdd(typeSerializationModel.DeclaringType);
-            typeBase.AbstractEnum = typeSerializationModel.AbstractEnum;
+            typeBase.IsAbstract = typeSerializationModel.AbstractEnum;
             typeBase.AccessLevel = typeSerializationModel.AccessLevel;
-            typeBase.SealedEnum = typeSerializationModel.SealedEnum;
-            typeBase.StaticEnum = typeSerializationModel.StaticEnum;
+            typeBase.IsSealed = typeSerializationModel.SealedEnum;
+            typeBase.IsStatic = typeSerializationModel.StaticEnum;
 
             typeBase.Constructors = typeSerializationModel.Constructors?.Select(MethodBase).ToList();
             typeBase.Fields = typeSerializationModel.Fields?.Select(ParameterBase).ToList();
