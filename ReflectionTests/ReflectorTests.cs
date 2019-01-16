@@ -1,12 +1,12 @@
-﻿using FluentAssertions;
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using FluentAssertions;
 using Logic.Enums;
 using Logic.Models;
 using NUnit.Framework;
 using ReflectionLoading;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
 
 namespace ReflectionTests
 {
@@ -110,8 +110,8 @@ namespace ReflectionTests
                 .ToList();
             genericClasses.Count.Should().Be(1);
             genericClasses.First().GenericArguments.Count.Should().Be(2);
-            genericClasses.First().GenericArguments.Should().Contain(i => i.Name == "TKey");
-            genericClasses.First().GenericArguments.Should().Contain(i => i.Name == "TValue");
+            genericClasses.First().GenericArguments.Should().Contain(i => i.Name == "TKey <>");
+            genericClasses.First().GenericArguments.Should().Contain(i => i.Name == "TValue <>");
 
         }
     }

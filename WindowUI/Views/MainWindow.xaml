@@ -59,25 +59,32 @@
                 <TextBlock FontWeight="Medium" Text="{Binding Path=Name}" Margin="0 0 4 0" />
             </StackPanel>
         </HierarchicalDataTemplate>
+        <HierarchicalDataTemplate DataType="{x:Type c:FieldTreeItem}" ItemsSource="{Binding Children}">
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Foreground="Yellow" Padding="0 0 10 0" FontWeight="ExtraBlack" FontStyle="Italic"
+                           Text="Field"/>
+                <TextBlock FontWeight="Medium" Text="{Binding Path=Name}" Margin="0 0 4 0" />
+            </StackPanel>
+        </HierarchicalDataTemplate>
         <HierarchicalDataTemplate DataType="{x:Type c:AttributeTreeItem}" ItemsSource="{Binding Children}">
             <StackPanel Orientation="Horizontal">
                 <TextBlock Foreground="ForestGreen" Padding="0 0 10 0" FontWeight="ExtraBlack" FontStyle="Italic"
                            Text="Attribute"/>
-                <TextBlock FontWeight="Medium" Foreground="AliceBlue" Text="{Binding Path=Name}" Margin="0 0 4 0" />
+                <TextBlock FontWeight="Medium"  Text="{Binding Path=Name}" Margin="0 0 4 0" />
             </StackPanel>
         </HierarchicalDataTemplate>
         <HierarchicalDataTemplate DataType="{x:Type c:ImplementedInterfaceTreeItem}" ItemsSource="{Binding Children}">
             <StackPanel Orientation="Horizontal">
                 <TextBlock Foreground="DarkKhaki" Padding="0 0 10 0" FontWeight="ExtraBlack" FontStyle="Italic"
                            Text="ImplementedInterface"/>
-                <TextBlock FontWeight="Medium" Foreground="AliceBlue" Text="{Binding Path=Name}" Margin="0 0 4 0" />
+                <TextBlock FontWeight="Medium" Text="{Binding Path=Name}" Margin="0 0 4 0" />
             </StackPanel>
         </HierarchicalDataTemplate>
         <HierarchicalDataTemplate DataType="{x:Type c:DerivedTypeTreeItem}" ItemsSource="{Binding Children}">
             <StackPanel Orientation="Horizontal">
                 <TextBlock Foreground="HotPink" Padding="0 0 10 0" FontWeight="ExtraBlack" FontStyle="Italic"
                            Text="BaseType"/>
-                <TextBlock FontWeight="Medium" Foreground="AliceBlue" Text="{Binding Path=Name}" Margin="0 0 4 0" />
+                <TextBlock FontWeight="Medium" Text="{Binding Path=Name}" Margin="0 0 4 0" />
             </StackPanel>
         </HierarchicalDataTemplate>
     </Window.Resources>

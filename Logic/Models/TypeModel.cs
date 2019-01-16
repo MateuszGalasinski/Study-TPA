@@ -51,7 +51,6 @@ namespace Logic.Models
 
             if (type.ContainsGenericParameters)
             {
-                TypeDictionary.Add(Name, this);
                 Name = $"{type.Name.Split('`')[0]} <{string.Join(",", type.GetGenericArguments().Select(t => t.Name))}>";
             }
 
