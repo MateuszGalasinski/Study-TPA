@@ -1,7 +1,12 @@
-﻿using ReflectionLoading;
-using System;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using System.ComponentModel.Composition.Hosting;
+using System.ComponentModel.Composition.Primitives;
+using System.IO;
+using System.Linq;
+using System.Reflection;
+using ReflectionLoading;
 using UILogic.Interfaces;
 using UILogic.ViewModel;
 
@@ -14,8 +19,18 @@ namespace UILogic.Services
         {
             MainViewModel mainViewModel = new MainViewModel(filePathGetter, new AssemblyManager());
 
+            //in order to force exception
+            List<AssemblyCatalog> catalogs = new List<AssemblyCatalog>();
+            List<ComposablePartDefinition[]> parts = new List<ComposablePartDefinition[]>();
+            string path = Directory.GetParent(Assembly.GetEntryAssembly().Location).FullName;
+            foreach (string dll in Directory.GetFiles(path, "*.dll"))
+            {
+                AssemblyCatalog assemblyCatalog = new AssemblyCatalog(Assembly.LoadFile(dll));
+                parts.Add(assemblyCatalog.Parts.ToArray());
+            }
+
             AggregateCatalog catalog = new AggregateCatalog();
-            catalog.Catalogs.Add(new DirectoryCatalog("../../../Logging/bin/Debug"));
+            catalog.Catalogs.Add(new DirectoryCatalog(path));
             CompositionContainer container = new CompositionContainer(catalog);
 
             try

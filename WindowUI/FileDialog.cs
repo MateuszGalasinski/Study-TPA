@@ -12,7 +12,7 @@ namespace WindowUI
             string result;
             if (fileDialog.ShowDialog() == true)
             {
-               result = fileDialog.FileName;
+                result = fileDialog.FileName;
             }
             else
             {

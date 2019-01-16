@@ -1,7 +1,7 @@
-﻿using Logic.Components;
-using System;
+﻿using System;
 using System.ComponentModel.Composition;
 using System.Diagnostics;
+using Logic.Components;
 
 namespace Logging
 {
