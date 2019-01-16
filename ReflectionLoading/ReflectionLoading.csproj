@@ -57,10 +57,6 @@
       <Project>{D15AB0DE-9C0B-4109-8019-2D30BEA7C666}</Project>
       <Name>BaseCore</Name>
     </ProjectReference>
-    <ProjectReference Include="..\DbRepository\DbRepository.csproj">
-      <Project>{4FC49DF5-DC80-4A0A-AD1A-B15925638CD3}</Project>
-      <Name>DbRepository</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Logic\Logic.csproj">
       <Project>{B791455B-4966-4459-96CC-A9B603193AB7}</Project>
       <Name>Logic</Name>
