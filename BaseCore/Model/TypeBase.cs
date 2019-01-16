@@ -13,7 +13,7 @@ namespace BaseCore.Model
 
         public List<TypeBase> GenericArguments { get; set; }
 
-        public AccessLevel AccessLevel { get; set; }
+        public Accessibility Accessibility { get; set; }
 
         public IsAbstract IsAbstract { get; set; }
 
@@ -35,6 +35,6 @@ namespace BaseCore.Model
 
         public List<MethodBase> Constructors { get; set; }
 
-        public List<ParameterBase> Fields { get; set; }
+        public List<FieldBase> Fields { get; set; }
     }
 }

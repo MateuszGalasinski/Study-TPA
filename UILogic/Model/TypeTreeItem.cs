@@ -1,6 +1,6 @@
-﻿using Logic.Enums;
+﻿using System.Text;
+using Logic.Enums;
 using Logic.Models;
-using System.Text;
 
 namespace UILogic.Model
 {
@@ -10,7 +10,7 @@ namespace UILogic.Model
 
         public TypeTreeItem(TypeModel typeModel) : base(GetModifiers(typeModel) + typeModel.Name)
         {
-           _typeModel = typeModel;
+            _typeModel = typeModel;
         }
 
         public static string GetModifiers(TypeModel model)
@@ -27,7 +27,7 @@ namespace UILogic.Model
         {
             if (_typeModel.BaseType != null)
             {
-                Children.Add(new TypeTreeItem(GetOrAdd(_typeModel.BaseType)));
+                Children.Add(new DerivedTypeTreeItem(GetOrAdd(_typeModel.BaseType)));
             }
 
             if (_typeModel.DeclaringType != null)
@@ -45,9 +45,9 @@ namespace UILogic.Model
 
             if (_typeModel.Fields != null)
             {
-                foreach (ParameterModel parameterModel in _typeModel.Fields)
+                foreach (FieldModel fieldModel in _typeModel.Fields)
                 {
-                    Children.Add(new ParameterTreeItem(parameterModel));
+                    Children.Add(new FieldTreeItem(fieldModel));
                 }
             }
 
@@ -63,7 +63,7 @@ namespace UILogic.Model
             {
                 foreach (TypeModel typeModel in _typeModel.ImplementedInterfaces)
                 {
-                    Children.Add(new TypeTreeItem(GetOrAdd(typeModel)));
+                    Children.Add(new ImplementedInterfaceTreeItem(GetOrAdd(typeModel)));
                 }
             }
 
@@ -88,6 +88,14 @@ namespace UILogic.Model
                 foreach (MethodModel methodModel in _typeModel.Constructors)
                 {
                     Children.Add(new MethodTreeItem(methodModel));
+                }
+            }
+
+            if (_typeModel.Attributes != null)
+            {
+                foreach (var typeLogicReader in _typeModel.Attributes)
+                {
+                    Children.Add(new AttributeTreeItem(typeLogicReader));
                 }
             }
         }

@@ -40,7 +40,7 @@ namespace DbRepository
             typeBase.BaseType = GetOrAdd(typeDbSaver.BaseType);
             typeBase.DeclaringType = GetOrAdd(typeDbSaver.DeclaringType);
             typeBase.IsAbstract = typeDbSaver.IsAbstract;
-            typeBase.AccessLevel = typeDbSaver.AccessLevel;
+            typeBase.Accessibility = typeDbSaver.Accessibility;
             typeBase.IsSealed = typeDbSaver.IsSealed;
             typeBase.IsStatic = typeDbSaver.IsStatic;
 
@@ -59,11 +59,11 @@ namespace DbRepository
             return new MethodBase()
             {
                 Name = methodDbSaver.Name,
-                AbstractEnum = methodDbSaver.IsAbstract,
-                AccessLevel = methodDbSaver.AccessLevel,
+                IsAbstract = methodDbSaver.IsAbstract,
+                Accessibility = methodDbSaver.Accessibility,
                 Extension = methodDbSaver.Extension,
                 ReturnType = GetOrAdd(methodDbSaver.ReturnType),
-                StaticEnum = methodDbSaver.IsStatic,
+                IsStatic = methodDbSaver.IsStatic,
                 VirtualEnum = methodDbSaver.IsVirtual,
                 GenericArguments = methodDbSaver.GenericArguments?.Select(GetOrAdd).ToList(),
                 Parameters = methodDbSaver.Parameters?.Select(ParameterBase).ToList()

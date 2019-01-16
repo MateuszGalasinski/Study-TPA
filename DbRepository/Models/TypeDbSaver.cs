@@ -28,7 +28,7 @@ namespace DbRepository.Models
             this.DeclaringType = GetOrAdd(baseType.DeclaringType);
 
             this.IsAbstract = baseType.IsAbstract;
-            this.AccessLevel = baseType.AccessLevel;
+            this.Accessibility = baseType.Accessibility;
             this.IsSealed = baseType.IsSealed;
             this.IsStatic = baseType.IsStatic;
 
@@ -72,7 +72,7 @@ namespace DbRepository.Models
 
         public List<TypeDbSaver> GenericArguments { get; set; }
 
-        public AccessLevel AccessLevel { get; set; }
+        public Accessibility Accessibility { get; set; }
 
         public IsAbstract IsAbstract { get; set; }
 

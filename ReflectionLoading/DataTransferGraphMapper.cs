@@ -1,7 +1,7 @@
-﻿using BaseCore.Model;
-using Logic.Models;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
+using BaseCore.Model;
+using Logic.Models;
 
 namespace ReflectionLoading
 {
@@ -26,48 +26,48 @@ namespace ReflectionLoading
             };
         }
 
-        public static TypeBase TypeBase(TypeModel typeLogicReader)
+        public static TypeBase TypeBase(TypeModel TypeModel)
         {
             TypeBase typeBase = new TypeBase()
             {
-                Name = typeLogicReader.Name
+                Name = TypeModel.Name
             };
 
             _typeDictionary.Add(typeBase.Name, typeBase);
 
-            typeBase.NamespaceName = typeLogicReader.NamespaceName;
-            typeBase.Type = typeLogicReader.Type.ToBaseEnum();
-            typeBase.BaseType = GetOrAdd(typeLogicReader.BaseType);
-            typeBase.DeclaringType = GetOrAdd(typeLogicReader.DeclaringType);
-            typeBase.IsAbstract = typeLogicReader.IsAbstract.ToBaseEnum();
-            typeBase.AccessLevel = typeLogicReader.Accessibility.ToBaseEnum();
-            typeBase.IsSealed = typeLogicReader.IsSealed.ToBaseEnum();
-            typeBase.IsStatic = typeLogicReader.IsStatic.ToBaseEnum();
+            typeBase.NamespaceName = TypeModel.NamespaceName;
+            typeBase.Type = TypeModel.Type.ToBaseEnum();
+            typeBase.BaseType = GetOrAdd(TypeModel.BaseType);
+            typeBase.DeclaringType = GetOrAdd(TypeModel.DeclaringType);
+            typeBase.IsAbstract = TypeModel.IsAbstract.ToBaseEnum();
+            typeBase.Accessibility = TypeModel.Accessibility.ToBaseEnum();
+            typeBase.IsSealed = TypeModel.IsSealed.ToBaseEnum();
+            typeBase.IsStatic = TypeModel.IsStatic.ToBaseEnum();
 
-            typeBase.Constructors = typeLogicReader.Constructors?.Select(MethodBase).ToList();
-            typeBase.Fields = typeLogicReader.Fields?.Select(ParameterBase).ToList();
-            typeBase.GenericArguments = typeLogicReader.GenericArguments?.Select(GetOrAdd).ToList();
-            typeBase.ImplementedInterfaces = typeLogicReader.ImplementedInterfaces?.Select(GetOrAdd).ToList();
-            typeBase.Methods = typeLogicReader.Methods?.Select(MethodBase).ToList();
-            typeBase.NestedTypes = typeLogicReader.NestedTypes?.Select(GetOrAdd).ToList();
-            typeBase.Properties = typeLogicReader.Properties?.Select(PropertyBase).ToList();
+            typeBase.Constructors = TypeModel.Constructors?.Select(MethodBase).ToList();
+            typeBase.Fields = TypeModel.Fields?.Select(FieldBase).ToList();
+            typeBase.GenericArguments = TypeModel.GenericArguments?.Select(GetOrAdd).ToList();
+            typeBase.ImplementedInterfaces = TypeModel.ImplementedInterfaces?.Select(GetOrAdd).ToList();
+            typeBase.Methods = TypeModel.Methods?.Select(MethodBase).ToList();
+            typeBase.NestedTypes = TypeModel.NestedTypes?.Select(GetOrAdd).ToList();
+            typeBase.Properties = TypeModel.Properties?.Select(PropertyBase).ToList();
 
             return typeBase;
         }
 
-        public static MethodBase MethodBase(MethodModel methodLogicReader)
+        public static MethodBase MethodBase(MethodModel MethodModel)
         {
             return new MethodBase()
             {
-                Name = methodLogicReader.Name,
-                AbstractEnum = methodLogicReader.IsAbstract.ToBaseEnum(),
-                AccessLevel = methodLogicReader.Accessibility.ToBaseEnum(),
-                Extension = methodLogicReader.Extension,
-                ReturnType = GetOrAdd(methodLogicReader.ReturnType),
-                StaticEnum = methodLogicReader.IsStatic.ToBaseEnum(),
-                VirtualEnum = methodLogicReader.IsVirtual.ToBaseEnum(),
-                GenericArguments = methodLogicReader.GenericArguments?.Select(GetOrAdd).ToList(),
-                Parameters = methodLogicReader.Parameters?.Select(ParameterBase).ToList()
+                Name = MethodModel.Name,
+                IsAbstract = MethodModel.IsAbstract.ToBaseEnum(),
+                Accessibility = MethodModel.Accessibility.ToBaseEnum(),
+                Extension = MethodModel.Extension,
+                ReturnType = GetOrAdd(MethodModel.ReturnType),
+                IsStatic = MethodModel.IsStatic.ToBaseEnum(),
+                VirtualEnum = MethodModel.IsVirtual.ToBaseEnum(),
+                GenericArguments = MethodModel.GenericArguments?.Select(GetOrAdd).ToList(),
+                Parameters = MethodModel.Parameters?.Select(ParameterBase).ToList()
             };
         }
 
@@ -80,12 +80,21 @@ namespace ReflectionLoading
             };
         }
 
-        public static PropertyBase PropertyBase(PropertyModel propertyLogicReader)
+        public static FieldBase FieldBase(FieldModel parameterLogicReader)
+        {
+            return new FieldBase()
+            {
+                Name = parameterLogicReader.Name,
+                Type = GetOrAdd(parameterLogicReader.Type)
+            };
+        }
+
+        public static PropertyBase PropertyBase(PropertyModel PropertyModel)
         {
             return new PropertyBase()
             {
-                Name = propertyLogicReader.Name,
-                Type = GetOrAdd(propertyLogicReader.Type)
+                Name = PropertyModel.Name,
+                Type = GetOrAdd(PropertyModel.Type)
             };
         }
 

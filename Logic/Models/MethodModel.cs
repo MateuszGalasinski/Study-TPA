@@ -1,9 +1,9 @@
-﻿using Logic.Enums;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.CompilerServices;
+using Logic.Enums;
 
 namespace Logic.Models
 {
@@ -40,11 +40,11 @@ namespace Logic.Models
         public MethodModel(BaseCore.Model.MethodBase baseMethod)
         {
             this.Name = baseMethod.Name;
-            this.IsAbstract = baseMethod.AbstractEnum.ToLogicEnum();
-            this.Accessibility = baseMethod.AccessLevel.ToLogicEnum();
+            this.IsAbstract = baseMethod.IsAbstract.ToLogicEnum();
+            this.Accessibility = baseMethod.Accessibility.ToLogicEnum();
             this.Extension = baseMethod.Extension;
             this.ReturnType = TypeModel.GetOrAdd(baseMethod.ReturnType);
-            this.IsStatic = baseMethod.StaticEnum.ToLogicEnum();
+            this.IsStatic = baseMethod.IsStatic.ToLogicEnum();
             this.IsVirtual = baseMethod.VirtualEnum.ToLogicEnum();
 
             GenericArguments = baseMethod.GenericArguments?.Select(TypeModel.GetOrAdd).ToList();
@@ -55,7 +55,7 @@ namespace Logic.Models
 
         private List<TypeModel> EmitGenericArguments(MethodBase method)
         {
-            return method.GetGenericArguments().Select(t => new TypeModel(t)).ToList();
+            return method.GetGenericArguments().Select(t => TypeModel.GetOrAdd(t)).ToList();
         }
 
         public static List<MethodModel> EmitMethods(Type type)

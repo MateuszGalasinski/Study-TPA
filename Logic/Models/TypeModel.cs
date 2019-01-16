@@ -37,19 +37,25 @@ namespace Logic.Models
 
         public TypeModel DeclaringType { get; set; }
 
+        public List<TypeModel> Attributes { get; set; }
+
         public List<MethodModel> Methods { get; set; }
 
         public List<MethodModel> Constructors { get; set; }
 
-        public List<ParameterModel> Fields { get; set; }
+        public List<FieldModel> Fields { get; set; }
 
         public TypeModel(Type type)
         {
             Name = type.Name;
-            if (!TypeDictionary.ContainsKey(Name))
+
+            if (type.ContainsGenericParameters)
             {
                 TypeDictionary.Add(Name, this);
+                Name = $"{type.Name.Split('`')[0]} <{string.Join(",", type.GetGenericArguments().Select(t => t.Name))}>";
             }
+
+            TypeDictionary.Add(type.Name, this);
 
             Type = GetTypeEnum(type);
             BaseType = EmitExtends(type.BaseType);
@@ -62,6 +68,7 @@ namespace Logic.Models
             GenericArguments = !type.IsGenericTypeDefinition ? new List<TypeModel>() : EmitGenericArguments(type);
             Properties = PropertyModel.EmitProperties(type);
             Fields = EmitFields(type);
+            Attributes = GetAttributes(type);
         }
 
         private TypeModel(TypeBase baseType)
@@ -75,13 +82,13 @@ namespace Logic.Models
             this.DeclaringType = GetOrAdd(baseType.DeclaringType);
 
             this.IsAbstract = baseType.IsAbstract.ToLogicEnum();
-            this.Accessibility = baseType.AccessLevel.ToLogicEnum();
+            this.Accessibility = baseType.Accessibility.ToLogicEnum();
             this.IsSealed = baseType.IsSealed.ToLogicEnum();
             this.IsStatic = baseType.IsStatic.ToLogicEnum();
 
             Constructors = baseType.Constructors?.Select(c => new MethodModel(c)).ToList();
 
-            Fields = baseType.Fields?.Select(t => new ParameterModel(t)).ToList();
+            Fields = baseType.Fields?.Select(t => new FieldModel(t)).ToList();
 
             GenericArguments = baseType.GenericArguments?.Select(GetOrAdd).ToList();
 
@@ -146,16 +153,16 @@ namespace Logic.Models
             }
         }
 
-        private static List<ParameterModel> EmitFields(Type type)
+        private static List<FieldModel> EmitFields(Type type)
         {
             List<FieldInfo> fieldInfo = type.GetFields(BindingFlags.NonPublic | BindingFlags.DeclaredOnly | BindingFlags.Public |
                                            BindingFlags.Static | BindingFlags.Instance).ToList();
 
-            List<ParameterModel> parameters = new List<ParameterModel>();
+            List<FieldModel> parameters = new List<FieldModel>();
             foreach (FieldInfo field in fieldInfo)
             {
                 StoreType(field.FieldType);
-                parameters.Add(new ParameterModel(field.Name, GetOrAdd(field.FieldType)));
+                parameters.Add(new FieldModel(field.Name, GetOrAdd(field.FieldType)));
             }
             return parameters;
         }
@@ -175,7 +182,7 @@ namespace Logic.Models
                 StoreType(typ);
             }
 
-            return nestedTypes.Select(t => new TypeModel(t)).ToList();
+            return nestedTypes.Select(t => GetOrAdd(t)).ToList();
         }
         private IEnumerable<TypeModel> EmitImplements(IEnumerable<Type> interfaces)
         {
@@ -221,6 +228,10 @@ namespace Logic.Models
                 Console.WriteLine("EEEE");
             }
             return GetOrAdd(baseType);
+        }
+        private static List<TypeModel> GetAttributes(Type type)
+        {
+            return type.GetCustomAttributes().Select(a => GetOrAdd(a.GetType())).ToList();
         }
     }
 }

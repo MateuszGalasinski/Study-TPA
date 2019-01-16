@@ -1,6 +1,6 @@
 ﻿namespace BaseCore.Enums
 {
-    public enum AccessLevel
+    public enum Accessibility
     { 
         Default,
         IsPublic,

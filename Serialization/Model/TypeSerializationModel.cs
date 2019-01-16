@@ -1,8 +1,9 @@
-﻿using BaseCore.Enums;
-using BaseCore.Model;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
+using BaseCore.Enums;
+using BaseCore.Model;
+using Serialization.Model;
 
 namespace XmlSerialization.Model
 {
@@ -24,14 +25,14 @@ namespace XmlSerialization.Model
             this.BaseType = GetOrAdd(baseType.BaseType);
             this.DeclaringType = GetOrAdd(baseType.DeclaringType);
 
-            this.AbstractEnum = baseType.IsAbstract;
-            this.AccessLevel = baseType.AccessLevel;
-            this.SealedEnum = baseType.IsSealed;
-            this.StaticEnum = baseType.IsStatic;
+            this.IsAbstract = baseType.IsAbstract;
+            this.Accessibility = baseType.Accessibility;
+            this.IsSealed = baseType.IsSealed;
+            this.IsStatic = baseType.IsStatic;
 
             Constructors = baseType.Constructors?.Select(t => new MethodSerializationModel(t)).ToList();
 
-            Fields = baseType.Fields?.Select(t => new ParameterSerializationModel(t)).ToList();
+            Fields = baseType.Fields?.Select(t => new FieldSerializationModel(t)).ToList();
 
             GenericArguments = baseType.GenericArguments?.Select(GetOrAdd).ToList();
 
@@ -75,16 +76,16 @@ namespace XmlSerialization.Model
         public List<TypeSerializationModel> GenericArguments { get; set; }
 
         [DataMember]
-        public AccessLevel AccessLevel { get; set; }
+        public Accessibility Accessibility { get; set; }
 
         [DataMember]
-        public IsAbstract AbstractEnum { get; set; }
+        public IsAbstract IsAbstract { get; set; }
 
         [DataMember]
-        public IsStatic StaticEnum { get; set; }
+        public IsStatic IsStatic { get; set; }
 
         [DataMember]
-        public IsSealed SealedEnum { get; set; }
+        public IsSealed IsSealed { get; set; }
 
         [DataMember]
         public TypeKind Type { get; set; }
@@ -108,7 +109,7 @@ namespace XmlSerialization.Model
         public List<MethodSerializationModel> Constructors { get; set; }
 
         [DataMember]
-        public List<ParameterSerializationModel> Fields { get; set; }
+        public List<FieldSerializationModel> Fields { get; set; }
 
         public static Dictionary<string, TypeSerializationModel> TypeDictionary = new Dictionary<string, TypeSerializationModel>();
 

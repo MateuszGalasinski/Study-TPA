@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using BaseCore.Model;
+using Serialization.Model;
 using XmlSerialization.Model;
 
 namespace XmlSerialization
@@ -39,13 +40,13 @@ namespace XmlSerialization
             typeBase.Type = typeSerializationModel.Type;
             typeBase.BaseType = GetOrAdd(typeSerializationModel.BaseType);
             typeBase.DeclaringType = GetOrAdd(typeSerializationModel.DeclaringType);
-            typeBase.IsAbstract = typeSerializationModel.AbstractEnum;
-            typeBase.AccessLevel = typeSerializationModel.AccessLevel;
-            typeBase.IsSealed = typeSerializationModel.SealedEnum;
-            typeBase.IsStatic = typeSerializationModel.StaticEnum;
+            typeBase.IsAbstract = typeSerializationModel.IsAbstract;
+            typeBase.Accessibility = typeSerializationModel.Accessibility;
+            typeBase.IsSealed = typeSerializationModel.IsSealed;
+            typeBase.IsStatic = typeSerializationModel.IsStatic;
 
             typeBase.Constructors = typeSerializationModel.Constructors?.Select(MethodBase).ToList();
-            typeBase.Fields = typeSerializationModel.Fields?.Select(ParameterBase).ToList();
+            typeBase.Fields = typeSerializationModel.Fields?.Select(FieldBase).ToList();
             typeBase.GenericArguments = typeSerializationModel.GenericArguments?.Select(GetOrAdd).ToList();
             typeBase.ImplementedInterfaces = typeSerializationModel.ImplementedInterfaces?.Select(GetOrAdd).ToList();
             typeBase.Methods = typeSerializationModel.Methods?.Select(MethodBase).ToList();
@@ -60,11 +61,11 @@ namespace XmlSerialization
             return new MethodBase()
             {
                 Name = methodSerializationModel.Name,
-                AbstractEnum = methodSerializationModel.AbstractEnum,
-                AccessLevel = methodSerializationModel.AccessLevel,
+                IsAbstract = methodSerializationModel.IsAbstract,
+                Accessibility = methodSerializationModel.Accessibility,
                 Extension = methodSerializationModel.Extension,
                 ReturnType = GetOrAdd(methodSerializationModel.ReturnType),
-                StaticEnum = methodSerializationModel.StaticEnum,
+                IsStatic = methodSerializationModel.IsStatic,
                 VirtualEnum = methodSerializationModel.VirtualEnum,
                 GenericArguments = methodSerializationModel.GenericArguments?.Select(GetOrAdd).ToList(),
                 Parameters = methodSerializationModel.Parameters?.Select(ParameterBase).ToList()
@@ -74,6 +75,15 @@ namespace XmlSerialization
         public static ParameterBase ParameterBase(ParameterSerializationModel parameterSerializationModel)
         {
             return new ParameterBase()
+            {
+                Name = parameterSerializationModel.Name,
+                Type = GetOrAdd(parameterSerializationModel.Type)
+            };
+        }
+
+        public static FieldBase FieldBase(FieldSerializationModel parameterSerializationModel)
+        {
+            return new FieldBase()
             {
                 Name = parameterSerializationModel.Name,
                 Type = GetOrAdd(parameterSerializationModel.Type)

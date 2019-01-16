@@ -19,27 +19,27 @@ namespace ReflectionLoading
             }
         }
 
-        internal static AccessLevel ToBaseEnum(this Logic.Enums.Accessibility baseEnum)
+        internal static Accessibility ToBaseEnum(this Logic.Enums.Accessibility baseEnum)
         {
             switch (baseEnum)
             {
                 case Logic.Enums.Accessibility.Default:
-                    return AccessLevel.Default;
+                    return Accessibility.Default;
 
                 case Logic.Enums.Accessibility.Internal:
-                    return AccessLevel.Internal;
+                    return Accessibility.Internal;
 
                 case Logic.Enums.Accessibility.IsPrivate:
-                    return AccessLevel.IsPrivate;
+                    return Accessibility.IsPrivate;
 
                 case Logic.Enums.Accessibility.IsProtected:
-                    return AccessLevel.IsProtected;
+                    return Accessibility.IsProtected;
 
                 case Logic.Enums.Accessibility.IsProtectedInternal:
-                    return AccessLevel.IsProtectedInternal;
+                    return Accessibility.IsProtectedInternal;
 
                 case Logic.Enums.Accessibility.IsPublic:
-                    return AccessLevel.IsPublic;
+                    return Accessibility.IsPublic;
 
                 default:
                     throw new Exception();

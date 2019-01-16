@@ -47,6 +47,7 @@
   <ItemGroup>
     <Compile Include="DataTransferGraphMapper.cs" />
     <Compile Include="Model\AssemblySerializationModel.cs" />
+    <Compile Include="Model\FieldSerializationModel.cs" />
     <Compile Include="Model\MethodSerializationModel.cs" />
     <Compile Include="Model\NamespaceSerializationModel.cs" />
     <Compile Include="Model\ParameterSerializationModel.cs" />

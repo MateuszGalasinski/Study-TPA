@@ -20,11 +20,11 @@ namespace DbRepository.Models
         {
 
             this.Name = baseMethod.Name;
-            this.IsAbstract = baseMethod.AbstractEnum;
-            this.AccessLevel = baseMethod.AccessLevel;
+            this.IsAbstract = baseMethod.IsAbstract;
+            this.Accessibility = baseMethod.Accessibility;
             this.Extension = baseMethod.Extension;
             this.ReturnType = TypeDbSaver.GetOrAdd(baseMethod.ReturnType);
-            this.IsStatic = baseMethod.StaticEnum;
+            this.IsStatic = baseMethod.IsStatic;
             this.IsVirtual = baseMethod.VirtualEnum;
 
             GenericArguments = baseMethod.GenericArguments?.Select(TypeDbSaver.GetOrAdd).ToList();
@@ -36,7 +36,7 @@ namespace DbRepository.Models
 
         public List<TypeDbSaver> GenericArguments { get; set; }
 
-        public AccessLevel AccessLevel { get; set; }
+        public Accessibility Accessibility { get; set; }
 
 
         public IsAbstract IsAbstract { get; set; }

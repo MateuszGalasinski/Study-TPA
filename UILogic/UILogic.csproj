@@ -52,7 +52,13 @@
     <Compile Include="Base\TaskUtilities.cs" />
     <Compile Include="Interfaces\IFilePathGetter.cs" />
     <Compile Include="Model\AssemblyTreeItem.cs" />
+    <Compile Include="Model\AttributeNodeItem.cs" />
+    <Compile Include="Model\DerivedTypeNodeItem.cs" />
+    <Compile Include="Model\FieldNodeItem.cs" />
+    <Compile Include="Model\ImplementedInterfaceNodeItem.cs" />
+    <Compile Include="Model\ItemTypeEnum.cs" />
     <Compile Include="Model\MethodTreeItem.cs" />
+    <Compile Include="Model\ModelHelperMethods.cs" />
     <Compile Include="Model\NamespaceTreeItem.cs" />
     <Compile Include="Model\ParameterTreeItem.cs" />
     <Compile Include="Model\PropertyTreeItem.cs" />

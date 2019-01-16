@@ -16,11 +16,11 @@ namespace XmlSerialization.Model
         public MethodSerializationModel(MethodBase baseMethod)
         {
             this.Name = baseMethod.Name;
-            this.AbstractEnum = baseMethod.AbstractEnum;
-            this.AccessLevel = baseMethod.AccessLevel;
+            this.IsAbstract = baseMethod.IsAbstract;
+            this.Accessibility = baseMethod.Accessibility;
             this.Extension = baseMethod.Extension;
             this.ReturnType = TypeSerializationModel.GetOrAdd(baseMethod.ReturnType);
-            this.StaticEnum = baseMethod.StaticEnum;
+            this.IsStatic = baseMethod.IsStatic;
             this.VirtualEnum = baseMethod.VirtualEnum;
 
             GenericArguments = baseMethod.GenericArguments?.Select(TypeSerializationModel.GetOrAdd).ToList();
@@ -35,13 +35,13 @@ namespace XmlSerialization.Model
         public List<TypeSerializationModel> GenericArguments { get; set; }
 
         [DataMember]
-        public AccessLevel AccessLevel { get; set; }
+        public Accessibility Accessibility { get; set; }
 
         [DataMember]
-        public IsAbstract AbstractEnum { get; set; }
+        public IsAbstract IsAbstract { get; set; }
 
         [DataMember]
-        public IsStatic StaticEnum { get; set; }
+        public IsStatic IsStatic { get; set; }
 
         [DataMember]
         public IsVirtual VirtualEnum { get; set; }

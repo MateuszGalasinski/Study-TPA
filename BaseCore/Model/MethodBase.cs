@@ -9,11 +9,11 @@ namespace BaseCore.Model
 
         public List<TypeBase> GenericArguments { get; set; }
 
-        public AccessLevel AccessLevel { get; set; }
+        public Accessibility Accessibility { get; set; }
 
-        public IsAbstract AbstractEnum { get; set; }
+        public IsAbstract IsAbstract { get; set; }
 
-        public IsStatic StaticEnum { get; set; }
+        public IsStatic IsStatic { get; set; }
 
         public IsVirtual VirtualEnum { get; set; }
 

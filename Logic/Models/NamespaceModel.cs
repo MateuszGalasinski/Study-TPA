@@ -1,7 +1,7 @@
-﻿using BaseCore.Model;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using BaseCore.Model;
 
 namespace Logic.Models
 {
@@ -15,7 +15,7 @@ namespace Logic.Models
         public NamespaceModel(string name, List<Type> types)
         {
             Name = name;
-            Types = types.OrderBy(t => t.Name).Select(t => new TypeModel(t)).ToList();
+            Types = types.OrderBy(t => t.Name).Select(t => TypeModel.GetOrAdd(t)).ToList();
         }
 
         public NamespaceModel(NamespaceBase namespaceBase)

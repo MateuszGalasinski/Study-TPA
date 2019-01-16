@@ -1,6 +1,6 @@
 ﻿namespace BaseCore.Model
 {
-    public class ParameterBase
+    public class FieldBase
     {
         public string Name { get; set; }
 
