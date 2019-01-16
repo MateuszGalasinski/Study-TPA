@@ -1,11 +1,13 @@
 ﻿using System;
+using System.ComponentModel.Composition;
 using System.Data.Entity;
 using DBMaster.Entries;
 using Logic.Components;
 
 namespace DbLogger
 {
-    public class LoggerDB: ILogger
+    [Export(typeof(ILogger))]
+    public class LoggerDB : ILogger
     {
         public LoggerDB()
         {
