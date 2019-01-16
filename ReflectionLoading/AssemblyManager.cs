@@ -1,5 +1,7 @@
 ﻿using System.ComponentModel.Composition;
 using System.ComponentModel.Composition.Hosting;
+using System.IO;
+using System.Reflection;
 using BaseCore;
 using BaseCore.Model;
 using Logic.Models;
@@ -25,14 +27,14 @@ namespace ReflectionLoading
             TypeModel.TypeDictionary.Clear();
         }
 
-        public void SaveAssembly(AssemblyModel assemblyLogicReader, string connectionString)
+        public void SaveAssembly(AssemblyModel assemblyLogicReader)
         {
-            Serializator.Serialize(DataTransferGraphMapper.AssemblyBase(assemblyLogicReader), connectionString);
+            Serializator.Serialize(DataTransferGraphMapper.AssemblyBase(assemblyLogicReader));
         }
 
-        public void LoadAssemblyFromStorage(string connectionString)
+        public void LoadAssemblyFromStorage()
         {
-            AssemblyBase deserializedAssemblyReader = Serializator.Deserialize(connectionString);
+            AssemblyBase deserializedAssemblyReader = Serializator.Deserialize();
 
             AssemblyModel = new AssemblyModel(deserializedAssemblyReader);
         }
@@ -47,7 +49,8 @@ namespace ReflectionLoading
             AssemblyManager assemblyManager = new AssemblyManager();
 
             AggregateCatalog catalog = new AggregateCatalog();
-            catalog.Catalogs.Add(new DirectoryCatalog("../../../Serialization/bin/Debug"));
+            string path = Directory.GetParent(Assembly.GetEntryAssembly().Location).FullName;
+            catalog.Catalogs.Add(new DirectoryCatalog(path));
             CompositionContainer container = new CompositionContainer(catalog);
 
             container.ComposeParts(assemblyManager);

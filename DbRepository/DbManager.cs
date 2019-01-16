@@ -11,9 +11,8 @@ namespace DbRepository
     [Export(typeof(ISerializator<AssemblyBase>))]
     public class DbManager : ISerializator<AssemblyBase>
     {
-        public void Serialize(AssemblyBase assemblyBase, string connectionString)
+        public void Serialize(AssemblyBase assemblyBase)
         {
-            // TODO maybe clear
             Database.SetInitializer(new DropCreateDatabaseAlways<DbSaverContext>());
             AssemblyDbSaver assembly = new AssemblyDbSaver(assemblyBase);
 
@@ -25,7 +24,7 @@ namespace DbRepository
             }
         }
 
-        public AssemblyBase Deserialize(string connectionString)
+        public AssemblyBase Deserialize()
         {
             AssemblyBase assembly = new AssemblyBase();
             using (var context = new DbSaverContext())

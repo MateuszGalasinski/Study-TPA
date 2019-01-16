@@ -13,6 +13,7 @@
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -72,13 +73,13 @@
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-    <Target Name="AfterBuild">
+  <Target Name="AfterBuild">
     <ItemGroup>
       <ThisAssembly Include="$(OutputPath)\DbRepository.dll" />
     </ItemGroup>
     <!--TODO: Add error message/check-->
     <Copy SourceFiles="@(ThisAssembly)" DestinationFiles="$(SolutionDir)Plugins\DbRepository.dll" SkipUnchangedFiles="false" />
-    <Message Importance="High" Text="Copying SharedUILogic dll into Plugins directory" />
+    <Message Importance="High" Text="Copying DbRepository dll into Plugins directory" />
   </Target>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
