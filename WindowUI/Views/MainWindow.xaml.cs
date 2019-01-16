@@ -3,6 +3,7 @@ using Logging;
 using System.Windows;
 using UILogic.ViewModel;
 using XmlSerialization;
+using DBMaster;
 
 namespace WindowUI.Views
 {
@@ -20,7 +21,7 @@ namespace WindowUI.Views
         private MainViewModel InitializeViewModel()
         {
             ILogger logger = new Logger();
-            return new MainViewModel(new FileDialog(logger), logger, new XmlMetadataSerializer());
+            return new MainViewModel(new FileDialog(logger), logger, new XmlMetadataSerializer(), new DBLogging());
         }
     }
 }

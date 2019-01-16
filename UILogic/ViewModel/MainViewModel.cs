@@ -15,6 +15,7 @@ namespace UILogic.ViewModel
     {
         private readonly IFilePathGetter _filePathGetter;
         private readonly ILogger _logger;
+        private readonly ILogger _dbLogger;
         private readonly ISerializator<AssemblyModel> _serializator;
         private Reflector _reflector;
         private ObservableCollection<TreeItem> _metadataTree;
@@ -55,9 +56,10 @@ namespace UILogic.ViewModel
             set => SetProperty(ref _filePath, value);
         }
 
-        public MainViewModel(IFilePathGetter filePathGetter, ILogger logger, ISerializator<AssemblyModel> serializator)
+        public MainViewModel(IFilePathGetter filePathGetter, ILogger logger, ISerializator<AssemblyModel> serializator, ILogger dbLogger)
         {
             _logger = logger;
+            _dbLogger = dbLogger;
             _filePathGetter = filePathGetter;
             _serializator = serializator;
             MetadataTree = new ObservableCollection<TreeItem>();
@@ -79,6 +81,7 @@ namespace UILogic.ViewModel
             }
 
             _logger.Trace($"Reading file path...");
+            _dbLogger.Info("testing");
             string filePath = _filePathGetter.GetFilePath();
             if (string.IsNullOrEmpty(filePath) 
                 || !(filePath.EndsWith(".dll", StringComparison.InvariantCultureIgnoreCase) 
