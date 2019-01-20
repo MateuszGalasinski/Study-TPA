@@ -46,16 +46,16 @@ namespace Logic.Models
                 case Accessibility.Internal:
                     return BaseCore.Enums.Accessibility.Internal;
 
-                case Accessibility.IsPrivate:
+                case Accessibility.Private:
                     return BaseCore.Enums.Accessibility.IsPrivate;
 
-                case Accessibility.IsProtected:
+                case Accessibility.Protected:
                     return BaseCore.Enums.Accessibility.IsProtected;
 
-                case Accessibility.IsProtectedInternal:
+                case Accessibility.ProtectedInternal:
                     return BaseCore.Enums.Accessibility.IsProtectedInternal;
 
-                case Accessibility.IsPublic:
+                case Accessibility.Public:
                     return BaseCore.Enums.Accessibility.IsPublic;
 
                 default:
@@ -148,16 +148,16 @@ namespace Logic.Models
                     return Enums.Accessibility.Internal;
 
                 case BaseCore.Enums.Accessibility.IsPrivate:
-                    return Enums.Accessibility.IsPrivate;
+                    return Enums.Accessibility.Private;
 
                 case BaseCore.Enums.Accessibility.IsProtected:
-                    return Enums.Accessibility.IsProtected;
+                    return Enums.Accessibility.Protected;
 
                 case BaseCore.Enums.Accessibility.IsProtectedInternal:
-                    return Enums.Accessibility.IsProtectedInternal;
+                    return Enums.Accessibility.ProtectedInternal;
 
                 case BaseCore.Enums.Accessibility.IsPublic:
-                    return Enums.Accessibility.IsPublic;
+                    return Enums.Accessibility.Public;
 
                 default:
                     throw new Exception();

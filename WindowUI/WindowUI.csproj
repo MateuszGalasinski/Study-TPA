@@ -128,10 +128,11 @@
   </ItemGroup>
   <Target Name="AfterBuild">
     <ItemGroup>
-      <Plugins Include="$(SolutionDir)Plugins\*" />
+      <Plugins Include="$(SolutionDir)Plugins\DbLogger.dll" />
+      <Plugins Include="$(SolutionDir)Plugins\DbRepository.dll" />
     </ItemGroup>
     <Error Condition="!Exists('$(SolutionDir)Plugins')" Text="'$(SolutionDir)Plugins' directory does not exists." />
     <Copy SourceFiles="@(Plugins)" DestinationFolder="$(OutputPath)" SkipUnchangedFiles="false" />
-    <Message Importance="High" Text="Copying plugins dlls into entrypoint project DumpApp" />
+    <Message Importance="High" Text="Copying plugins dlls into entrypoint project Window UI" />
   </Target>
 </Project>

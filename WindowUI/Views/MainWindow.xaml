@@ -15,7 +15,7 @@
         FontFamily="{DynamicResource MaterialDesignFont}"
         DataContext="vm:MainViewModel"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="900">
+        Title="MainWindow" Height="450" Width="1100">
     <Window.Resources>
         <HierarchicalDataTemplate DataType="{x:Type c:AssemblyTreeItem}" ItemsSource="{Binding Children}">
             <StackPanel Orientation="Horizontal">
@@ -61,7 +61,7 @@
         </HierarchicalDataTemplate>
         <HierarchicalDataTemplate DataType="{x:Type c:FieldTreeItem}" ItemsSource="{Binding Children}">
             <StackPanel Orientation="Horizontal">
-                <TextBlock Foreground="Yellow" Padding="0 0 10 0" FontWeight="ExtraBlack" FontStyle="Italic"
+                <TextBlock Foreground="DarkSalmon" Padding="0 0 10 0" FontWeight="ExtraBlack" FontStyle="Italic"
                            Text="Field"/>
                 <TextBlock FontWeight="Medium" Text="{Binding Path=Name}" Margin="0 0 4 0" />
             </StackPanel>
@@ -75,7 +75,7 @@
         </HierarchicalDataTemplate>
         <HierarchicalDataTemplate DataType="{x:Type c:ImplementedInterfaceTreeItem}" ItemsSource="{Binding Children}">
             <StackPanel Orientation="Horizontal">
-                <TextBlock Foreground="DarkKhaki" Padding="0 0 10 0" FontWeight="ExtraBlack" FontStyle="Italic"
+                <TextBlock Foreground="DarkSlateGray" Padding="0 0 10 0" FontWeight="ExtraBlack" FontStyle="Italic"
                            Text="ImplementedInterface"/>
                 <TextBlock FontWeight="Medium" Text="{Binding Path=Name}" Margin="0 0 4 0" />
             </StackPanel>
@@ -90,26 +90,28 @@
     </Window.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="4*"/>
-            <ColumnDefinition Width="1.5*"/>
-            <ColumnDefinition Width="1.5*"/>
-            <ColumnDefinition Width="1.5*"/>
-            <ColumnDefinition Width="1.5*"/>
+            <ColumnDefinition Width="218*"/>
+            <ColumnDefinition Width="92*"/>
+            <ColumnDefinition Width="116*"/>
+            <ColumnDefinition Width="116*"/>
+            <ColumnDefinition Width="117*"/>
+            <ColumnDefinition Width="116*"/>
+            <ColumnDefinition Width="117*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
             <RowDefinition Height="9*"/>
         </Grid.RowDefinitions>
-        <Rectangle Fill="{DynamicResource SecondaryAccentBrush}" Grid.ColumnSpan="5"/>
-        <Rectangle Margin="0, 0, 0, 2" Fill="{DynamicResource MaterialDesignBodyLight}" Grid.ColumnSpan="5"/>
-        <TextBlock Padding="7" Text="{Binding FilePath}" Grid.Row="0" Grid.Column="0"/>
-        <Button MinWidth="50" MinHeight="30" Content="Search files" Command="{Binding GetFilePathCommand}" Grid.Row="0" Grid.Column="1"/>
-        <Button MinWidth="50" MinHeight="30" Content="Load metadata" Command="{Binding LoadMetadataCommand}" Grid.Row="0" Grid.Column="2"/>
-        <Button MinWidth="50" MinHeight="30" Content="Load serialized" Command="{Binding LoadSerialized}" Grid.Row="0" Grid.Column="3"/>
-        <Button MinWidth="50" MinHeight="30" Content="Save metadata" Command="{Binding SaveDataCommand}" Grid.Row="0" Grid.Column="4"/> 
+        <Rectangle Fill="{DynamicResource SecondaryAccentBrush}" Grid.ColumnSpan="7"/>
+        <Rectangle Margin="0, 0, 0, 2" Fill="{DynamicResource MaterialDesignBodyLight}" Grid.ColumnSpan="7"/>
+        <TextBlock Padding="7" Text="{Binding FilePath}" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"/>
+        <Button MinWidth="50" MinHeight="30" Content="Search files" Command="{Binding GetFilePathCommand}" Grid.Row="0" Grid.Column="2" Margin="0,5"/>
+        <Button MinWidth="50" MinHeight="30" Content="Load metadata" Command="{Binding LoadMetadataCommand}" Grid.Row="0" Grid.Column="3" Margin="0,5"/>
+        <Button MinWidth="50" MinHeight="30" Content="Load serialized" Command="{Binding LoadSerialized}" Grid.Row="0" Grid.Column="5" Margin="0,5"/>
+        <Button MinWidth="50" MinHeight="30" Content="Save metadata" Command="{Binding SaveDataCommand}" Grid.Row="0" Grid.Column="6" Margin="0,5"/>
         <TreeView Grid.Row="1"
                   Grid.Column="0"
-                  Grid.ColumnSpan="2"
+                  Grid.ColumnSpan="3"
                   Margin="0 20 0 0"
                   ItemsSource="{Binding MetadataTree}">
 

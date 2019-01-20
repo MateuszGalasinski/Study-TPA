@@ -1,9 +1,9 @@
-﻿using System;
+﻿using BaseCore.Model;
+using Logic.Enums;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using BaseCore.Model;
-using Logic.Enums;
 
 namespace Logic.Models
 {
@@ -203,10 +203,10 @@ namespace Logic.Models
 
         private void EmitModifiers(Type type)
         {
-            Accessibility = type.IsPublic || type.IsNestedPublic ? Accessibility.IsPublic :
-                type.IsNestedFamily ? Accessibility.IsProtected :
+            Accessibility = type.IsPublic || type.IsNestedPublic ? Accessibility.Public :
+                type.IsNestedFamily ? Accessibility.Protected :
                 type.IsNestedFamANDAssem ? Accessibility.Internal :
-                Accessibility.IsPrivate;
+                Accessibility.Private;
             IsStatic = type.IsSealed && type.IsAbstract ? IsStatic.Static : IsStatic.NotStatic;
             IsSealed = IsSealed.NotSealed;
             IsAbstract = IsAbstract.NotAbstract;
@@ -222,15 +222,11 @@ namespace Logic.Models
             if (baseType == null || baseType == typeof(object) || baseType == typeof(ValueType) || baseType == typeof(Enum))
                 return null;
             StoreType(baseType);
-            if (baseType.Name == "Exception")
-            {
-                Console.WriteLine("EEEE");
-            }
             return GetOrAdd(baseType);
         }
         private static List<TypeModel> GetAttributes(Type type)
         {
-            return type.GetCustomAttributes().Select(a => GetOrAdd(a.GetType())).ToList();
+            return type.GetCustomAttributesData().Select(a => GetOrAdd(a.AttributeType)).ToList();
         }
     }
 }

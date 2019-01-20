@@ -9,7 +9,7 @@ namespace ReflectionLoading
         {
             if (string.IsNullOrEmpty(assemblyPath))
                 throw new System.ArgumentNullException();
-            Assembly assembly = Assembly.LoadFrom(assemblyPath);
+            Assembly assembly = Assembly.ReflectionOnlyLoadFrom(assemblyPath);
             TypeModel.TypeDictionary.Clear();
             return new AssemblyModel(assembly);
         }

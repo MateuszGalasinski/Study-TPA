@@ -1,10 +1,10 @@
-﻿using System;
+﻿using Logic.Components;
+using ReflectionLoading;
+using ReflectionLoading.Exceptions;
+using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel.Composition;
 using System.Threading.Tasks;
-using Logic.Components;
-using ReflectionLoading;
-using ReflectionLoading.Exceptions;
 using UILogic.Base;
 using UILogic.Interfaces;
 using UILogic.Model;
@@ -14,14 +14,14 @@ namespace UILogic.ViewModel
     public class MainViewModel : BindableBase
     {
         private readonly IFilePathGetter _filePathGetter;
-        [Import(typeof(ILogger))]
-        public ILogger Logger { get; set; }
-        public AssemblyManager AssemblyManager { get; set; }
         private ObservableCollection<TreeItem> _metadataTree;
         private readonly object _openSyncLock = new object();
         private bool _isExecuting;
         private string _filePath;
-        private string _serializationFilePath;
+        private AssemblyManager _assemblyManager;
+
+        [Import(typeof(ILogger))]
+        public ILogger Logger { get; set; }
 
         public IRaiseCanExecuteCommand LoadMetadataCommand { get; }
         public IRaiseCanExecuteCommand LoadSerialized { get; }
@@ -42,6 +42,12 @@ namespace UILogic.ViewModel
             }
         }
 
+        public AssemblyManager AssemblyManager
+        {
+            get => _assemblyManager;
+            set => SetProperty(ref _assemblyManager, value);
+        }
+
         public ObservableCollection<TreeItem> MetadataTree
         {
             get => _metadataTree;
@@ -59,7 +65,7 @@ namespace UILogic.ViewModel
             _filePathGetter = filePathGetter;
             AssemblyManager = assemblyManager;
             MetadataTree = new ObservableCollection<TreeItem>();
-            LoadMetadataCommand = new RelayCommand(OpenDLL, () => !_isExecuting && !string.IsNullOrWhiteSpace(FilePath));
+            LoadMetadataCommand = new RelayCommand(OpenDll, () => !_isExecuting && !string.IsNullOrWhiteSpace(FilePath));
             LoadSerialized = new RelayCommand(OpenFromStorage, () => !_isExecuting);
             GetFilePathCommand = new RelayCommand(GetFilePath, () => !_isExecuting);
             SaveDataCommand = new RelayCommand(SaveData, () => !_isExecuting && AssemblyManager?.AssemblyModel != null);
@@ -77,21 +83,18 @@ namespace UILogic.ViewModel
                 IsExecuting = true;
             }
 
-            Logger.Trace($"Reading file path...");
+            Logger.Trace("Reading file path...");
             string filePath = _filePathGetter.GetFilePath();
-            if (string.IsNullOrEmpty(filePath)
-                && !filePath.EndsWith(".dll", StringComparison.InvariantCultureIgnoreCase))
+            if (!filePath?.EndsWith(".dll", StringComparison.InvariantCultureIgnoreCase) == true)
             {
-                Logger.Trace($"Selected file was invalid!");
-                IsExecuting = false;
+                EndAsynchronousCommand("Selected file was invalid!");
                 return;
             }
-            Logger.Trace($"Read file path: {filePath}");
             FilePath = filePath;
-            IsExecuting = false;
+            EndAsynchronousCommand($"Read file path: {filePath}");
         }
 
-        private async void OpenDLL()
+        private async void OpenDll()
         {
             lock (_openSyncLock)
             {
@@ -120,15 +123,14 @@ namespace UILogic.ViewModel
                 }
             }).ConfigureAwait(true);
 
-            if (AssemblyManager == null)
+            if (AssemblyManager?.AssemblyModel == null)
             {
-                IsExecuting = false;
+                EndAsynchronousCommand("Loaded Assembly Model was null.");
                 return;
             }
 
             MetadataTree = new ObservableCollection<TreeItem>() { new AssemblyTreeItem(AssemblyManager.AssemblyModel) };
-            Logger.Trace("Successfully loaded root metadata item.");
-            IsExecuting = false;
+            EndAsynchronousCommand("Successfully loaded root metadata item.");
         }
 
         private async void OpenFromStorage()
@@ -164,21 +166,43 @@ namespace UILogic.ViewModel
             }
 
             MetadataTree = new ObservableCollection<TreeItem>() { new AssemblyTreeItem(AssemblyManager.AssemblyModel) };
-            Logger.Trace("Successfully loaded root metadata item.");
-            IsExecuting = false;
+            EndAsynchronousCommand("Successfully loaded root metadata item.");
         }
 
-        public void SaveData()
+        public async void SaveData()
         {
-            try
+
+            lock (_openSyncLock)
             {
-                AssemblyManager.SaveAssembly(AssemblyManager.AssemblyModel);
+                if (IsExecuting)
+                {
+                    return;
+                }
+
+                IsExecuting = true;
             }
-            catch (Exception e)
+
+            await Task.Run(() =>
             {
-                Logger.Trace($"Exception thrown, message: {e.Message}");
-            }
-            Logger.Trace($"Serialization completed");
+                try
+                {
+                    Logger.Trace("Beginning save subroutine...");
+                    AssemblyManager.SaveAssembly(AssemblyManager.AssemblyModel);
+                    Logger.Trace("Save subroutine finished successfully!");
+                }
+                catch (Exception e)
+                {
+                    Logger.Trace($"Exception thrown, message: {e.Message}");
+                }
+            }).ConfigureAwait(true);
+
+            EndAsynchronousCommand($"Save completed");
+        }
+
+        private void EndAsynchronousCommand(string logMessage)
+        {
+            Logger.Trace(logMessage);
+            IsExecuting = false;
         }
     }
 }

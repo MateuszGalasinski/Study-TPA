@@ -1,9 +1,9 @@
-﻿using System;
+﻿using Logic.Enums;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.CompilerServices;
-using Logic.Enums;
 
 namespace Logic.Models
 {
@@ -80,14 +80,14 @@ namespace Logic.Models
 
         private static bool EmitExtension(MethodBase method)
         {
-            return method.IsDefined(typeof(ExtensionAttribute), true);
+            return method.GetCustomAttributesData().Any(a => a.AttributeType.FullName == typeof(ExtensionAttribute).FullName);
         }
 
         private void EmitModifiers(MethodBase method)
         {
-            Accessibility = method.IsPublic ? Accessibility.IsPublic :
-                method.IsFamily ? Accessibility.IsProtected :
-                method.IsAssembly ? Accessibility.Internal : Accessibility.IsPrivate;
+            Accessibility = method.IsPublic ? Accessibility.Public :
+                method.IsFamily ? Accessibility.Protected :
+                method.IsAssembly ? Accessibility.Internal : Accessibility.Private;
 
             IsAbstract = method.IsAbstract ? IsAbstract.Abstract : IsAbstract.NotAbstract;
 

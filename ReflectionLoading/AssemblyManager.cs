@@ -1,18 +1,18 @@
-﻿using System.ComponentModel.Composition;
+﻿using BaseCore;
+using BaseCore.Model;
+using Logic.Models;
+using System.ComponentModel.Composition;
 using System.ComponentModel.Composition.Hosting;
 using System.IO;
 using System.Reflection;
-using BaseCore;
-using BaseCore.Model;
-using Logic.Models;
 
 namespace ReflectionLoading
 {
     public class AssemblyManager
     {
-        public AssemblyModel AssemblyModel { get; private set; }
+        public AssemblyModel AssemblyModel { get; set; }
         [Import(typeof(ISerializator<AssemblyBase>))]
-        public ISerializator<AssemblyBase> Serializator { get; set; }
+        public ISerializator<AssemblyBase> Serializer { get; set; }
 
         private Reflector Reflector { get; } = new Reflector();
 
@@ -29,12 +29,12 @@ namespace ReflectionLoading
 
         public void SaveAssembly(AssemblyModel assemblyLogicReader)
         {
-            Serializator.Serialize(DataTransferGraphMapper.AssemblyBase(assemblyLogicReader));
+            Serializer.Serialize(DataTransferGraphMapper.AssemblyBase(assemblyLogicReader));
         }
 
         public void LoadAssemblyFromStorage()
         {
-            AssemblyBase deserializedAssemblyReader = Serializator.Deserialize();
+            AssemblyBase deserializedAssemblyReader = Serializer.Deserialize();
 
             AssemblyModel = new AssemblyModel(deserializedAssemblyReader);
         }

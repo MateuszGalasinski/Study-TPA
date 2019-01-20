@@ -1,11 +1,11 @@
-﻿using System;
-using System.Reflection;
-using BaseCore;
+﻿using BaseCore;
 using BaseCore.Model;
 using Logic.Components;
 using Moq;
 using NUnit.Framework;
 using ReflectionLoading;
+using System;
+using System.Reflection;
 using UILogic.Interfaces;
 using UILogic.ViewModel;
 
@@ -32,7 +32,7 @@ namespace SharedUILogic.Tests.Given_MainViewModel
                 _filePathGetterMock.Object,
                 new AssemblyManager
                 {
-                    Serializator = _serializatorMock.Object
+                    Serializer = _serializatorMock.Object
                 });
             _context.Logger = _loggerMock.Object;
         }

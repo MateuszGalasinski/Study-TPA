@@ -3,10 +3,10 @@
     public enum Accessibility
     { 
         Default,
-        IsPublic,
-        IsProtected,
-        IsProtectedInternal,
-        IsPrivate,
+        Public,
+        Protected,
+        ProtectedInternal,
+        Private,
         Internal
     }
 }

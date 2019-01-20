@@ -1,10 +1,10 @@
+using BaseCore;
+using BaseCore.Model;
+using DbRepository.Models;
 using System.ComponentModel.Composition;
 using System.Data.Entity;
 using System.Linq;
 using System.Media;
-using BaseCore;
-using BaseCore.Model;
-using DbRepository.Models;
 
 namespace DbRepository
 {
@@ -13,7 +13,7 @@ namespace DbRepository
     {
         public void Serialize(AssemblyBase assemblyBase)
         {
-            Database.SetInitializer(new DropCreateDatabaseAlways<DbSaverContext>());
+            Database.SetInitializer(new CreateDatabaseIfNotExists<DbSaverContext>());
             AssemblyDbSaver assembly = new AssemblyDbSaver(assemblyBase);
 
             using (var context = new DbSaverContext())

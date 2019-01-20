@@ -1,8 +1,8 @@
-﻿using System;
+﻿using DBMaster.Entries;
+using Logic.Components;
+using System;
 using System.ComponentModel.Composition;
 using System.Data.Entity;
-using DBMaster.Entries;
-using Logic.Components;
 
 namespace DbLogger
 {
@@ -11,7 +11,7 @@ namespace DbLogger
     {
         public LoggerDB()
         {
-            Database.SetInitializer(new DropCreateDatabaseAlways<RepositoryDBContext>());
+            Database.SetInitializer(new CreateDatabaseIfNotExists<RepositoryDBContext>());
         }
         public void Trace(string message)
         {

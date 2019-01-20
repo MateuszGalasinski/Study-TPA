@@ -29,16 +29,16 @@ namespace ReflectionLoading
                 case Logic.Enums.Accessibility.Internal:
                     return Accessibility.Internal;
 
-                case Logic.Enums.Accessibility.IsPrivate:
+                case Logic.Enums.Accessibility.Private:
                     return Accessibility.IsPrivate;
 
-                case Logic.Enums.Accessibility.IsProtected:
+                case Logic.Enums.Accessibility.Protected:
                     return Accessibility.IsProtected;
 
-                case Logic.Enums.Accessibility.IsProtectedInternal:
+                case Logic.Enums.Accessibility.ProtectedInternal:
                     return Accessibility.IsProtectedInternal;
 
-                case Logic.Enums.Accessibility.IsPublic:
+                case Logic.Enums.Accessibility.Public:
                     return Accessibility.IsPublic;
 
                 default:
