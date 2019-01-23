@@ -9,7 +9,7 @@ using ReflectionLoading;
 
 namespace ReflectionTests
 {
-    public class ApllicationReflectorTetss
+    public class ApllicationReflectorTests
     {
         private string FilePath;
         private const string FirstNamespace = "TPA.ApplicationArchitecture.Data";
