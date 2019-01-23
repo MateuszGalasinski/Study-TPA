@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ReflectionLoading;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using System.ComponentModel.Composition.Hosting;
@@ -6,7 +7,6 @@ using System.ComponentModel.Composition.Primitives;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using ReflectionLoading;
 using UILogic.Interfaces;
 using UILogic.ViewModel;
 
@@ -14,6 +14,8 @@ namespace UILogic.Services
 {
     public static class Composer
     {
+        public static CompositionContainer CompositionContainer { get; set; }
+
         public static MainViewModel GetComposedMainViewModel(
             IFilePathGetter filePathGetter)
         {
@@ -31,12 +33,12 @@ namespace UILogic.Services
 
             AggregateCatalog catalog = new AggregateCatalog();
             catalog.Catalogs.Add(new DirectoryCatalog(path));
-            CompositionContainer container = new CompositionContainer(catalog);
+            CompositionContainer = new CompositionContainer(catalog);
 
             try
             {
-                container.ComposeParts(mainViewModel);
-                mainViewModel.AssemblyManager = AssemblyManager.GetComposed();
+                CompositionContainer.ComposeParts(mainViewModel);
+                mainViewModel.AssemblyManager = AssemblyManager.GetComposed(CompositionContainer);
             }
             catch (CompositionException compositionException)
             {

@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using UILogic.Services;
 
 namespace WindowUI
 {
@@ -7,6 +8,9 @@ namespace WindowUI
     /// </summary>
     public partial class App : Application
     {
-
+        private void Application_Exit(object sender, ExitEventArgs e)
+        {
+            Composer.CompositionContainer?.Dispose();
+        }
     }
 }

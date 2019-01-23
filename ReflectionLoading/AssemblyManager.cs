@@ -3,8 +3,6 @@ using BaseCore.Model;
 using Logic.Models;
 using System.ComponentModel.Composition;
 using System.ComponentModel.Composition.Hosting;
-using System.IO;
-using System.Reflection;
 
 namespace ReflectionLoading
 {
@@ -44,14 +42,9 @@ namespace ReflectionLoading
             AssemblyModel = Reflector.LoadAssembly(assemblyPath);
         }
 
-        public static AssemblyManager GetComposed()
+        public static AssemblyManager GetComposed(CompositionContainer container)
         {
             AssemblyManager assemblyManager = new AssemblyManager();
-
-            AggregateCatalog catalog = new AggregateCatalog();
-            string path = Directory.GetParent(Assembly.GetEntryAssembly().Location).FullName;
-            catalog.Catalogs.Add(new DirectoryCatalog(path));
-            CompositionContainer container = new CompositionContainer(catalog);
 
             container.ComposeParts(assemblyManager);
 
