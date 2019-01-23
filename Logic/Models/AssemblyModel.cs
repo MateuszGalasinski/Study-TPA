@@ -12,9 +12,12 @@ namespace Logic.Models
 
         public string Name { get; set; }
 
+        public static string CurrentAssemblyName;
+
         public AssemblyModel(Assembly assembly)
         {
             Name = assembly.ManifestModule.Name;
+            CurrentAssemblyName = assembly.ManifestModule.FullyQualifiedName;
             Type[] types = assembly.GetTypes();
             NamespaceModels = types.GroupBy(t => t.Namespace).OrderBy(t => t.Key)
                 .Select(t => new NamespaceModel(t.Key, t.ToList())).ToList();
