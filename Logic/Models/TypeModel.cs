@@ -56,18 +56,35 @@ namespace Logic.Models
 
             TypeDictionary.Add(type.Name, this);
 
-            Type = GetTypeEnum(type);
-            BaseType = EmitExtends(type.BaseType);
-            EmitModifiers(type);
-            DeclaringType = EmitDeclaringType(type.DeclaringType);
-            Constructors = MethodModel.EmitConstructors(type);
-            Methods = MethodModel.EmitMethods(type);
-            NestedTypes = EmitNestedTypes(type);
-            ImplementedInterfaces = EmitImplements(type.GetInterfaces()).ToList();
-            GenericArguments = !type.IsGenericTypeDefinition ? new List<TypeModel>() : EmitGenericArguments(type);
-            Properties = PropertyModel.EmitProperties(type);
-            Fields = EmitFields(type);
-            Attributes = GetAttributes(type);
+            if (type.Assembly.ManifestModule.FullyQualifiedName == AssemblyModel.CurrentAssemblyName)
+            {
+                Type = GetTypeEnum(type);
+                BaseType = EmitExtends(type.BaseType);
+                EmitModifiers(type);
+                DeclaringType = EmitDeclaringType(type.DeclaringType);
+                Constructors = MethodModel.EmitConstructors(type);
+                Methods = MethodModel.EmitMethods(type);
+                NestedTypes = EmitNestedTypes(type);
+                ImplementedInterfaces = EmitImplements(type.GetInterfaces()).ToList();
+                GenericArguments = !type.IsGenericTypeDefinition ? new List<TypeModel>() : EmitGenericArguments(type);
+                Properties = PropertyModel.EmitProperties(type);
+                Fields = EmitFields(type);
+                Attributes = GetAttributes(type);
+            }
+
+
+            //Type = GetTypeEnum(type);
+            //BaseType = EmitExtends(type.BaseType);
+            //EmitModifiers(type);
+            //DeclaringType = EmitDeclaringType(type.DeclaringType);
+            //Constructors = MethodModel.EmitConstructors(type);
+            //Methods = MethodModel.EmitMethods(type);
+            //NestedTypes = EmitNestedTypes(type);
+            //ImplementedInterfaces = EmitImplements(type.GetInterfaces()).ToList();
+            //GenericArguments = !type.IsGenericTypeDefinition ? new List<TypeModel>() : EmitGenericArguments(type);
+            //Properties = PropertyModel.EmitProperties(type);
+            //Fields = EmitFields(type);
+            //Attributes = GetAttributes(type);
         }
 
         private TypeModel(TypeBase baseType)
@@ -84,6 +101,7 @@ namespace Logic.Models
             this.Accessibility = baseType.Accessibility.ToLogicEnum();
             this.IsSealed = baseType.IsSealed.ToLogicEnum();
             this.IsStatic = baseType.IsStatic.ToLogicEnum();
+
 
             Constructors = baseType.Constructors?.Select(c => new MethodModel(c)).ToList();
 

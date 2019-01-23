@@ -6,5 +6,7 @@ namespace BaseCore.Model
     {
         public List<NamespaceBase> Namespaces { get; set; }
         public string Name { get; set; }
+
+        
     }
 }
