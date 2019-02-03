@@ -10,8 +10,19 @@ namespace AssemblyReflection
         protected override void Load(ContainerBuilder builder)
         {
             builder.RegisterType<Reflector>()
-                .As<IStoreProvider>()
+                .Named<IStoreProvider>("Reflector")
                 .SingleInstance();
+
+            builder.RegisterType<DumpStoreProvider>()
+                .Named<IStoreProvider>("DumpStoreProvider")
+                .SingleInstance();
+
+            builder.Register((c, p) =>
+                {
+                    ICompositionConfiguration compositionConfiguration = c.Resolve<ICompositionConfiguration>();
+                    return c.ResolveNamed<IStoreProvider>(compositionConfiguration.ModuleVersions["IStoreProvider"]);
+                })
+                .As<IStoreProvider>();
         }
     }
 }

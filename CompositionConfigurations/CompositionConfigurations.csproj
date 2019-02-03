@@ -4,15 +4,14 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{50BC3246-46E0-449B-A302-103EFAF5FFB0}</ProjectGuid>
+    <ProjectGuid>{A62E16F6-C109-45E2-8373-1ADB9BEBC5F0}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>AssemblyReflection</RootNamespace>
-    <AssemblyName>AssemblyReflection</AssemblyName>
-    <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
+    <RootNamespace>CompositionConfigurations</RootNamespace>
+    <AssemblyName>CompositionConfigurations</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
-    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -32,10 +31,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Autofac, Version=4.8.1.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
-      <HintPath>..\packages\Autofac.4.8.1\lib\net45\Autofac.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -45,17 +42,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DumpStoreProvider.cs" />
-    <Compile Include="Extensions\MethodBaseExtensions.cs" />
-    <Compile Include="ReflectorLoader\AssemblyLoader.cs" />
-    <Compile Include="ReflectorLoader\MethodLoader.cs" />
-    <Compile Include="ReflectorLoader\NamespaceLoader.cs" />
-    <Compile Include="ReflectorLoader\PropertyLoader.cs" />
-    <Compile Include="ReflectorLoader\TypeLoader.cs" />
+    <Compile Include="FirstComposition.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Extensions\TypeExtensions.cs" />
-    <Compile Include="ReflectorLoader\Reflector.cs" />
-    <Compile Include="RegisterModule.cs" />
+    <Compile Include="SecondComposition.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Core\Core.csproj">
@@ -63,16 +52,13 @@
       <Name>Core</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="AfterBuild">
     <ItemGroup>
-      <ThisAssembly Include="$(OutputPath)\AssemblyReflection.dll" />
+      <ThisAssembly Include="$(OutputPath)\CompositionConfigurations.dll" />
     </ItemGroup>
     <!--TODO: Add error message/check-->
-    <Copy SourceFiles="@(ThisAssembly)" DestinationFiles="$(SolutionDir)Plugins\AssemblyReflection.dll" SkipUnchangedFiles="true" />
-    <Message Importance="High" Text="Copying AssemblyReflection dll into Plugins directory" />
+    <Copy SourceFiles="@(ThisAssembly)" DestinationFiles="$(SolutionDir)Plugins\CompositionConfigurations.dll" SkipUnchangedFiles="true" />
+    <Message Importance="High" Text="Copying CompositionConfigurations dll into Plugins directory" />
   </Target>
 </Project>
